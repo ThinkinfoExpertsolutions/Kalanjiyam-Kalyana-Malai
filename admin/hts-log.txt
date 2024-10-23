@@ -1,0 +1,29 @@
+HTTrack3.49-2+htsswf+htsjava launched on Tue, 01 Oct 2024 19:46:14 at https://rn53themes.net/themes/matrimo/admin/dashboard.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://rn53themes.net/themes/matrimo/admin/dashboard.html -O1 "C:\Users\GOKUL KRISH\Downloads\Telegram Desktop\admin" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+19:46:52	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/logout.html (from https://rn53themes.net/themes/matrimo/admin/dashboard.html)
+19:46:52	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/images/icon/chosen-sprite.png (from https://rn53themes.net/themes/matrimo/admin/css/admin-style.css)
+19:46:52	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/images/login-bg.png (from https://rn53themes.net/themes/matrimo/admin/css/admin-style.css)
+19:46:52	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/admin-settings.html (from https://rn53themes.net/themes/matrimo/admin/admin-all-users.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/admin-invoice-create.html (from https://rn53themes.net/themes/matrimo/admin/admin-enquiry.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/admin-send-invoice.html (from https://rn53themes.net/themes/matrimo/admin/admin-enquiry.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/page_text (from https://rn53themes.net/themes/matrimo/admin/admin-enquiry.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/about-us.html (from https://rn53themes.net/themes/matrimo/admin/admin-footer.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/feedback.html (from https://rn53themes.net/themes/matrimo/admin/admin-footer.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/testimonials.html (from https://rn53themes.net/themes/matrimo/admin/admin-footer.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/contact-us.html (from https://rn53themes.net/themes/matrimo/admin/admin-footer.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/admin/faq.html (from https://rn53themes.net/themes/matrimo/admin/admin-footer.html)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/css/images/ui-icons_444444_256x240.png (from https://rn53themes.net/themes/matrimo/css/jquery-ui.css)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/css/images/ui-icons_555555_256x240.png (from https://rn53themes.net/themes/matrimo/css/jquery-ui.css)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/css/images/ui-icons_ffffff_256x240.png (from https://rn53themes.net/themes/matrimo/css/jquery-ui.css)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/css/images/ui-icons_777620_256x240.png (from https://rn53themes.net/themes/matrimo/css/jquery-ui.css)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/css/images/ui-icons_cc0000_256x240.png (from https://rn53themes.net/themes/matrimo/css/jquery-ui.css)
+19:46:54	Error: 	"Not Found" (404) at link https://rn53themes.net/themes/matrimo/css/images/ui-icons_777777_256x240.png (from https://rn53themes.net/themes/matrimo/css/jquery-ui.css)
+
+HTTrack Website Copier/3.49-2 mirror complete in 40 seconds : 95 links scanned, 76 files written (5604321 bytes overall) [4951288 bytes received at 123782 bytes/sec], 853134 bytes transferred using HTTP compression in 53 files, ratio 18%
+(18 errors, 0 warnings, 0 messages)
