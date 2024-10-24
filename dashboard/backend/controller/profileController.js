@@ -159,7 +159,9 @@ export const editSettings = async (req, res) => {
 
 
 export const shareInterest = async (req, res) => {
-  const { senderId, receiverId } = req.body;
+
+  const { senderId } = req.body;
+  const receiverId = req.params.id;
 
   try {
       
@@ -233,7 +235,35 @@ export const shareInterest = async (req, res) => {
 
 
 
+// CONTROLLER FOR GET PROFILE DATA
 
+
+export const getProfileData = async(req,res)=>{
+  
+  const userId = req.params.id;
+try {
+  const [user ,profile] = await Promise.all([
+    checkUserFound(userId, "userModel"),
+    checkUserFound(userId, "profilesModel"),
+]);
+
+if(!user){
+  return res.status(404).json({ success: false, message: " User Not Found" });
+}
+if(!profile){
+  return res.status(404).json({ success: false, message: " User Profile Not Found" });
+}
+  
+const data = await profilesModel.findOne({user_id:userId});
+
+res.json({success:true,data:data});
+
+} catch (error) {
+  console.log(error);
+  return res.json({ success: false, message: "An error occurred", error: error.message });
+}
+
+}
 
 
 // CONTROLLER FOR VIEWS COUNT
