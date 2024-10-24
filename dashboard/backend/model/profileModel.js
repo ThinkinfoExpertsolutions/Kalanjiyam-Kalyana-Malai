@@ -88,10 +88,6 @@ const profilesSchema  =  mongoose.Schema({
          acceptRequest: {type: [String],default: []},
          denyRequest: {type: [String],default: []}
     },
-    likes: {
-      type: [String],
-      default: [],
-    },
   },
 
   
@@ -186,6 +182,16 @@ const profilesSchema  =  mongoose.Schema({
     },
     default: 'Free',
   },
+  viewCount: {
+    type: Number,
+    default: 0
+  },
+  viewedBy: [
+    {
+        userId: String,
+        time: Date 
+    }
+    ],
   settings:{
     profileVisibleOption: {
       type: String,

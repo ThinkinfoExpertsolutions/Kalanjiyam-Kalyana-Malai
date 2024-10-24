@@ -1,5 +1,5 @@
 import express from "express";
-import { editProfile, editSettings, shareInterest } from "../controller/profileController.js";
+import { editProfile, editSettings, handleViewCount, shareInterest } from "../controller/profileController.js";
 
 
 
@@ -10,5 +10,6 @@ const profileRouter = express.Router();
 profileRouter.patch("/edit-profile/:id",editProfile);
 profileRouter.patch("/edit-settings/:id",editSettings);
 profileRouter.patch("/share-interest",shareInterest);
+profileRouter.patch('/profile/:id/view',handleViewCount);
 
 export default profileRouter;

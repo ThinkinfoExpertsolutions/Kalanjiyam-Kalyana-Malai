@@ -214,7 +214,7 @@ export const shareInterest = async (req, res) => {
           );
 
           if (updatedProfile) {
-              return res.status(200).json({ success: true, message: "Settings updated successfully", data: updatedProfile });
+              return res.status(200).json({ success: true, message: "Your request has been sent successfully !", data: updatedProfile });
           } else {
               return res.status(404).json({ success: false, message: "Failed to update profile" });
           }
@@ -226,6 +226,49 @@ export const shareInterest = async (req, res) => {
       return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
   }
 };
+
+
+
+
+
+
+
+
+
+
+// CONTROLLER FOR VIEWS COUNT
+
+
+export const handleViewCount = async(req,res)=>{
+  
+  const userId = req.params.id;
+
+  const {viewerId} = req.body;
+
+  try {
+    
+    const user = await profilesModel.findOne({user_id:userId});
+    if(!user){
+      return res.json({ message: 'User not found' });
+    }
+
+    const existingUser = user.viewedBy.find(view => view.userId === viewerId)
+    
+    if(!existingUser){
+            user.viewCount += 1;
+            user.viewedBy.push({ userId: viewerId, time: new Date() });
+            await user.save();
+            return res.json({ message: 'View count updated', viewCount: user.viewCount });
+          }
+          return res.json({success:false, message: 'already viewed', viewCount: user.viewCount });
+   
+  } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "An error occurred", error: error.message });
+
+  }
+
+}
 
 
 
