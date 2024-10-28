@@ -158,84 +158,293 @@ export const editSettings = async (req, res) => {
 // CONTROLLER FOR SHARE INTEREST
 
 
-export const shareInterest = async (req, res) => {
+// export const shareInterest = async (req, res) => {
 
-  const { senderId } = req.body;
-  const receiverId = req.params.id;
+//   const { senderId } = req.body;
+//   const receiverId = req.params.id;
 
-  try {
+//   try {
       
-      const [senderUserExists, receiverUserExists, senderProfileExists, receiverProfileExists] = await Promise.all([
-          checkUserFound(senderId, "userModel"),
-          checkUserFound(receiverId, "userModel"),
-          checkUserFound(senderId, "profilesModel"),
-          checkUserFound(receiverId, "profilesModel"),
-      ]);
-
-      
-      if (!senderUserExists) {
-          return res.status(404).json({ success: false, message: "Sender User Not Found" });
-      }
-      if (!receiverUserExists) {
-          return res.status(404).json({ success: false, message: "Receiver User Not Found" });
-      }
-      if (!senderProfileExists) {
-          return res.status(404).json({ success: false, message: "Sender Profile Not Found" });
-      }
-      if (!receiverProfileExists) {
-          return res.status(404).json({ success: false, message: "Receiver Profile Not Found" });
-      }
+//       const [senderUserExists, receiverUserExists, senderProfileExists, receiverProfileExists] = await Promise.all([
+//           checkUserFound(senderId, "userModel"),
+//           checkUserFound(receiverId, "userModel"),
+//           checkUserFound(senderId, "profilesModel"),
+//           checkUserFound(receiverId, "profilesModel"),
+//       ]);
 
       
+//       if (!senderUserExists) {
+//           return res.status(404).json({ success: false, message: "Sender User Not Found" });
+//       }
+//       if (!receiverUserExists) {
+//           return res.status(404).json({ success: false, message: "Receiver User Not Found" });
+//       }
+//       if (!senderProfileExists) {
+//           return res.status(404).json({ success: false, message: "Sender Profile Not Found" });
+//       }
+//       if (!receiverProfileExists) {
+//           return res.status(404).json({ success: false, message: "Receiver Profile Not Found" });
+//       }
+
       
-      const [senderProfile, receiverProfile] = await Promise.all([
-          profilesModel.findOne({ user_id: senderId }),
-          profilesModel.findOne({ user_id: receiverId })
-      ]);
+      
+//       const [senderProfile, receiverProfile] = await Promise.all([
+//           profilesModel.findOne({ user_id: senderId }),
+//           profilesModel.findOne({ user_id: receiverId })
+//       ]);
+//        if(receiverProfile.personalDetails)
+//       if (
+//           senderProfile.planType === receiverProfile.settings.interestRequestOption ||
+//           receiverProfile.settings.interestRequestOption === "All User"
+//       ) {
+//           let requests = [senderId];
+//           const newRequest = {
+//             personalDetails:{
+//               interestList: {
+//                   newRequest: requests
+//               }
 
-      if (
-          senderProfile.planType === receiverProfile.settings.interestRequestOption ||
-          receiverProfile.settings.interestRequestOption === "All User"
-      ) {
-          let requests = [senderId];
-          const newRequest = {
-            personalDetails:{
-              interestList: {
-                  newRequest: requests
-              }
-
-            }
-          };
-
-          // UPDATE 
+//             }
+//           };
           
-          const updatedProfile = await profilesModel.findOneAndUpdate(
-              { user_id: receiverId },
-              newRequest,
-              { new: true, runValidators: true }
-          );
 
-          if (updatedProfile) {
-              return res.status(200).json({ success: true, message: "Your request has been sent successfully !", data: updatedProfile });
-          } else {
-              return res.status(404).json({ success: false, message: "Failed to update profile" });
-          }
-      } else {
-          return res.status(400).json({ success: false, message: "Interest Request not allowed" });
-      }
-  } catch (error) {
-      console.error(error);
-      return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
+//           // UPDATE 
+          
+//           const updatedProfile = await profilesModel.findOneAndUpdate(
+//               { user_id: receiverId },
+//               newRequest,
+//               { new: true, runValidators: true }
+//           );
+
+//           if (updatedProfile) {
+//               return res.status(200).json({ success: true, message: "Your request has been sent successfully !", data: updatedProfile });
+//           } else {
+//               return res.status(404).json({ success: false, message: "Failed to update profile" });
+//           }
+//       } else {
+//           return res.status(400).json({ success: false, message: "Interest Request not allowed" });
+//       }
+//   } catch (error) {
+//       console.error(error);
+//       return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
+//   }
+// };
+
+
+
+// // CONTROLLER FOR ACCEPT REQUEST
+
+
+// export const acceptRequest = async(req,res)=>{
+
+//   const { senderId, receiverId } = req.body;
+
+//   try {
+      
+//       const [senderUserExists, receiverUserExists, senderProfileExists, receiverProfileExists] = await Promise.all([
+//           checkUserFound(senderId, "userModel"),
+//           checkUserFound(receiverId, "userModel"),
+//           checkUserFound(senderId, "profilesModel"),
+//           checkUserFound(receiverId, "profilesModel"),
+//       ]);
+
+      
+//       if (!senderUserExists) {
+//           return res.status(404).json({ success: false, message: "Sender User Not Found" });
+//       }
+//       if (!receiverUserExists) {
+//           return res.status(404).json({ success: false, message: "Receiver User Not Found" });
+//       }
+//       if (!senderProfileExists) {
+//           return res.status(404).json({ success: false, message: "Sender Profile Not Found" });
+//       }
+//       if (!receiverProfileExists) {
+//           return res.status(404).json({ success: false, message: "Receiver Profile Not Found" });
+//       }
+
+      
+      
+//       const [senderProfile, receiverProfile] = await Promise.all([
+//           profilesModel.findOne({ user_id: senderId }),
+//           profilesModel.findOne({ user_id: receiverId })
+//       ]);
+     
+//       let requests = receiverProfile.personalDetails.interestList.acceptRequest;
+//       requests.push(senderId); 
+
+//       const newRequest = {
+//         personalDetails:{
+//           interestList: {
+//             acceptRequest : requests
+//           }
+
+//         }
+//       };
+
+//       const updatedProfile = await profilesModel.findOneAndUpdate({user_id:receiverId},newRequest,{ new: true, runValidators: true })
+         
+//       if (updatedProfile) {
+//         return res.status(200).json({ success: true, message: "Interest Accepted !", data: updatedProfile });
+//     } else {
+//         return res.status(404).json({ success: false, message: "Failed to update profile" });
+//     }
+
+//     }
+//     catch(error){
+//          console.log(error);
+//       return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
+
+//     }
+// }
+
+
+// // CONTROLLER FOR DENY REQUEST
+
+
+// export const denyRequest = async(req,res)=>{
+
+//   const { senderId, receiverId } = req.body;
+
+//   try {
+      
+//       const [senderUserExists, receiverUserExists, senderProfileExists, receiverProfileExists] = await Promise.all([
+//           checkUserFound(senderId, "userModel"),
+//           checkUserFound(receiverId, "userModel"),
+//           checkUserFound(senderId, "profilesModel"),
+//           checkUserFound(receiverId, "profilesModel"),
+//       ]);
+
+      
+//       if (!senderUserExists) {
+//           return res.status(404).json({ success: false, message: "Sender User Not Found" });
+//       }
+//       if (!receiverUserExists) {
+//           return res.status(404).json({ success: false, message: "Receiver User Not Found" });
+//       }
+//       if (!senderProfileExists) {
+//           return res.status(404).json({ success: false, message: "Sender Profile Not Found" });
+//       }
+//       if (!receiverProfileExists) {
+//           return res.status(404).json({ success: false, message: "Receiver Profile Not Found" });
+//       }
+
+      
+      
+//       const [senderProfile, receiverProfile] = await Promise.all([
+//           profilesModel.findOne({ user_id: senderId }),
+//           profilesModel.findOne({ user_id: receiverId })
+//       ]);
+     
+//       let requests = receiverProfile.personalDetails.interestList.denyRequest;
+//       requests.push(senderId); 
+
+//       const newRequest = {
+//         personalDetails:{
+//           interestList: {
+//             denyRequest : requests
+//           }
+
+//         }
+//       };
+
+//       const updatedProfile = await profilesModel.findOneAndUpdate({user_id:receiverId},newRequest,{ new: true, runValidators: true })
+         
+//       if (updatedProfile) {
+//         return res.status(200).json({ success: true, message: "Interset Denyed !", data: updatedProfile });
+//     } else {
+//         return res.status(404).json({ success: false, message: "Failed to update profile" });
+//     }
+
+//     }
+//     catch(error){
+//          console.log(error);
+//       return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
+
+//     }
+
+
+// }
+
+
+// CONROLLER FOR ADD BOOKMARK PROFILE
+
+
+export const addBookmark = async(req,res)=>{
+
+const{userId,bookmarkProfileId}=req.body;
+
+try {
+    
+  const user = await profilesModel.findOne({user_id:userId});
+  if(!user){
+    return res.json({ message: 'User not found' });
   }
-};
+  const bookmarkProfile = await profilesModel.findOne({user_id:bookmarkProfileId});
+  if(!bookmarkProfile){
+    return res.json({ message: 'bookmark profile not found' });
+  }
 
 
 
+  const existingUser = user.bookMarkedProfiles.find(profile => profile.userId === bookmarkProfileId)
+  
+  if(!existingUser){
+          user.bookMarkedProfiles.push({ userId: bookmarkProfileId, time: new Date() });
+          await user.save();
+          return res.json({ message: 'Bookmark Added ', bookmarks: user.bookMarkedProfiles,success:true });
+        }
+        return res.json({success:false, message: 'already Bookmarked !', viewCount: user.viewCount });
+ 
+} catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: "An error occurred", error: error.message });
 
+}
+
+}
+
+
+// CONTROLLER FOR REMOVE BOOKMARK PROFILE
+
+
+export const removeBookmark = async(req,res)=>{
+
+  const{userId,bookmarkedProfileId}=req.body;
+
+try {
+    
+  const user = await profilesModel.findOne({user_id:userId});
+  if(!user){
+    return res.json({ message: 'User not found' });
+  }
+  const bookmarkProfile = await profilesModel.findOne({user_id:bookmarkedProfileId});
+  if(!bookmarkProfile){
+    return res.json({ message: 'bookmark profile not found' });
+  }
+
+const isExist = user.bookMarkedProfiles.find(profile => profile.userId === bookmarkedProfileId);
+
+if(isExist){
+  var index = user.bookMarkedProfiles.indexOf(bookmarkedProfileId);
+  user.bookMarkedProfiles.splice(index,1);
+
+  await user.save();
+  return res.json({success:true,message:"bookmark Removed",data:user.bookMarkedProfiles});
+}
+
+return res.json({ success: false, message: " User Profile Not Found" });
+
+}catch(error){
+  console.log(error);
+  return res.json({ success: false, message: "An error occurred", error: error.message });
+}
+
+}
 
 
 
 // CONTROLLER FOR GET PROFILE DATA
+
 
 
 export const getProfileData = async(req,res)=>{

@@ -83,13 +83,13 @@ const profilesSchema  =  mongoose.Schema({
       type: [String], 
       default: [],
     },
-    interestList: {
-         newRequest: {type: [String],default: []},
-         acceptRequest: {type: [String],default: []},
-         denyRequest: {type: [String],default: []}
-    },
+//     interestList: {
+//       newRequest: {type: [String],default: []},
+//       acceptRequest: {type: [String],default: []},
+//       denyRequest: {type: [String],default: []}
+//  },
   },
-
+  
   
   contactInfo: {
     phone: {
@@ -108,8 +108,8 @@ const profilesSchema  =  mongoose.Schema({
       maxlength: [200, 'Address cannot be longer than 200 characters'],
     },
   },
-
-
+  
+  
   media: {
     profileImage: {
       type: String,
@@ -124,7 +124,7 @@ const profilesSchema  =  mongoose.Schema({
       default: [],
     }
   },
-
+  
   
   jobDetails: {
     companyName: {
@@ -151,8 +151,8 @@ const profilesSchema  =  mongoose.Schema({
       },
     },
   },
-
-
+  
+  
   education: {
     school: {
       type: String,
@@ -167,34 +167,41 @@ const profilesSchema  =  mongoose.Schema({
       trim: true,
     },
   },
-    socialMedia: {
-      facebook: { type: String, trim: true },
+  socialMedia: {
+    facebook: { type: String, trim: true },
       twitter: { type: String, trim: true },
       instagram: { type: String, trim: true },
       linkedin: { type: String, trim: true },
     },
-   
-  planType: {
-    type: String,
-    enum: {
-      values: ['Free', 'Premium', 'VIP'],
-      message: 'Plan type must be Free, Premium, or VIP',
+    
+    planType: {
+      type: String,
+      enum: {
+        values: ['Free', 'Premium', 'VIP'],
+        message: 'Plan type must be Free, Premium, or VIP',
+      },
+      default: 'Free',
     },
-    default: 'Free',
-  },
-  viewCount: {
-    type: Number,
-    default: 0
-  },
-  viewedBy: [
-    {
+    viewCount: {
+      type: Number,
+      default: 0
+    },
+    viewedBy: [
+      {
         userId: String,
         time: Date 
-    }
+      }
     ],
-  settings:{
-    profileVisibleOption: {
-      type: String,
+    bookMarkedProfiles: [
+      {
+        userId: String,
+        time: Date 
+      }
+      ],
+
+    settings:{
+      profileVisibleOption: {
+        type: String,
       default: "Free",
     },
     interestRequestOption: {
