@@ -204,7 +204,7 @@ const profilesSchema  =  mongoose.Schema({
         type: String,
       default: "Free",
     },
-    interestRequestOption: {
+    bookmarkOption: {
       type: String,
       default: 'Free',
   

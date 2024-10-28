@@ -129,12 +129,12 @@ export const editSettings = async (req, res) => {
     }
 
     
-    const { profileVisibleOption, interestRequestOption, notificationPermission } = req.body;
+    const { profileVisibleOption, bookmarkOption, notificationPermission } = req.body;
 
     
     const updateData = {settings:{}};
     if (profileVisibleOption !== undefined) updateData.settings.profileVisibleOption = profileVisibleOption;
-    if (interestRequestOption !== undefined) updateData.settings.interestRequestOption = interestRequestOption;
+    if (bookmarkOption !== undefined) updateData.settings.bookmarkOption = bookmarkOption;
     if (notificationPermission !== undefined) updateData.settings.notificationPermission = notificationPermission;
 
     let up;
@@ -508,6 +508,28 @@ export const handleViewCount = async(req,res)=>{
   }
 
 }
+
+
+// CONTROLLER FOR GET NEW PROFILE
+
+
+export const getNewProfile = async(req,res)=>{
+
+  try {
+    
+    const allProfiles = await profilesModel.find({});
+
+    const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json({success:true,data:sortedProfiles});
+
+
+  } catch (error) {
+    
+  }
+
+}
+
 
 
 

@@ -1,5 +1,5 @@
 import express from "express";
-import { addBookmark, editProfile, editSettings, getProfileData, handleViewCount, removeBookmark } from "../controller/profileController.js";
+import { addBookmark, editProfile, editSettings, getNewProfile, getProfileData, handleViewCount, removeBookmark } from "../controller/profileController.js";
 
 
 
@@ -13,6 +13,7 @@ profileRouter.get("/get-profile-data/:id",getProfileData);
 profileRouter.patch('/profile/:id/view',handleViewCount);
 profileRouter.patch("/add-bookmark",addBookmark);
 profileRouter.patch("/remove-bookmark",removeBookmark);
+profileRouter.get("/get-new-profile",getNewProfile);
 // profileRouter.patch("/accept-interest",acceptRequest);
 // profileRouter.patch("/deny-interest",denyRequest);
 // profileRouter.patch("/share-interest/:id",shareInterest);
