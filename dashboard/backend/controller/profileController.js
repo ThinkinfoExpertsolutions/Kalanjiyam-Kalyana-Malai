@@ -516,10 +516,10 @@ export const handleViewCount = async(req,res)=>{
 }
 
 
-// CONTROLLER FOR GET PROFILE
+// CONTROLLER FOR GET LATEST PROFILE
 
 
-export const getNewProfile = async(req,res)=>{
+export const getLatestProfile = async(req,res)=>{
 
   try {
     
@@ -561,7 +561,7 @@ export const getSearchResult = async (req, res) => {
      return res.json({ success: true, data: filtered });
     }
      res.json({success:false,message:"Sorry ! No Matches Found "});
-     
+
   } catch (error) {
     console.log(error);
     return res.json({ success: false, message: "An error occurred", error: error.message });
