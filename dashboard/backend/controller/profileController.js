@@ -12,6 +12,9 @@ export const editProfile = async (req, res) => {
     familyName,
     dateOfBirth,
     gender,
+    age,
+    zodiac,
+    HoroscopeImage,
     religion,
     cast,
     fatherName,
@@ -54,12 +57,14 @@ export const editProfile = async (req, res) => {
         gender,
         religion,
         cast,
+        zodiac,
         fatherName,
         motherName,
       },
       personalDetails: {
         weight,
         height,
+        age,
         about,
         hobbies,
       },
@@ -71,6 +76,7 @@ export const editProfile = async (req, res) => {
       media: {
         profileImage,
         galleryImages,
+        HoroscopeImage,
       },
       jobDetails: {
         companyName,
@@ -510,7 +516,7 @@ export const handleViewCount = async(req,res)=>{
 }
 
 
-// CONTROLLER FOR GET NEW PROFILE
+// CONTROLLER FOR GET PROFILE
 
 
 export const getNewProfile = async(req,res)=>{
@@ -518,17 +524,49 @@ export const getNewProfile = async(req,res)=>{
   try {
     
     const allProfiles = await profilesModel.find({});
-
+  
     const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
 
     res.json({success:true,data:sortedProfiles});
 
 
   } catch (error) {
-    
+    console.log(error);
+    return res.json({ success: false, message: "An error occurred", error: error.message });
   }
 
 }
+
+
+// CONTROLLER FOR GET SEARCHRESULT
+
+
+export const getSearchResult = async (req, res) => {
+  const { gender, age, zodiac, cast } = req.body;
+
+  try {
+    const allProfiles = await profilesModel.find({});
+    
+
+    const filtered = allProfiles.filter(profile => {
+      const matchesGender = !gender || profile.basicInfo.gender.toLowerCase() === gender.toLowerCase();
+      const matchesAge = !age || profile.personalDetails.age === age;
+      const matchesCast = !cast || profile.basicInfo.cast.toLowerCase() === cast.toLowerCase();
+      const matchesZodiac = !zodiac || profile.basicInfo.zodiac.toLowerCase() === zodiac.toLowerCase();
+
+      return matchesGender && matchesAge && matchesCast && matchesZodiac;
+    });
+  
+    if(filtered.length > 0){
+     return res.json({ success: true, data: filtered });
+    }
+     res.json({success:false,message:"Sorry ! No Matches Found "});
+     
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: "An error occurred", error: error.message });
+  }
+};
 
 
 

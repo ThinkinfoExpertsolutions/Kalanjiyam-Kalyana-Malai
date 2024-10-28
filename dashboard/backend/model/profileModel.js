@@ -74,6 +74,14 @@ const profilesSchema  =  mongoose.Schema({
         message: 'Height must be an integer',
       },
     },
+    age: {
+      type: Number,
+      min: [0, 'Age must be a positive number'],
+      validate: {
+        validator: Number.isInteger,
+        message: 'Age must be an integer',
+      },
+    },
     about: {
       type: String,
       trim: true,
@@ -168,7 +176,7 @@ const profilesSchema  =  mongoose.Schema({
     },
   },
   socialMedia: {
-    facebook: { type: String, trim: true },
+      facebook: { type: String, trim: true },
       twitter: { type: String, trim: true },
       instagram: { type: String, trim: true },
       linkedin: { type: String, trim: true },
