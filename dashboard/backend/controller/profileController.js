@@ -391,9 +391,13 @@ const{userId,bookmarkProfileId}=req.body;
 try {
     
   const user = await profilesModel.findOne({user_id:userId});
+  
+
   if(!user){
     return res.json({ message: 'User not found' });
   }
+
+
   const bookmarkProfile = await profilesModel.findOne({user_id:bookmarkProfileId});
   if(!bookmarkProfile){
     return res.json({ message: 'bookmark profile not found' });
@@ -405,6 +409,7 @@ try {
   
   if(!existingUser){
           user.bookMarkedProfiles.push({ userId: bookmarkProfileId, time: new Date() });
+          user.activitys.push({userId: bookmarkProfileId, time: new Date(), event:`${bookmarkProfile.basicInfo.name} Bookmarked Your Profile` });
           await user.save();
           return res.json({ message: 'Bookmark Added ', bookmarks: user.bookMarkedProfiles,success:true });
         }
@@ -510,12 +515,17 @@ export const handleViewCount = async(req,res)=>{
     if(!user){
       return res.json({ message: 'User not found' });
     }
+    const viewer = await profilesModel.findOne({user_id:viewerId});
+    if(!viewer){
+      return res.json({ message: 'User not found' });
+    }
 
     const existingUser = user.viewedBy.find(view => view.userId === viewerId)
     
     if(!existingUser){
             user.viewCount += 1;
             user.viewedBy.push({ userId: viewerId, time: new Date() });
+            user.activitys.push({userId: viewerId, time: new Date(), event:`${viewer.basicInfo.name} Viewed Your Profile` });
             await user.save();
             return res.json({ message: 'View count updated', viewCount: user.viewCount });
           }

@@ -200,6 +200,13 @@ const profilesSchema  =  mongoose.Schema({
         time: Date 
       }
     ],
+    activitys: [
+      {
+        userId: String,
+        event:String,
+        time: Date 
+      }
+    ],
     bookMarkedProfiles: [
       {
         userId: String,
