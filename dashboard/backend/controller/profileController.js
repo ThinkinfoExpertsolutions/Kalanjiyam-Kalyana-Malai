@@ -39,7 +39,11 @@ export const editProfile = async (req, res) => {
     socialMedia,
   } = req.body;
 
-  const user_id = req.params.id;
+  const paramsId = req.params.id;
+  const user_id = req.body;
+  if(user_id === paramsId){
+    return  res.status(403).json({ message: "Unauthorized access" });
+  }
 
   try {
     
@@ -124,7 +128,12 @@ export const editProfile = async (req, res) => {
 
 
 export const editSettings = async (req, res) => {
-  const userId = req.params.id;
+
+  const paramsId = req.params.id;
+  const userId = req.body;
+  if(userId === paramsId){
+    return  res.status(403).json({ message: "Unauthorized access" });
+  }
 
   try {
  
@@ -455,7 +464,12 @@ return res.json({ success: false, message: " User Profile Not Found" });
 
 export const getProfileData = async(req,res)=>{
   
-  const userId = req.params.id;
+  const paramsId = req.params.id;
+  const userId = req.body;
+  if(userId === paramsId){
+    return  res.status(403).json({ message: "Unauthorized access" });
+  }
+
 try {
   const [user ,profile] = await Promise.all([
     checkUserFound(userId, "userModel"),

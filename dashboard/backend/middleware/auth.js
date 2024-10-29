@@ -6,6 +6,7 @@ dotenv.config();
 // MIDDLEWARE TO CHECK FOR AUTHORIZED USER
 
 const authMiddleware = async (req, res, next) => {
+    
     const { token } = req.headers;
 
     // Check if the token exists
