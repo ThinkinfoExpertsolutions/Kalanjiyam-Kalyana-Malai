@@ -1,6 +1,7 @@
 import adminModel from "../model/adminModel.js";
 import bcrypt from "bcrypt";
 import { generateToken, setEncryptedToken } from "./userController.js";
+import profilesModel from "../model/profileModel.js";
 
 
 
@@ -127,4 +128,116 @@ export const updateSocialMediaLinks = async(req,res)=>{
 
     }
 
+}
+
+
+
+
+// ADD NEW PROFILES
+
+
+
+export const addNewProfile = async(req,res)=>{
+
+    const {
+        name,
+        familyName,
+        dateOfBirth,
+        gender,
+        age,
+        zodiac,
+        HoroscopeImage,
+        religion,
+        cast,
+        fatherName,
+        motherName,
+        weight,
+        height,
+        about,
+        email,
+        hobbies,
+        phone,
+        address,
+        profileImage,
+        galleryImages,
+        companyName,
+        position,
+        salary,
+        workLocation,
+        jobType,
+        school,
+        college,
+        degree,
+        socialMedia,
+      } = req.body;
+
+      try {
+        
+          const newProfileData = profilesModel({
+              basicInfo: {
+                  name,
+                  familyName,
+                  dateOfBirth,
+                  gender,
+                  religion,
+          cast,
+          zodiac,
+          fatherName,
+          motherName,
+        },
+        personalDetails: {
+          weight,
+          height,
+          age,
+          about,
+          hobbies,
+        },
+        contactInfo: {
+            phone,
+          email,
+          address,
+        },
+        media: {
+            profileImage,
+            galleryImages,
+            HoroscopeImage,
+        },
+        jobDetails: {
+          companyName,
+          position,
+          salary,
+          workingLocation: workLocation, 
+          jobType,
+        },
+        education: {
+            school,
+            college,
+            degree,
+        },
+        socialMedia:socialMedia,
+    });
+
+    const newProfile = await newProfileData.save();
+
+    if(newProfile){
+        return res.json({success:true,message:"Profile Added !"});
+    }
+    
+    return res.json({success:false,message:"Profile could't add !"});
+
+
+
+} catch (error) {
+  
+    console.log(error);
+    if (error.name === 'ValidationError') {
+        const errors = Object.values(error.errors).map(err => err.message);
+        res.json({success:false, message: 'Validation failed', errors });
+      } else {
+        res.status(500).json({ message: 'Server error', error: error.message });
+      }
+
+
+}
+   
 }
