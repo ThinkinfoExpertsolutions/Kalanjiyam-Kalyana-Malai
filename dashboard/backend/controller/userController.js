@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import validator from "validator";
 import profilesModel from "../model/profileModel.js";
+import adminModel from "../model/adminModel.js";
 dotenv.config();
 
 
@@ -178,9 +179,14 @@ export const SignIn = async(req,res)=>{
 export const forgotPassword = async(req,res)=>{
 
     const {email} = req.body;
-
+    const isAdmin = req.params.type;
+    let user;
     try {
-        const user = await userModel.findOne({email});
+        if(isAdmin === "admin"){
+             user = await adminModel.findOne({email});
+        }else{
+            user = await userModel.findOne({email});
+        }
 
         if(!user){
             return res.json({success:false,message:"This Email Is Not Registered. Please Try Again"})
@@ -230,13 +236,22 @@ export const verifyOTP = async(req,res,next)=>{
 export const resetPassword = async(req,res)=>{
 
     const{newPassword,comfirmPassword,email} = req.body;
-    
+
+    const isAdmin = req.params.type;
+    let user;
+
+   
 
     if(newPassword !== comfirmPassword){
         return res.json({success:false,message:"Pasword Does't Match !"})
     }else{
         try {
-            const user = await userModel.findOne({email});
+            if(isAdmin === "admin"){
+                user = await adminModel.findOne({email});
+            }else{
+               user = await userModel.findOne({email});
+            }
+
             const salt = await bcrypt.genSalt(10);
             const newHashedPassword =  await bcrypt.hash(newPassword,salt);
 
@@ -246,7 +261,7 @@ export const resetPassword = async(req,res)=>{
             
             await user.save();
             
-            res.json({success:true,message:"Your password has been updated successfully !"})
+            res.json({success:true,message:"Your password has been updated successfully !",data:user})
             
             
         } catch (error) {

@@ -12,9 +12,9 @@ userRouter.post("/register",register);
 userRouter.post("/signin",SignIn);
 userRouter.post("/verify",verify);
 userRouter.get("/user",authMidleware,getUserData);
-userRouter.post("/forgot-password",forgotPassword)
+userRouter.post("/:type/forgot-password",forgotPassword)
 userRouter.post("/verify-otp",verifyOTP);
-userRouter.post("/reset-password",resetPassword);
+userRouter.post("/:type/reset-password",resetPassword);
 
 
 export default userRouter;
