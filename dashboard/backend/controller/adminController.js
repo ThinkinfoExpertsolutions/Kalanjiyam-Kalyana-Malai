@@ -2,6 +2,7 @@ import adminModel from "../model/adminModel.js";
 import bcrypt from "bcrypt";
 import { generateToken, setEncryptedToken } from "./userController.js";
 import profilesModel from "../model/profileModel.js";
+import { userModel } from "../model/userModel.js";
 
 
 
@@ -217,6 +218,8 @@ export const addNewProfile = async(req,res)=>{
         socialMedia:socialMedia,
     });
 
+    
+
     const newProfile = await newProfileData.save();
 
     if(newProfile){
@@ -267,3 +270,70 @@ export const getWebsiteData = async(req,res)=>{
 
 
 }
+
+
+// CONTROLLER FOR HANDLE VERIFY REQUEST
+
+
+export const handleVerifyRequest = async (req, res) => {
+    const { userId, isAprove } = req.body;
+    const id = req.id;
+  
+    try {
+      
+      const user = await profilesModel.findOne({ user_id: userId });
+      const admin = await adminModel.findById(id);
+  
+      
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+      if (!admin) {
+        return res.status(404).json({ success: false, message: "Admin not found" });
+      }
+  
+      if (isAprove) {
+        
+        user.verification_status = "Verified";
+        const index = admin.requestList.newRequest.indexOf(userId);
+        if (index !== -1) {
+          admin.requestList.newRequest.splice(index, 1);
+        }
+        admin.requestList.acceptedRequest.unshift(userId);
+  
+      
+        await user.save();
+        await admin.save();
+  
+        return res.json({
+          success: true,
+          message: "Profile verified",
+          user,
+          admin,
+        });
+      } else {
+
+        // Deny the verification request
+        
+        user.verification_status = "UnVerified";
+        const index = admin.requestList.newRequest.indexOf(userId);
+        if (index !== -1) {
+          admin.requestList.newRequest.splice(index, 1);
+        }
+        admin.requestList.deniedRequest.unshift(userId);
+        
+        await admin.save();
+  
+        return res.json({
+          success: true,
+          message: "Profile verification denied",
+          user,
+          admin,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
+    }
+  };
+  

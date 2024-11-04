@@ -26,7 +26,7 @@ const adminSchema =  mongoose.Schema({
   requestList: {
           newRequest: {type: [String],default: []},
           acceptedRequest: {type: [String],default: []},
-          denyedRequest: {type: [String],default: []}
+          deniedRequest: {type: [String],default: []}
      },
 }, { timestamps: true });
 

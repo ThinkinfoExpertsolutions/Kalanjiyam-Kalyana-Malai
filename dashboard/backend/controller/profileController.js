@@ -639,22 +639,33 @@ export const verifyAccount = async (req, res) => {
   try {
     
     const admin = await adminModel.findById('6728727049b63d85da15a516');
+    const user = await profilesModel.findOne({user_id:userId});
 
     if (!admin) {
       return res.status(404).json({ success: false, message: "Admin not found" });
     }
-
+    if (!user) {
+      return res.status(404).json({ success: false, message: "user not found" });
+    }
   
+    const existingRequest = admin.requestList.newRequest.find(id => id===userId);
+    
+  if(existingRequest){
+    return res.json({success:false,message:"Request Sended Already !"})
+  }
     admin.requestList.newRequest.unshift(userId);
-
+    user.verification_status = "Pending";
     
     const updatedAdmin = await admin.save();
+    const updateUser = await user.save();
 
-    if (updatedAdmin) {
+    if (updatedAdmin && updateUser) {
+      
       return res.status(200).json({
         success: true,
         message: "Verify request has been sent successfully!",
         data: updatedAdmin,
+        data2:user
       });
     } else {
       return res.status(404).json({ success: false, message: "Failed to update profile" });

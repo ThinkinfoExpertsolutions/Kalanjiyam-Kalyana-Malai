@@ -224,13 +224,13 @@ const profilesSchema  =  mongoose.Schema({
   },
   subscription_status: {
     type: String,
-    enum: ['active', 'expired','inActive'],
-    default: 'inActive',
+    enum: ['Active', 'Expired','InActive'],
+    default: 'InActive',
   },
   verification_status: {
     type: String,
-    enum: ['verified', 'pending','notVerified'],
-    default: 'inActive',
+    enum: ['Verified', 'Pending','UnVerified'],
+    default: 'UnVerified',
   },
   
 }, { timestamps: true }); 
