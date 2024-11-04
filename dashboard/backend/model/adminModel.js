@@ -17,6 +17,12 @@ const adminSchema =  mongoose.Schema({
     type: String,
     required: true,
   },
+  socialMedia: {
+    whatsapp: { type: String, trim: true },
+    facebook: { type: String, trim: true },
+    instagram: { type: String, trim: true },
+    youtube: { type: String, trim: true },
+  },
 }, { timestamps: true });
 
 

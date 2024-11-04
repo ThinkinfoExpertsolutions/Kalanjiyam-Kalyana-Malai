@@ -42,7 +42,9 @@ export const adminLogin = async(req,res)=>{
 }
 
 
+
 // CONTROLLER FOR CHANGE ADMIN CREDENTIAL
+
 
 
 export const changeAdminCredential = async(req,res)=>{
@@ -79,5 +81,50 @@ try {
             res.status(500).json({ message: 'Server error', error: error.message });
           }
 }
+
+}
+
+
+
+// CONTROLLER FOR UPDATE SOCIAL MEDIA LINKS
+
+
+export const updateSocialMediaLinks = async(req,res)=>{
+
+    const {instagram,facebook,youtube,whatsapp} = req.body;
+
+    const user_id =  req.id;
+
+    const update = {
+        "socialMedia.facebook" : facebook,
+        "socialMedia.youtube" : youtube,
+        "socialMedia.whatsapp" : whatsapp,
+       " socialMedia.instagram" : instagram,
+
+    }
+  
+    try {
+        const admin = await adminModel.findByIdAndUpdate(user_id,update,{new:true});
+
+        if(admin){
+            res.json({success:true,message:"Links Updated ",data:admin});
+    
+        }else {
+            res.json({ success: false, message: "Admin not found" });
+        }
+        
+    
+    } catch (error) {
+        
+        console.log(error);
+        if (error.name === 'ValidationError') {
+            const errors = Object.values(error.errors).map(err => err.message);
+            res.json({success:false, message: 'Validation failed', errors });
+          } else {
+            res.status(500).json({ message: 'Server error', error: error.message });
+          }
+
+
+    }
 
 }
