@@ -163,7 +163,7 @@ export const SignIn = async(req,res)=>{
             const token = generateToken(user._id);
             const encryptedToken = setEncryptedToken(token);
              
-            return res.json({success:true,message:"Login successful !",encryptedToken:encryptedToken})
+            return res.json({success:true,message:"Login successful !",encryptedToken:encryptedToken});
         }
 
     } catch (error) {
@@ -343,7 +343,7 @@ const generateOTP = (length)=>{
 
 // FUNCTION FOR GENERATE JWT TOKEN
 
-const generateToken = (id)=>{
+export const generateToken = (id)=>{
 
     return jwt.sign({id},process.env.SECRET_KEY,{
        expiresIn:"24h"
@@ -352,7 +352,7 @@ const generateToken = (id)=>{
 
 // EXTRA ENCRYPTING THE TOKEN
 
-function setEncryptedToken(token) {
+export function setEncryptedToken(token) {
     const encryptedToken = CryptoJS.AES.encrypt(token, process.env.SECRET_KEY_2).toString();
     return encryptedToken;
   }

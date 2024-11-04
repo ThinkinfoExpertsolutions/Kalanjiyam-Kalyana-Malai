@@ -1,0 +1,83 @@
+import adminModel from "../model/adminModel.js";
+import bcrypt from "bcrypt";
+import { generateToken, setEncryptedToken } from "./userController.js";
+
+
+
+// CONTROLLER FOR ADMIN LOGIN
+
+
+
+export const adminLogin = async(req,res)=>{
+
+
+    const {userName,password} = req.body;
+   
+    try {
+        
+        const admin = await adminModel.findOne({userName:userName});
+
+        if(!admin){
+            return res.json({success:false,message:"User Name Not Found !"});
+        }
+       
+        const isMatch = await bcrypt.compare(password,admin.password);
+
+        if(!isMatch){
+            return res.json({success:false,message:"Password Does't Match !"})
+         }
+
+         if(admin && isMatch){
+            const token = generateToken(admin._id);
+            const encryptedToken = setEncryptedToken(token);
+
+           return res.json({success:true,message:"Login successful !",encryptedToken:encryptedToken});
+         }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({success:false,message:"Failed To SignIn !"});
+    }
+
+}
+
+
+// CONTROLLER FOR CHANGE ADMIN CREDENTIAL
+
+
+export const changeAdminCredential = async(req,res)=>{
+
+    const user_id =  req.id;
+
+    const {userName,password,email} = req.body;
+try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password,salt);
+    
+    const newCredential = {
+          userName:userName,
+          password:hashedPassword,
+          email:email
+    };
+
+    const admin = await adminModel.findByIdAndUpdate(user_id,newCredential, { new: true } );
+
+    if(admin){
+        res.json({success:true,message:"Credential Changed ",data:admin});
+
+    }else {
+        res.json({ success: false, message: "Admin not found" });
+    }
+    
+} catch (error) {
+
+    console.log(error);
+        if (error.name === 'ValidationError') {
+            const errors = Object.values(error.errors).map(err => err.message);
+            res.json({success:false, message: 'Validation failed', errors });
+          } else {
+            res.status(500).json({ message: 'Server error', error: error.message });
+          }
+}
+
+}

@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import jwt from "jsonwebtoken";
 import connectDB from "./config/db.js";
 import userRouter from "./routes/userRoute.js";
 import profileRouter from "./routes/profileRoute.js";
+import adminRouter from "./routes/adminRoute.js";
 
 
 const app = express();
@@ -22,6 +22,8 @@ app.use(cors());
 
 app.use("/api",userRouter);
 app.use("/api",profileRouter);
+app.use("/api",adminRouter);
+
 
 // SERVER  
 

@@ -182,14 +182,6 @@ const profilesSchema  =  mongoose.Schema({
       linkedin: { type: String, trim: true },
     },
     
-    planType: {
-      type: String,
-      enum: {
-        values: ['Free', 'Premium', 'VIP'],
-        message: 'Plan type must be Free, Premium, or VIP',
-      },
-      default: 'Free',
-    },
     viewCount: {
       type: Number,
       default: 0
