@@ -23,6 +23,11 @@ const adminSchema =  mongoose.Schema({
     instagram: { type: String, trim: true },
     youtube: { type: String, trim: true },
   },
+  requestList: {
+          newRequest: {type: [String],default: []},
+          acceptedRequest: {type: [String],default: []},
+          denyedRequest: {type: [String],default: []}
+     },
 }, { timestamps: true });
 
 

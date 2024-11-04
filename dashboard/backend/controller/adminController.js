@@ -236,8 +236,34 @@ export const addNewProfile = async(req,res)=>{
       } else {
         res.status(500).json({ message: 'Server error', error: error.message });
       }
-
-
 }
    
+}
+
+
+// CONTROLLER FOR GET WEBSITE DATA
+
+
+
+export const getWebsiteData = async(req,res)=>{
+
+
+    const id = req.id;
+
+    try {
+        
+        const data = await adminModel.findById(id);
+
+        if(data){
+            return res.json({success:true,data:data});
+        }else{
+            return res.json({success:false,message:"data not found"});
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.json({ success: false, message: "An error occurred", error: error.message });
+    }
+
+
 }

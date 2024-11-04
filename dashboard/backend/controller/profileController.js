@@ -1,3 +1,4 @@
+import adminModel from "../model/adminModel.js";
 import profilesModel from "../model/profileModel.js";
 import { userModel } from "../model/userModel.js";
 
@@ -631,6 +632,48 @@ export const getRelatedProfile = async(req,res)=>{
   }
 
 }
+
+export const verifyAccount = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    
+    const admin = await adminModel.findById('6728727049b63d85da15a516');
+
+    if (!admin) {
+      return res.status(404).json({ success: false, message: "Admin not found" });
+    }
+
+  
+    admin.requestList.newRequest.unshift(userId);
+
+    
+    const updatedAdmin = await admin.save();
+
+    if (updatedAdmin) {
+      return res.status(200).json({
+        success: true,
+        message: "Verify request has been sent successfully!",
+        data: updatedAdmin,
+      });
+    } else {
+      return res.status(404).json({ success: false, message: "Failed to update profile" });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: "An error occurred", error: error.message });
+  }
+};
+
+
+
+
+
+
+
+
+
+
 
 
 // FUNCTION TO CHECK  USER OR PROFILE IS FOUND

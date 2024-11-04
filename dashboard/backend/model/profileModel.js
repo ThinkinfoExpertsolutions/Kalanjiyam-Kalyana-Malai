@@ -220,7 +220,18 @@ const profilesSchema  =  mongoose.Schema({
       type: Boolean,
       default: false,
     },
-  }
+
+  },
+  subscription_status: {
+    type: String,
+    enum: ['active', 'expired','inActive'],
+    default: 'inActive',
+  },
+  verification_status: {
+    type: String,
+    enum: ['verified', 'pending','notVerified'],
+    default: 'inActive',
+  },
   
 }, { timestamps: true }); 
 
