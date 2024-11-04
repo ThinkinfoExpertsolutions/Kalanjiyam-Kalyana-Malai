@@ -1,5 +1,6 @@
 import express from "express";
-import { addBookmark, editProfile, editSettings, getLatestProfile, getProfileData, getSearchResult, handleViewCount, removeBookmark } from "../controller/profileController.js";
+import { addBookmark, editProfile, editSettings, getLatestProfile, getProfileData, getRelatedProfile, getSearchResult, handleViewCount, removeBookmark } from "../controller/profileController.js";
+import authMiddleware from "../middleware/auth.js";
 
 
 
@@ -15,6 +16,9 @@ profileRouter.patch("/add-bookmark",addBookmark);
 profileRouter.patch("/remove-bookmark",removeBookmark);
 profileRouter.get("/get-latest-profile",getLatestProfile);
 profileRouter.get("/get-search-result",getSearchResult);
+profileRouter.get("/get-related-profiles/:id",getRelatedProfile);
+
+
 // profileRouter.patch("/accept-interest",acceptRequest);
 // profileRouter.patch("/deny-interest",denyRequest);
 // profileRouter.patch("/share-interest/:id",shareInterest);

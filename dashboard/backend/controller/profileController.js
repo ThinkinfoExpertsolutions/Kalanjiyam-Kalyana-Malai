@@ -594,6 +594,44 @@ export const getSearchResult = async (req, res) => {
 
 
 
+// CONTROLLER FOR GET RELATED PROFILE
+
+
+export const getRelatedProfile = async(req,res)=>{
+
+
+  const userId = req.params.id;
+
+  try {
+    
+    const user = await profilesModel.findOne({user_id:userId});
+
+  
+  const matchCriteria = {
+    _id: { $ne: userId },
+    'basicInfo.gender': user.basicInfo.gender === 'Male' ? 'Female' : 'Male',
+    'basicInfo.religion': user.basicInfo.religion,
+    'basicInfo.cast': user.basicInfo.cast,
+    'basicInfo.zodiac': user.basicInfo.zodiac,
+    'personalDetails.age': { $gte: user.personalDetails.age - 5, $lte: user.personalDetails.age + 5 }, 
+    'jobDetails.jobType': user.jobDetails.jobType,
+  };
+
+  
+  const matches = await profilesModel.find(matchCriteria).limit(10);
+
+ 
+ return res.json({success:true,data:matches});
+
+  } catch (error) {
+
+    console.log(error);
+    return res.json({ success: false, message: "An error occurred", error: error.message });
+
+  }
+
+}
+
 
 // FUNCTION TO CHECK  USER OR PROFILE IS FOUND
 
