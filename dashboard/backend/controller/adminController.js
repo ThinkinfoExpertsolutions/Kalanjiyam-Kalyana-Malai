@@ -221,9 +221,11 @@ export const addNewProfile = async(req,res)=>{
     
 
     const newProfile = await newProfileData.save();
+    newProfile.user_id = newProfile._id;
+    newProfile.save();
 
     if(newProfile){
-        return res.json({success:true,message:"Profile Added !"});
+        return res.json({success:true,message:"Profile Added !",data:newProfile});
     }
     
     return res.json({success:false,message:"Profile could't add !"});
