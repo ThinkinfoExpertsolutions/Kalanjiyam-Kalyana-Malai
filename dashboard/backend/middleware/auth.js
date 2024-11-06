@@ -3,39 +3,43 @@ import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 dotenv.config();
 
-// MIDDLEWARE TO CHECK FOR AUTHORIZED USER
-
+// Middleware to check for authorized user
 const authMiddleware = async (req, res, next) => {
-    
     const { token } = req.headers;
 
-
     if (!token) {
-        return res.json({ success: false, message: "Not Authorized. Please log in again." });
+        return res.status(401).json({ success: false, message: "Not Authorized. Please log in again." });
     }
 
     try {
-        
         const encryptedToken = getDecryptedToken(token);
 
-       
+        // Verify token with USER secret
         jwt.verify(encryptedToken, process.env.SECRET_KEY, (err, user) => {
             if (err) {
-                console.log(err.message);
-                return res.json({ success: false, message: "Invalid token." });
+                if (err.message === "invalid signature") {
+                    // Try verification with ADMIN secret if USER secret fails
+                    return jwt.verify(encryptedToken, process.env.ADMIN_SECRET_KEY, (err, adminUser) => {
+                        if (err) {
+                            console.error("Token verification error:", err.message);
+                            return res.status(403).json({ success: false, message: "Invalid token." });
+                        }
+                        req.id = adminUser.id;
+                        return next();
+                    });
+                } else {
+                    console.error("JWT Error:", err.message);
+                    return res.status(403).json({ success: false, message: "Invalid token." });
+                }
             }
-
-            
             req.id = user.id;
-            next(); 
+            next();
         });
-        
     } catch (error) {
-        console.log(error);
-        return res.json({ success: false, message: "An error occurred during authentication." });
+        console.error("Authentication error:", error.message);
+        return res.status(500).json({ success: false, message: "An error occurred during authentication." });
     }
 };
-
 
 function getDecryptedToken(encryptedToken) {
     try {

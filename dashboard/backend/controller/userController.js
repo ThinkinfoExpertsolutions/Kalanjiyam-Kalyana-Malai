@@ -98,7 +98,7 @@ export const register = async(req,res)=>{
     try {
        const user = await newUser.save();
        newProfileSave(user._id)
-       const token =  generateToken(user._id);
+       const token =  generateToken(user._id,process.env.SECRET_KEY);
        const encryptedToken = setEncryptedToken(token);
        res.json({success:true,message:"Successfully Registered ",encryptedToken:encryptedToken});
     } catch (error) {
@@ -161,7 +161,7 @@ export const SignIn = async(req,res)=>{
         }
         
         if(user && isMatch){
-            const token = generateToken(user._id);
+            const token = generateToken(user._id,process.env.SECRET_KEY);
             const encryptedToken = setEncryptedToken(token);
              
             return res.json({success:true,message:"Login successful !",encryptedToken:encryptedToken});
@@ -358,9 +358,9 @@ const generateOTP = (length)=>{
 
 // FUNCTION FOR GENERATE JWT TOKEN
 
-export const generateToken = (id)=>{
+export const generateToken = (id,SECRET_KEY)=>{
 
-    return jwt.sign({id},process.env.SECRET_KEY,{
+    return jwt.sign({id},SECRET_KEY,{
        expiresIn:"24h"
     });
 }

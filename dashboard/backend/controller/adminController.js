@@ -30,7 +30,7 @@ export const adminLogin = async(req,res)=>{
          }
 
          if(admin && isMatch){
-            const token = generateToken(admin._id);
+            const token = generateToken(admin._id,process.env.ADMIN_SECRET_KEY);
             const encryptedToken = setEncryptedToken(token);
 
            return res.json({success:true,message:"Login successful !",encryptedToken:encryptedToken});
