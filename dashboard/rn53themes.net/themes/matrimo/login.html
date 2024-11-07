@@ -542,26 +542,25 @@
                                     <p>Not a member? <a href="sign-up.html">Sign up now</a></p>
                                 </div>
                                 <div class="form-login">
-                                    <form>
+                                    <form id="loginForm">
                                         <div class="form-group">
                                             <label class="lb">Email:</label>
-                                            <input type="email" class="form-control" id="email"
-                                                placeholder="Enter email" name="email">
+                                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                                         </div>
                                         <div class="form-group">
                                             <label class="lb">Password:</label>
-                                            <input type="password" class="form-control" id="pwd"
-                                                placeholder="Enter password" name="pswd">
+                                            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
                                         </div>
                                         <div class="form-group form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="agree"> Remember
-                                                me
+                                                <input class="form-check-input" type="checkbox" name="agree" id="rememberMe"> Remember me
                                             </label>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Sign in</button>
+                                        <p style="font-size: 14px;text-align: center;margin-top: 7px;">Click here to <a href="forgot.html" style="color: rgb(11, 109, 215);">Reset Password</a></p>
                                     </form>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -631,7 +630,68 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/select-opt.js"></script>
     <script src="js/custom.js"></script>
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevents the default form submission
+
+        // Get the form data
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("pwd").value;
+        const rememberMe = document.getElementById("rememberMe").checked;
+
+        // Validate the input
+        if (!email || !password) {
+            alert("Please enter both email and password");
+            return;
+        }
+
+        // Prepare the data to send to the backend
+        const userData = {
+            userName: email,  // Assuming user will log in with email
+            password: password
+        };
+
+        try {
+            const response = await fetch("http://localhost:5000/api/signin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Store the encrypted token in session storage by default
+                sessionStorage.setItem("token", data.encryptedToken);
+
+                // Optionally, handle "Remember me" functionality
+                if (rememberMe) {
+                    // If "Remember me" is checked, store the token in cookies for persistence
+                    document.cookie = `token=${data.encryptedToken}; path=/; max-age=31536000`; // 1 year expiration
+                }
+
+                alert(data.message);
+                // Redirect to the dashboard or any other page
+                // window.location.href = `${CONFIG.BASE_URL}/user-dashboard.html`; // Replace with your actual route
+                // window.location.href = "/login.html";
+            } else {
+                alert(data.message); // Show error message
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            alert("Failed to sign in! Please try again.");
+        }
+    });
+});
+</script>
+    <script src="js/config.js"></script>
+    <!-- Script to verify and retrieve the user details -->
+    <script src="js/user.js"></script> 
+    
+    </body>
 
 
 <!-- Mirrored from rn53themes.net/themes/matrimo/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 14:14:25 GMT -->

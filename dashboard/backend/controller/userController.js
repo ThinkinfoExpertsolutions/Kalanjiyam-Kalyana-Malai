@@ -120,7 +120,7 @@ export const getUserData = async(req,res)=>{
 
     const user_id =  req.id;
 try {
-    const userData = await userModel.findById(user_id,"-password");
+    const userData = await profilesModel.findOne({user_id:user_id});
     if(!userData){
         return res.json({success:false,message:"User Not Found !"});
     }
@@ -236,7 +236,7 @@ export const verifyOTP = async(req,res,next)=>{
 export const resetPassword = async(req,res)=>{
 
     const{newPassword,comfirmPassword,email} = req.body;
-
+    console.log(newPassword+" "+comfirmPassword+" "+email)
     const isAdmin = req.params.type;
     let user;
 
