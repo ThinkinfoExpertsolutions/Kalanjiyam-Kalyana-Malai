@@ -2,7 +2,7 @@
 <html lang="en">
 
 
-<!-- Mirrored from rn53themes.net/themes/matrimo/user-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 14:13:09 GMT -->
+<!-- Mirrored from rn53themes.net/themes/matrimo/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 14:14:25 GMT -->
 <head>
     <title>Wedding Matrimony</title>
     <!--== META TAGS ==-->
@@ -66,7 +66,7 @@
                     <ul>
                         
                         <li><a href="about.html">About</a></li>
-                       
+                    
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
@@ -361,7 +361,7 @@
                                         <li><a href="user-plan.html">My plan details</a></li>
                                         <li><a href="user-setting.html">Profile settings</a></li>
                                         <li><a href="user-profile-edit.html">Edit full profile</a></li>
-                                        <li><a href="login.html">Sign in</a></li>
+                                        
                                     </ul>
                                 </div>
                             </li>
@@ -520,382 +520,137 @@
 
     <!-- LOGIN -->
     <section>
-        <div class="db">
+        <div class="login">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 col-lg-3">
-                        <div class="db-nav">
-                            <div class="db-nav-pro"><img src="images/profiles/12.jpg" class="img-fluid" alt=""></div>
-                            <div class="db-nav-list">
-                                <ul>
-                                    <li><a href="user-dashboard.html" class="act"><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a></li>
-                                    <li><a href="user-profile.html"><i class="fa fa-male" aria-hidden="true"></i>Profile</a></li>
-                                    <li><a href="user-interests.html"><i class="fa fa-handshake-o" aria-hidden="true"></i>Interests</a></li>
-                                    <li><a href="user-chat.html"><i class="fa fa-commenting-o" aria-hidden="true"></i>Chat list</a></li>
-                                    <li><a href="user-plan.html"><i class="fa fa-money" aria-hidden="true"></i>Plan</a></li>
-                                    <li><a href="user-setting.html"><i class="fa fa-cog" aria-hidden="true"></i>Setting</a></li>
-                                    <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>Log out</a></li>
-                                </ul>
+
+                    <div class="inn">
+                        <div class="lhs">
+                            <div class="tit">
+                                <h2>Now <b>Find <br> your life partner</b> Easy and fast.</h2>
+                            </div>
+                            <div class="im">
+                                <img src="images/login-couple.png" alt="">
+                            </div>
+                            <div class="log-bg">&nbsp;</div>
+                        </div>
+                        <div class="rhs">
+                            <div>
+                                <div class="form-tit">
+                                    <h1>Forgot Password</h1>
+                                    <p>Remembered? <a href="login.html">Login now</a></p>
+                                </div>
+                                <div class="form-login">
+                                    <form id="forgotPasswordForm">
+                                        <!-- Email Input -->
+                                        <div class="form-group" id="emailContainer">
+                                            <label class="lb">Email:</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
+                                        </div>
+                                
+                                        <!-- OTP Input (Initially hidden) -->
+                                        <div class="form-group" id="otpContainer" style="display: none;">
+                                            <label class="lb">OTP:</label>
+                                            <input type="text" class="form-control" id="otp" placeholder="Enter OTP" name="otp">
+                                        </div>
+                                
+                                        <!-- New Password & Confirm Password Inputs (Initially hidden) -->
+                                        <div class="form-group" id="passwordContainer" style="display: none;">
+                                            <label class="lb">New Password:</label>
+                                            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" name="newPassword">
+                                        </div>
+                                
+                                        <div class="form-group" id="comfirmPasswordContainer" style="display: none;">
+                                            <label class="lb">Confirm Password:</label>
+                                            <input type="password" class="form-control" id="comfirmPassword" placeholder="Confirm new password" name="comfirmPassword">
+                                        </div>
+                                
+                                        <!-- Submit/Verify Button -->
+                                        <button type="button" class="btn btn-primary" id="actionBtn">Submit</button>
+                                    </form>
+                                </div>
+                                
+                                <script>
+                                    let currentStep = 'sendOtp'; // Track the current step in the workflow
+                                
+                                    document.getElementById("actionBtn").addEventListener("click", async function(event) {
+                                        event.preventDefault(); // Prevent form submission
+                                
+                                        const email = document.getElementById("email").value;
+                                        const otp = document.getElementById("otp").value;
+                                        const newPassword = document.getElementById("newPassword").value;
+                                        const comfirmPassword = document.getElementById("comfirmPassword").value;
+                                
+                                        if (currentStep === 'sendOtp') {
+                                            // Step 1: Send OTP to email
+                                            const response = await fetch("http://localhost:5000/api/user/forgot-password", {
+                                                method: "POST",
+                                                headers: { "Content-Type": "application/json" },
+                                                body: JSON.stringify({ email })
+                                            });
+                                
+                                            const data = await response.json();
+                                
+                                            if (data.success) {
+                                                alert(data.message); // OTP sent successfully
+                                                document.getElementById("otpContainer").style.display = "block"; // Show OTP input field
+                                                document.getElementById("actionBtn").textContent = "Verify"; // Change button to "Verify"
+                                                currentStep = 'verifyOtp'; // Move to the next step
+                                            } else {
+                                                alert(data.message); // Show error message
+                                            }
+                                
+                                        } else if (currentStep === 'verifyOtp') {
+                                            // Step 2: Verify OTP
+                                            const response = await fetch("http://localhost:5000/api/verify-otp", {
+                                                method: "POST",
+                                                headers: { "Content-Type": "application/json" },
+                                                body: JSON.stringify({ email, otp })
+                                            });
+                                
+                                            const data = await response.json();
+                                
+                                            if (data.success) {
+                                                alert(data.message); // OTP verified successfully
+                                                document.getElementById("otpContainer").style.display = "none"; // Hide OTP input
+                                                document.getElementById("passwordContainer").style.display = "block"; // Show New Password input
+                                                document.getElementById("comfirmPasswordContainer").style.display = "block"; // Show Confirm Password input
+                                                document.getElementById("actionBtn").textContent = "Submit"; // Change button to "Submit"
+                                                currentStep = 'resetPassword'; // Move to the next step
+                                            } else {
+                                                alert(data.message); // Show error message
+                                            }
+                                
+                                        } else if (currentStep === 'resetPassword') {
+                                            // Step 3: Reset Password
+                                            if (newPassword!==comfirmPassword) {
+                                                alert("Passwords do not match!");
+                                                return;
+                                            }
+                                
+                                            const response = await fetch("http://localhost:5000/api/user/reset-password", {
+                                                method: "POST",
+                                                headers: { "Content-Type": "application/json" },
+                                                body: JSON.stringify({ email, newPassword, comfirmPassword })
+                                            });
+                                
+                                            const data = await response.json();
+                                
+                                            if (data.success) {
+                                                alert(data.message); // Password reset successful
+                                                window.location.href = `${CONFIG.BASE_URL}/login.html`; // Redirect to login page
+                                            } else {
+                                                alert(data.message); // Show error message
+                                            }
+                                        }
+                                    });
+                                </script>
+                                
+                                
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8 col-lg-9">
-                        <div class="col-md-12 db-sec-com db-new-pro-main">
-                            <h2 class="db-tit">New Profiles Matches</h2>
-                            <ul class="slider">
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/16.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <div class="pro-ave" title="User currently available">
-                                            <span class="pro-ave-yes"></span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/2.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/3.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/4.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/5.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/6.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <div class="pro-ave" title="User currently available">
-                                            <span class="pro-ave-yes"></span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/14.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <div class="pro-ave" title="User currently available">
-                                            <span class="pro-ave-yes"></span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-lg-6 col-xl-4 db-sec-com">
-                                <h2 class="db-tit">Profiles status</h2>
-                                <div class="db-pro-stat">
-                                    <h6>Profile completion</h6>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" href="#">Edid profile</a></li>
-                                          <li><a class="dropdown-item" href="#">View profile</a></li>
-                                          <li><a class="dropdown-item" href="#">Profile visibility settings</a></li>
-                                        </ul>
-                                      </div>
-                                    <div class="db-pro-pgog">
-                                        <span><b class="count">90</b>%</span>
-                                    </div>
-                                    <ul class="pro-stat-ic">
-                                        <li><span><i class="fa fa-heart-o like" aria-hidden="true"></i><b>12</b>Likes</span></li>
-                                        <li><span><i class="fa fa-eye view" aria-hidden="true"></i><b>12</b>Views</span></li>
-                                        <li><span><i class="fa fa-handshake-o inte" aria-hidden="true"></i><b>12</b>Interests</span></li>
-                                        <li><span><i class="fa fa-hand-pointer-o clic" aria-hidden="true"></i><b>12</b>Clicks</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-lg-6 col-xl-4 db-sec-com">
-                                <h2 class="db-tit">Plan details</h2>
-                                <div class="db-pro-stat">
-                                    <h6 class="tit-top-curv">Standard plan</h6>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" href="#">Edid profile</a></li>
-                                          <li><a class="dropdown-item" href="#">View profile</a></li>
-                                          <li><a class="dropdown-item" href="#">Plan change</a></li>
-                                          <li><a class="dropdown-item" href="#">Download invoice now</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="db-plan-card">
-                                        <img src="images/icon/plan.png" alt="">
-                                    </div>
-                                    <div class="db-plan-detil">
-                                        <ul>
-                                            <li>Plan name: <strong>Standard</strong></li>
-                                            <li>Validity: <strong>6 Months</strong></li>
-                                            <li>Valid till <strong>24 June 2024</strong></li>
-                                            <li><a href="#" class="cta-3">Upgrade now</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-xl-4 db-sec-com">
-                                <h2 class="db-tit">Recent chat list</h2>
-                                    <div class="db-pro-stat">
-                                        <div class="db-inte-prof-list db-inte-prof-chat">
-                                            <ul>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/2.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Illunois, United States</span> </div>
-                                                </li>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/16.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Illunois, United States</span> </div>
-                                                </li>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/13.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Illunois, United States</span> </div>
-                                                </li>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/14.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Illunois, United States</span> </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 db-sec-com">
-                                <h2 class="db-tit">Interest request</h2>
-                                <div class="db-pro-stat">
-                                    <div class="dropdown">
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" href="#">Edid profile</a></li>
-                                          <li><a class="dropdown-item" href="#">View profile</a></li>
-                                          <li><a class="dropdown-item" href="#">Plan change</a></li>
-                                          <li><a class="dropdown-item" href="#">Download invoice now</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="db-inte-main">
-                                       
-                                          <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item">
-                                              <a class="nav-link active" data-bs-toggle="tab" href="#home">New requests</a>
-                                            </li>
-                                            <li class="nav-item">
-                                              <a class="nav-link" data-bs-toggle="tab" href="#menu1">Accept request</a>
-                                            </li>
-                                            <li class="nav-item">
-                                              <a class="nav-link" data-bs-toggle="tab" href="#menu2">Denay request</a>
-                                            </li>
-                                          </ul>
-                                          <!-- Tab panes -->
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="home" class="container tab-pane active"><br>
-      <div class="db-inte-prof-list">
-            <ul>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/men1.jpg" alt=""> <span class="badge bg-primary user-pla-pat">Platinum user</span></div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    <div class="db-int-pro-3">
-                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                    </div>
-                </li>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/men2.jpg" alt=""> <span class="badge bg-primary user-pla-gold">Gold user</span></div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    <div class="db-int-pro-3">
-                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                    </div>
-                </li>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/men3.jpg" alt=""> <span class="badge bg-primary user-pla-free">Free user</span></div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    <div class="db-int-pro-3">
-                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                    </div>
-                </li>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/men4.jpg" alt=""> </div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    <div class="db-int-pro-3">
-                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div id="menu1" class="container tab-pane fade"><br>
-        <div class="db-inte-prof-list">
-            <ul>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/men5.jpg" alt=""> </div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                            <li>Accept on: 3:000 PM, 21 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    <div class="db-int-pro-3">
-                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div id="menu2" class="container tab-pane fade"><br>
-        <div class="db-inte-prof-list">
-            <ul>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/men1.jpg" alt=""> </div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Request on: 10:30 AM, 18 August 2024</li>
-                            <li>Denay on: 3:000 PM, 21 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    <div class="db-int-pro-3">
-                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-  </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 db-sec-com">
-                                <h2 class="db-tit">Profiles views</h2>
-                                <div class="chartin">
-                                    <canvas id="Chart_leads"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -959,71 +714,11 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/slick.js"></script>
     <script src="js/select-opt.js"></script>
-    <script src="js/Chart.js"></script>
     <script src="js/custom.js"></script>
-    <script>
-         //COMMON SLIDER
-    $('.slider').slick({
-        infinite: false,
-        slidesToShow: 5,
-        arrows: false,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        dots: false,
-        responsive: [{
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                centerMode: false
-            }
-        }]
-
-    });
-
-    $('.count').each(function () {
-    $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: 4000,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now));
-        }
-    });
-});
-
-var xValues = "0";
-    var yValues = "50";
-
-    new Chart("Chart_leads", {
-        type: "line",
-        data: {
-            labels: xValues,
-            datasets: [{
-                fill: false,
-                lineTension: 0,
-                backgroundColor: "#f1bb51",
-                borderColor: "#fae9c8",
-                data: yValues
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {display: false},
-            scales: {
-                yAxes: [{ticks: {min: 0, max: 100}}]
-            }
-        }
-    });
-    </script>
-        <!-- Script to verify and retrieve the user details -->
-        <script src="js/user.js"></script> 
-</body>
+    <script src="js/config.js"></script>
+    </body>
 
 
-<!-- Mirrored from rn53themes.net/themes/matrimo/user-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 14:13:40 GMT -->
+<!-- Mirrored from rn53themes.net/themes/matrimo/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 14:14:25 GMT -->
 </html>

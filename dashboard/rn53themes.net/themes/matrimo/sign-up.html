@@ -542,38 +542,119 @@
                                     <p>Already a member? <a href="login.html">Login</a></p>
                                 </div>
                                 <div class="form-login">
-                                    <form>
+                                    <form id="registerForm">
+                                        <!-- Name Input -->
                                         <div class="form-group">
                                             <label class="lb">Name:</label>
-                                            <input type="text" class="form-control" placeholder="Enter your full name"
-                                                name="name">
+                                            <input type="text" class="form-control" placeholder="Enter your full name" id="name" name="name">
                                         </div>
-                                        <div class="form-group">
-                                            <label class="lb">Email:</label>
-                                            <input type="email" class="form-control" id="email"
-                                                placeholder="Enter email" name="email">
-                                        </div>
+                                
+                                        <!-- Phone Number Input -->
                                         <div class="form-group">
                                             <label class="lb">Phone:</label>
-                                            <input type="number" class="form-control" id="phone"
-                                                placeholder="Enter phone number" name="phone">
+                                            <input type="text" class="form-control" placeholder="Enter phone number" id="phone" name="phone">
                                         </div>
+                                        
+                                        <!-- Email Input -->
+                                        <div class="form-group">
+                                            <label class="lb">Email:</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                                        </div>
+                                        
+                                        <!-- OTP Input (Initially hidden) -->
+                                        <div class="form-group" id="otpContainer" style="display: none;">
+                                            <label class="lb">OTP:</label>
+                                            <input type="text" class="form-control" id="otp" placeholder="Enter OTP" name="otp">
+                                        </div>
+                                
+                                        <!-- Password Input -->
                                         <div class="form-group">
                                             <label class="lb">Password:</label>
-                                            <input type="password" class="form-control" id="pwd"
-                                                placeholder="Enter password" name="pswd">
+                                            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
                                         </div>
+                                        
+                                        <!-- Terms & Conditions -->
                                         <div class="form-group form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" name="agree"> Creating
-                                                an account means you’re okay with our <a href="#!">Terms of Service</a>,
-                                                Privacy Policy, and our default Notification Settings.
+                                                <input class="form-check-input" type="checkbox" name="agree" id="agree"> Creating an account means you’re okay with our <a href="#!">Terms of Service</a>, Privacy Policy, and our default Notification Settings.
                                             </label>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Create Account</button>
+                                        
+                                        <!-- Send OTP / Verify Button -->
+                                        <button type="button" class="btn btn-primary" id="actionBtn">Create Account</button>
+
+
                                     </form>
                                 </div>
-                            </div>
+                                
+                                <script>
+                                    let isOtpSent = false; // Flag to track whether OTP has been sent
+                                
+                                    // Handle "Send OTP" or "Verify" button click
+                                    document.getElementById("actionBtn").addEventListener("click", async function(event) {
+                                        event.preventDefault(); // Prevent default form submission
+                                
+                                        const name = document.getElementById("name").value;
+                                        const email = document.getElementById("email").value;
+                                        const phone = document.getElementById("phone").value;
+                                        const password = document.getElementById("pwd").value;
+                                        const otp = document.getElementById("otp").value;
+                                
+                                        if (!isOtpSent) {
+                                            // Step 1: Send OTP
+                                            if (!name || !email || !phone || !password) {
+                                                alert("Please fill in all required fields.");
+                                                return;
+                                            }
+                                
+                                            // Send OTP request to backend for email verification
+                                            const response = await fetch("http://localhost:5000/api/verify", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json",
+                                                },
+                                                body: JSON.stringify({ name, phone, email, password })
+                                            });
+                                
+                                            const data = await response.json();
+                                
+                                            if (data.success) {
+                                                alert(data.message); // Show success message (OTP sent to email)
+                                                document.getElementById("otpContainer").style.display = "block"; // Show OTP input field
+                                                document.getElementById("actionBtn").textContent = "Verify"; // Change button text to "Verify"
+                                                isOtpSent = true; // Mark OTP as sent
+                                            } else {
+                                                alert(data.message); // Show error message
+                                            }
+                                        } else {
+                                            // Step 2: Verify OTP and Register
+                                            if (!otp) {
+                                                alert("Please enter the OTP.");
+                                                return;
+                                            }
+                                
+                                            // Send OTP verification request to backend for email
+                                            const response = await fetch("http://localhost:5000/api/register", {
+                                                method: "POST",
+                                                headers: {
+                                                    "Content-Type": "application/json",
+                                                },
+                                                body: JSON.stringify({ name, phone, email, password, otp })
+                                            });
+                                
+                                            const data = await response.json();
+                                
+                                            if (data.success) {
+                                                alert(data.message); // Show success message (user registered)
+                                                localStorage.setItem("token", data.encryptedToken); // Store token in localStorage
+                                                window.location.href = `${CONFIG.BASE_URL}/login.html`; // Redirect to dashboard or login page
+                                            } else {
+                                                alert(data.message); // Show error message from backend
+                                            }
+                                        }
+                                    });
+                                </script>
+                                  </div>
                         </div>
                     </div>
 
@@ -642,6 +723,8 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/select-opt.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/config.js"></script>
+   
 </body>
 
 
