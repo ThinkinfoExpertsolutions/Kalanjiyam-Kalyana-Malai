@@ -1,5 +1,5 @@
 import express from "express";
-import { addNewProfile, adminLogin, changeAdminCredential, getWebsiteData, handleVerifyRequest, updateSocialMediaLinks } from "../controller/adminController.js";
+import { addNewProfile, adminChangeSubscriptionStatus, adminChangeVerificationStatus, adminLogin, changeAdminCredential, getWebsiteData, handleVerifyRequest, removeProfile, updateSocialMediaLinks } from "../controller/adminController.js";
 import authMiddleware from "../middleware/auth.js";
 
 
@@ -13,5 +13,9 @@ adminRouter.post("/update-socialmedia",authMiddleware,updateSocialMediaLinks);
 adminRouter.post("/add-new-profile",authMiddleware,addNewProfile);
 adminRouter.get("/get-website-data",authMiddleware,getWebsiteData);
 adminRouter.post("/handle-verify-request",authMiddleware,handleVerifyRequest);
+adminRouter.post("/change-subscription-status",authMiddleware,adminChangeSubscriptionStatus);
+adminRouter.post("/change-verification-status",authMiddleware,adminChangeVerificationStatus);
+adminRouter.delete("/remove-profile",authMiddleware,removeProfile);
+
 
 export default adminRouter;

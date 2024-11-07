@@ -256,11 +256,12 @@ export const getWebsiteData = async(req,res)=>{
     const id = req.id;
 
     try {
-        
-        const data = await adminModel.findById(id);
+        console.log(id);
+        const adminData = await adminModel.findById(id);
+        const allProfiles = await profilesModel.find({});
 
-        if(data){
-            return res.json({success:true,data:data});
+        if(adminData && allProfiles){
+            return res.json({success:true,adminData:adminData,allProfilesData:allProfiles});
         }else{
             return res.json({success:false,message:"data not found"});
         }
@@ -339,3 +340,100 @@ export const handleVerifyRequest = async (req, res) => {
     }
   };
   
+// CONTROLLER FOR CHANGE ADMIN CHANGE PROFILE VERIFICATION STATUS
+
+
+export const adminChangeVerificationStatus = async(req,res)=>{
+  
+  const {userId,verification_status} = req.body;
+
+
+  try {
+    const profile = await profilesModel.findOneAndUpdate(
+      {user_id:userId},
+      {verification_status:verification_status},
+      { new: true, runValidators: true });
+
+    if(!profile){
+      return res.json({success:false,message:"profile not found"});
+    }
+    
+    return res.json({success:true,message:"Profile Verification Status Changed", profile:profile})
+
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
+  }
+
+}
+
+
+// CONTROLLER FOR ADMIN CHANGE SUBSCRIPTION STATUS
+
+
+export const adminChangeSubscriptionStatus = async(req,res)=>{
+
+  const {userId,name,durationInDays,subscriptionStatus,price,isActive} = req.body;
+
+  try {
+    
+    const newSubscription = {
+      name:name,
+      price:price,
+      durationInDays:durationInDays,
+      isActive:isActive,
+    }
+
+    const profile = await profilesModel.findOneAndUpdate({user_id:userId},{subscription_status:}, { new: true, runValidators: true });
+
+    if(!profile){
+      return res.json({success:false,message:"profile not found"});
+    }
+
+
+
+
+
+  } catch (error) {
+    
+  }
+
+
+
+
+}
+
+
+// CONTROLLER FOR ADMIN REMOVE PROFILE
+
+
+export const removeProfile = async(req,res)=>{
+
+  const { userId } = req.body;
+  let name;
+  try {
+    
+      
+      const user = await profilesModel.findOne({ user_id:userId });
+  
+      
+      if (!user) {
+        return res.json({ success: false, message: "User does not exist" });
+      }
+     
+      name = user.basicInfo.name;
+     
+      await profilesModel.deleteOne({ user_id:userId });
+  
+      
+      return res.json({ success: true, message: `${name}'s details deleted successfully` });
+
+  } catch (error) {
+    
+    console.log(error.message);
+    return res.json({ success: false, message: "An error occurred", error: error.message });
+
+  }
+
+
+}
