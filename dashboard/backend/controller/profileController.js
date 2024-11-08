@@ -16,7 +16,6 @@ export const editProfile = async (req, res) => {
     gender,
     age,
     zodiac,
-    HoroscopeImage,
     religion,
     cast,
     fatherName,
@@ -28,8 +27,6 @@ export const editProfile = async (req, res) => {
     hobbies,
     phone,
     address,
-    profileImage,
-    galleryImages,
     companyName,
     position,
     salary,
@@ -78,11 +75,6 @@ export const editProfile = async (req, res) => {
         phone,
         email,
         address,
-      },
-      media: {
-        profileImage,
-        galleryImages,
-        HoroscopeImage,
       },
       jobDetails: {
         companyName,
