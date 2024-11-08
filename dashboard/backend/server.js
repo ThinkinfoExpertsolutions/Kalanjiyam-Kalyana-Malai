@@ -20,9 +20,9 @@ app.use(cors());
 
 // API
 
-app.use("/api",userRouter);
+app.use("/api/user",userRouter);
 app.use("/api",profileRouter);
-app.use("/api",adminRouter);
+app.use("/api/admin",adminRouter);
 
 
 // SERVER  

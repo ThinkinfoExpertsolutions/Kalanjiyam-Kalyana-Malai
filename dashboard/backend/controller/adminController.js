@@ -260,9 +260,10 @@ export const getWebsiteData = async(req,res)=>{
         console.log(id);
         const adminData = await adminModel.findById(id);
         const allProfiles = await profilesModel.find({});
+        const subscriptionData = await SubscriptionModel.find({});
 
         if(adminData && allProfiles){
-            return res.json({success:true,adminData:adminData,allProfilesData:allProfiles});
+            return res.json({success:true,adminData:adminData,allProfilesData:allProfiles,subscriptionData:subscriptionData});
         }else{
             return res.json({success:false,message:"data not found"});
         }

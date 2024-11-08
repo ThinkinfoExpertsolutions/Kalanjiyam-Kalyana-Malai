@@ -7,7 +7,7 @@ const adminRouter = express.Router();
 
 
 
-adminRouter.post("/admin-login",adminLogin);
+adminRouter.post("/login",adminLogin);
 adminRouter.post("/change-admin-credential",authMiddleware,changeAdminCredential);
 adminRouter.post("/update-socialmedia",authMiddleware,updateSocialMediaLinks);
 adminRouter.post("/add-new-profile",authMiddleware,addNewProfile);
