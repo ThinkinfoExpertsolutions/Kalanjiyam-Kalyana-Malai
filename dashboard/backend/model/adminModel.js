@@ -23,6 +23,17 @@ const adminSchema =  mongoose.Schema({
     instagram: { type: String, trim: true },
     youtube: { type: String, trim: true },
   },
+  enquirys: [
+    {
+      userId: String,
+      profileID:String,
+      email:String,
+      phone:String,
+      subject:String,
+      details:String,
+      time: Date 
+    }
+  ],
   requestList: {
           newRequest: {type: [String],default: []},
           acceptedRequest: {type: [String],default: []},

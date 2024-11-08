@@ -684,7 +684,7 @@ export const verifyAccount = async (req, res) => {
 
 export const sendEnquiry = async (req, res) => {
   const userId = req.params.id;
-  const { name, email, phone, subject, message, profileID } = req.body;
+  const { name, email, phone, subject, details, profileID } = req.body;
 
   try {
     const user = await profilesModel.findOne({ user_id: userId });
@@ -692,42 +692,64 @@ export const sendEnquiry = async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
+   
+    
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.NODEMAILER_USER, 
-        pass: process.env.NODEMAILER_PASS, 
-      },
-    });
+    const admin = await adminModel.findById("6728727049b63d85da15a516");
 
-    const mailOption = {
-      from: `"${name}" <${process.env.NODEMAILER_USER}>`, 
-      to: process.env.ADMIN_EMAIL,
-      replyTo: email,
-      subject: `Query Regarding ${subject}`,
-      text: `
-      I hope this message finds you well.
+    if (!admin) {
+      return res.status(404).json({ success: false, message: "Admin record not found" });
+    }
 
-      ${message}
+    admin.enquirys.push({
+      userId: userId,
+      profileID:profileID,
+      email:email,
+      phone:phone,
+      subject:subject,
+      details:details,
+      time:new Date()
+    })
 
-      Here are the contact details:
+    const data = await admin.save();
 
-      Profile ID: ${profileID}
-      Name: ${name}
-      Email: ${email}
-      Contact Number: ${phone}
-      `,
-    };
+    return res.json({success:true,message:"Enquiry sent successfully",data:data});
 
-    await transporter.sendMail(mailOption)
-      .then(() => {
-        return res.json({ success: true, message: "Enquiry sent successfully" });
-      })
-      .catch((e) => {
-        console.log(e.message);
-        return res.status(500).json({ success: false, message: "An error occurred while sending the email", error: e.message });
-      });
+    // const transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   auth: {
+    //     user: process.env.NODEMAILER_USER, 
+    //     pass: process.env.NODEMAILER_PASS, 
+    //   },
+    // });
+
+    // const mailOption = {
+    //   from: `"${name}" <${process.env.NODEMAILER_USER}>`, 
+    //   to: process.env.ADMIN_EMAIL,
+    //   replyTo: email,
+    //   subject: `Query Regarding ${subject}`,
+    //   text: `
+    //   I hope this message finds you well.
+
+    //   ${details}
+
+    //   Here are the contact details:
+
+    //   Profile ID: ${profileID}
+    //   Name: ${name}
+    //   Email: ${email}
+    //   Contact Number: ${phone}
+    //   `,
+    // };
+
+    // await transporter.sendMail(mailOption)
+    //   .then(() => {
+    //     return res.json({ success: true, message: "Enquiry sent successfully" });
+    //   })
+    //   .catch((e) => {
+    //     console.log(e.message);
+    //     return res.status(500).json({ success: false, message: "An error occurred while sending the email", error: e.message });
+    //   });
 
   } catch (error) {
     console.log(error);
