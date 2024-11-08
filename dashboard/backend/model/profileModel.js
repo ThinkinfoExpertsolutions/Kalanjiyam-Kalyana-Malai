@@ -10,6 +10,9 @@ const profilesSchema  =  mongoose.Schema({
   user_id:{
     type:String,
   },
+  profileID:{
+    type:String,
+  },
   basicInfo: {
     name: {
       type: String,

@@ -1,3 +1,4 @@
+import nodemailer from 'nodemailer';
 import adminModel from "../model/adminModel.js";
 import profilesModel from "../model/profileModel.js";
 import { userModel } from "../model/userModel.js";
@@ -676,6 +677,63 @@ export const verifyAccount = async (req, res) => {
   }
 };
 
+
+// CONTROLLER FOR SEND USER ENQUERY
+
+
+
+export const sendEnquiry = async (req, res) => {
+  const userId = req.params.id;
+  const { name, email, phone, subject, message, profileID } = req.body;
+
+  try {
+    const user = await profilesModel.findOne({ user_id: userId });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.NODEMAILER_USER, 
+        pass: process.env.NODEMAILER_PASS, 
+      },
+    });
+
+    const mailOption = {
+      from: `"${name}" <${process.env.NODEMAILER_USER}>`, 
+      to: process.env.ADMIN_EMAIL,
+      replyTo: email,
+      subject: `Query Regarding ${subject}`,
+      text: `
+      I hope this message finds you well.
+
+      ${message}
+
+      Here are the contact details:
+
+      Profile ID: ${profileID}
+      Name: ${name}
+      Email: ${email}
+      Contact Number: ${phone}
+      `,
+    };
+
+    await transporter.sendMail(mailOption)
+      .then(() => {
+        return res.json({ success: true, message: "Enquiry sent successfully" });
+      })
+      .catch((e) => {
+        console.log(e.message);
+        return res.status(500).json({ success: false, message: "An error occurred while sending the email", error: e.message });
+      });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ success: false, message: "An error occurred", error: error.message });
+  }
+};
 
 
 

@@ -84,6 +84,7 @@ export const register = async(req,res)=>{
         
         const newProfile = profilesModel({
             user_id:id,
+            profileID:createUniqueUserId(id),
             basicInfo:{
                 name:name
             },
@@ -297,7 +298,14 @@ export const resetPassword = async(req,res)=>{
 
 
 
+// FUNCTION FOR GIVE UNIQUE ID FOR USERS
 
+
+const createUniqueUserId = (mongoObjectId) => {
+    
+    const base64Id = Buffer.from(mongoObjectId.toString()).toString('base64').substring(0,6);
+    return `USER-${base64Id}`;
+  };
 
 
 
@@ -320,13 +328,13 @@ const sentOTP = async(email,name)=>{
     const transporter = nodemailer.createTransport({
         service:"gmail",
         auth:{
-            user:"subashmurugan2021@gmail.com",
+            user:process.env.NODEMAILER_USER,
             pass:process.env.NODEMAILER_PASS,
         }
     });
 
     const mailOption = {
-        form:"subashmurugan2021@gmail.com",
+        form:process.env.ADMIN_EMAIL,
         to:email,
         subject:"Complete Your Kalanjiyam Kalyana Malai Registration with this OTP",
         text:`Dear ${name},
