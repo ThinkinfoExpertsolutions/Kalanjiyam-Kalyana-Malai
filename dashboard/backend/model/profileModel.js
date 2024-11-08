@@ -230,6 +230,10 @@ const profilesSchema  =  mongoose.Schema({
     enum: ['Verified', 'Pending','UnVerified'],
     default: 'UnVerified',
   },
+  subscription_status: {
+    type: Boolean,
+    default: false,
+  },
   
 }, { timestamps: true }); 
 

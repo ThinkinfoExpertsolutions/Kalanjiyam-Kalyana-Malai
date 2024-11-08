@@ -376,36 +376,74 @@ export const adminChangeSubscriptionStatus = async (req, res) => {
   const { userId, durationInDays, price, isActive } = req.body;
 
   try {
+    
     const profile = await SubscriptionModel.findOne({ user_id: userId });
 
+    
+    if (!isActive) {
+      if (!profile) {
+        return res.status(404).json({ success: false, message: "User Profile Not Found" });
+      }
+
+      
+      const updatedProfile = await SubscriptionModel.findOneAndUpdate(
+        { user_id: userId },
+        { price: 0, durationInDays: 0, startDate: 0, endDate: 0, isActive: false },
+        { new: true, runValidators: true }
+      );
+      const updatedUser = await profilesModel.findOneAndUpdate(
+        { user_id: userId },
+        { subscription_status: false },
+        { new: true }
+      );
+
+      return res.json({
+        success: true,
+        message: "Subscription deactivated successfully",
+        data: updatedProfile,
+        user: updatedUser
+      });
+    }
+
+    
     if (!profile) {
       return res.status(404).json({ success: false, message: "User Profile Not Found" });
     }
 
+    
     if (profile.isActive) {
       return res.status(400).json({ success: false, message: "User Already Subscribed!" });
     }
 
+    // Activate new subscription
+    const startDate = new Date();
+    const endDate = new Date(Date.now() + durationInDays * 24 * 60 * 60 * 1000);
+
     const newSubscription = {
-      user_id: userId,
-      price: price,
-      durationInDays: durationInDays,
-      isActive: isActive,
-      startDate: new Date(),
-      endDate: new Date(Date.now() + durationInDays * 24 * 60 * 60 * 1000), 
+      price,
+      durationInDays,
+      startDate,
+      endDate,
+      isActive: true
     };
 
-   
-    const data = await SubscriptionModel.findOneAndUpdate(
+    const updatedProfile = await SubscriptionModel.findOneAndUpdate(
       { user_id: userId },
       newSubscription,
-      { new: true, upsert: true, runValidators: true } 
+      { new: true, upsert: true, runValidators: true }
+    );
+
+    const updatedUser = await profilesModel.findOneAndUpdate(
+      { user_id: userId },
+      { subscription_status: true },
+      { new: true }
     );
 
     return res.json({
       success: true,
       message: "Subscription Status Changed",
-      data: data,
+      data: updatedProfile,
+      user: updatedUser
     });
 
   } catch (error) {
@@ -417,6 +455,7 @@ export const adminChangeSubscriptionStatus = async (req, res) => {
     });
   }
 };
+
 
 
 
