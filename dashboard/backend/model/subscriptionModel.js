@@ -2,36 +2,28 @@ import mongoose from "mongoose";
 
 const subscriptionPlanSchema =  mongoose.Schema({
     
-  name: {
-    type: String,
-    required: true,
-    default: 'Standard Plan',
-  },
   user_id:{
     type:String,
   },
   price: {
     type: Number,
     required: true,
+    default: 0,
   },
   durationInDays: {
     type: Number,
     required: true,
-    default: 30,
+    default: 0,
   },
   isActive: {
     type: Boolean,
-    default: true, 
+    default: false, 
   },
   startDate: {
     type: Date,
-    default: Date.now, 
   },
   endDate: {
     type: Date,
-    default: function () {
-      return new Date(Date.now() + this.durationInDays * 24 * 60 * 60 * 1000); // end date based on duration
-    },
   },
 },{timestamps: true});
 

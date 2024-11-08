@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import validator from "validator";
 import profilesModel from "../model/profileModel.js";
 import adminModel from "../model/adminModel.js";
+import SubscriptionModel from "../model/subscriptionModel.js";
 dotenv.config();
 
 
@@ -95,12 +96,24 @@ export const register = async(req,res)=>{
          await newProfile.save();
     }
 
+    const newSubscriptionDataSave = async(id,userName)=>{
+        const newDocument = SubscriptionModel({
+            user_id:id,
+            name:userName
+        });
+
+        await newDocument.save();
+    }
+
     try {
+
        const user = await newUser.save();
-       newProfileSave(user._id)
+       newProfileSave(user._id);
+       newSubscriptionDataSave(user._id,user.name);
        const token =  generateToken(user._id,process.env.SECRET_KEY);
        const encryptedToken = setEncryptedToken(token);
        res.json({success:true,message:"Successfully Registered ",encryptedToken:encryptedToken});
+
     } catch (error) {
         console.log(error);
         if (error.name === 'ValidationError') {
@@ -121,10 +134,12 @@ export const getUserData = async(req,res)=>{
     const user_id =  req.id;
 try {
     const userData = await profilesModel.findOne({user_id:user_id});
-    if(!userData){
-        return res.json({success:false,message:"User Not Found !"});
+    const subscriptionData = await SubscriptionModel.findOne({user_id:user_id});
+
+    if(!userData || !subscriptionData){
+        return res.json({success:false,message:"User Data Not Found !"});
     }
-    return res.json({success:true,userData:userData});
+    return res.json({success:true,userData:userData,subscriptionData:subscriptionData});
     
 } catch (error) {
      console.log(error);

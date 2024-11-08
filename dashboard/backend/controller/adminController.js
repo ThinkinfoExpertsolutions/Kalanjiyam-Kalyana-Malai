@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { generateToken, setEncryptedToken } from "./userController.js";
 import profilesModel from "../model/profileModel.js";
 import { userModel } from "../model/userModel.js";
+import SubscriptionModel from "../model/subscriptionModel.js";
 
 
 
@@ -371,37 +372,52 @@ export const adminChangeVerificationStatus = async(req,res)=>{
 // CONTROLLER FOR ADMIN CHANGE SUBSCRIPTION STATUS
 
 
-export const adminChangeSubscriptionStatus = async(req,res)=>{
-
-  const {userId,name,durationInDays,subscriptionStatus,price,isActive} = req.body;
+export const adminChangeSubscriptionStatus = async (req, res) => {
+  const { userId, durationInDays, price, isActive } = req.body;
 
   try {
-    
+    const profile = await SubscriptionModel.findOne({ user_id: userId });
+
+    if (!profile) {
+      return res.status(404).json({ success: false, message: "User Profile Not Found" });
+    }
+
+    if (profile.isActive) {
+      return res.status(400).json({ success: false, message: "User Already Subscribed!" });
+    }
+
     const newSubscription = {
-      name:name,
-      price:price,
-      durationInDays:durationInDays,
-      isActive:isActive,
-    }
+      user_id: userId,
+      price: price,
+      durationInDays: durationInDays,
+      isActive: isActive,
+      startDate: new Date(),
+      endDate: new Date(Date.now() + durationInDays * 24 * 60 * 60 * 1000), 
+    };
 
-    const profile = await profilesModel.findOneAndUpdate({user_id:userId},{subscription_status:}, { new: true, runValidators: true });
+   
+    const data = await SubscriptionModel.findOneAndUpdate(
+      { user_id: userId },
+      newSubscription,
+      { new: true, upsert: true, runValidators: true } 
+    );
 
-    if(!profile){
-      return res.json({success:false,message:"profile not found"});
-    }
-
-
-
-
+    return res.json({
+      success: true,
+      message: "Subscription Status Changed",
+      data: data,
+    });
 
   } catch (error) {
-    
+    console.error(error.message);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred",
+      error: error.message,
+    });
   }
+};
 
-
-
-
-}
 
 
 // CONTROLLER FOR ADMIN REMOVE PROFILE

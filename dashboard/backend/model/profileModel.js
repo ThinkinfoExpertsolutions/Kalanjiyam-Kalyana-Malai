@@ -222,11 +222,6 @@ const profilesSchema  =  mongoose.Schema({
     },
 
   },
-  subscription_status: {
-    type: String,
-    enum: ['Active', 'Expired','InActive'],
-    default: 'InActive',
-  },
   verification_status: {
     type: String,
     enum: ['Verified', 'Pending','UnVerified'],
