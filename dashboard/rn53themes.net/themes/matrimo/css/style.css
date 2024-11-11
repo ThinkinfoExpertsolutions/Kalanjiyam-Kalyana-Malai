@@ -6672,6 +6672,7 @@ span.mail::before {
     position: relative;
     display: inline-block;
     text-transform: uppercase;
+    margin-bottom: 50px;
 }
 
 .cta-dark-sml {
@@ -6679,9 +6680,9 @@ span.mail::before {
     padding: 6px 14px;
 }
 
-.cta-dark:hover {
-    box-shadow: 0 15px 19px -8px gray;
-}
+/* .cta-dark:hover {
+    box-shadow: 8px gray;
+} */
 
 .cta-line-ani {
     position: relative;
