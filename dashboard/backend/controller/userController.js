@@ -3,11 +3,11 @@ import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import validator from "validator";
 import profilesModel from "../model/profileModel.js";
 import adminModel from "../model/adminModel.js";
 import SubscriptionModel from "../model/subscriptionModel.js";
+import dotenv from "dotenv";
 dotenv.config();
 
 

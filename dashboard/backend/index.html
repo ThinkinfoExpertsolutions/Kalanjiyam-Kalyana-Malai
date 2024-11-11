@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi Image Upload</title>
+</head>
+<body>
+  <h1>Multi Image Upload</h1>
+  <form id="uploadForm">
+    <label>Profile Image:</label>
+    <input type="file" name="profile-image" id="profileImage" accept="image/*" /><br><br>
+
+    <label>Horoscope Image:</label>
+    <input type="file" name="horoscope-image" id="horoscopeImage" accept="image/*" /><br><br>
+
+    <label>Gallery Images:</label>
+    <input type="file" name="gallery-images" id="galleryImages" multiple accept="image/*" /><br><br>
+
+    <button type="submit">Upload Images</button>
+  </form>
+
+  <p id="responseMessage"></p>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Prepare FormData
+      const formData = new FormData();
+      const profileImage = document.getElementById('profileImage').files[0];
+      const horoscopeImage = document.getElementById('horoscopeImage').files[0];
+      const galleryImages = document.getElementById('galleryImages').files;
+
+      if (profileImage) formData.append('profileImage', profileImage);
+      if (horoscopeImage) formData.append('horoscopeImage', horoscopeImage);
+
+      // Append each gallery image to the form data
+      for (let i = 0; i < galleryImages.length; i++) {
+        formData.append('galleryImages', galleryImages[i]);
+      }
+
+      try {
+        // Send POST request with images
+        const response = await fetch('http://localhost:5000/api/upload-images', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'token': 'U2FsdGVkX19H8z9UofVythA1wgjNGDO3RCw3NeiVO/h0tQEwOjwBO2iUTvXb5Fc1ainAGajcJ6/MOo1W7wEm09rSLB2+1vNJ9QhDHQTQTdMC6raUxtEd7kyd7OpA7tLzmArxF6HX82OLSROBcXJI1nyRmBIjuwpWCAldwfch4AZvRYskNv/OXEnVtQrG4CC3xu1TmDndBBVGMc5x19X/3z0bOXVjt9+hLXDcTiFuwxQJUMz/dD2rjDZjezjezbCx'
+          }
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          document.getElementById('responseMessage').innerText = 'Images uploaded successfully!';
+          console.log('Uploaded image URLs:', result.data);
+        } else {
+          document.getElementById('responseMessage').innerText = 'Error uploading images';
+          console.error('Error response:', result);
+        }
+      } catch (error) {
+        document.getElementById('responseMessage').innerText = 'An error occurred';
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>

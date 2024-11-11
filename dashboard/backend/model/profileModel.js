@@ -130,9 +130,8 @@ const profilesSchema  =  mongoose.Schema({
       type: [String], 
       default: [],
     },
-    HoroscopeImage:{
-      type: [String], 
-      default: [],
+    horoscopeImage:{
+      type: String,
     }
   },
   

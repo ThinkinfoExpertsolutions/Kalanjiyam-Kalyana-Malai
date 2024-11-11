@@ -1,5 +1,6 @@
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
 import adminModel from "../model/adminModel.js";
+import cloudinary from "../config/cloudinary.js"
 import profilesModel from "../model/profileModel.js";
 import { userModel } from "../model/userModel.js";
 
@@ -779,3 +780,94 @@ const checkUserFound = async (id, model) => {
       
   }
 };
+
+
+// CONTROLLER FOR UPLOAD IMAGE 
+
+
+
+export const uploadImage = async (req, res) => {
+  const { files } = req;
+  const userId = req.id;
+  
+  try {
+    const profile = await profilesModel.findOne({ user_id: userId });
+
+    if (!profile) {
+      return res.status(400).json({ success: false, message: 'Profile/User Not Found' });
+    }
+
+    if (!files || Object.keys(files).length === 0) {
+      return res.status(400).json({ success: false, message: 'No file uploaded' });
+    }
+
+    const imageURLs = {};
+
+    // Profile Image Upload
+    if (files["profileImage"]) {
+      const profileImage = files["profileImage"][0];
+      await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: "user_images/profile" },
+          (error, result) => {
+            if (error) return reject(error);
+            imageURLs.profileImageURL = result.secure_url;
+            profile.media.profileImage = result.secure_url;
+            resolve();
+          }
+        ).end(profileImage.buffer);
+      });
+    }
+
+    // Horoscope Image Upload
+
+    if (files["horoscopeImage"]) {
+      const horoscopeImage = files["horoscopeImage"][0];
+      await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          { folder: "user_images/horoscope" },
+          (error, result) => {
+            if (error) return reject(error);
+            imageURLs.horoscopeImageURL = result.secure_url;
+            profile.media.horoscopeImage = result.secure_url;
+            resolve();
+          }
+        ).end(horoscopeImage.buffer);
+      });
+    }
+
+    // Gallery Images Upload
+
+    if (files["galleryImages"]) {
+      imageURLs.galleryImages = [];
+      for (let i = 0; i < files["galleryImages"].length; i++) {
+        const galleryImage = files["galleryImages"][i];
+        await new Promise((resolve, reject) => {
+          cloudinary.uploader.upload_stream(
+            { folder: "user_images/galleryImages" },
+            (error, result) => {
+              if (error) return reject(error);
+              imageURLs.galleryImages.push(result.secure_url); // Add each gallery image URL to the array
+              resolve();
+            }
+          ).end(galleryImage.buffer);
+        });
+      }
+      profile.media.galleryImages = imageURLs.galleryImages;
+    }
+
+    await profile.save();
+
+
+    return res.status(200).json({
+      success: true,
+      message: 'Images uploaded successfully',
+      data: imageURLs, 
+    });
+
+  } catch (error) {
+    console.error('Error during upload:', error);
+    return res.status(500).json({ success: false, message: 'Upload failed', error: error.message });
+  }
+};
+
