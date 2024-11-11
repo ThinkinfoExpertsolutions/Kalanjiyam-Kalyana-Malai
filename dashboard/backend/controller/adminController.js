@@ -68,7 +68,7 @@ try {
     const admin = await adminModel.findByIdAndUpdate(user_id,newCredential, { new: true } );
 
     if(admin){
-        res.json({success:true,message:"Credential Changed ",data:admin});
+        res.json({success:true,message:"Credential Changed "});
 
     }else {
         res.json({ success: false, message: "Admin not found" });
@@ -110,7 +110,7 @@ export const updateSocialMediaLinks = async(req,res)=>{
         const admin = await adminModel.findByIdAndUpdate(user_id,update,{new:true});
 
         if(admin){
-            res.json({success:true,message:"Links Updated ",data:admin});
+            res.json({success:true,message:"Links Updated "});
     
         }else {
             res.json({ success: false, message: "Admin not found" });
@@ -226,7 +226,7 @@ export const addNewProfile = async(req,res)=>{
     newProfile.save();
 
     if(newProfile){
-        return res.json({success:true,message:"Profile Added !",data:newProfile});
+        return res.json({success:true,message:"Profile Added !"});
     }
     
     return res.json({success:false,message:"Profile could't add !"});
@@ -313,8 +313,6 @@ export const handleVerifyRequest = async (req, res) => {
         return res.json({
           success: true,
           message: "Profile verified",
-          user,
-          admin,
         });
       } else {
 
@@ -332,8 +330,6 @@ export const handleVerifyRequest = async (req, res) => {
         return res.json({
           success: true,
           message: "Profile verification denied",
-          user,
-          admin,
         });
       }
     } catch (error) {
@@ -360,7 +356,7 @@ export const adminChangeVerificationStatus = async(req,res)=>{
       return res.json({success:false,message:"profile not found"});
     }
     
-    return res.json({success:true,message:"Profile Verification Status Changed", profile:profile})
+    return res.json({success:true,message:"Profile Verification Status Changed"})
 
   } catch (error) {
     console.log(error.message);
@@ -401,8 +397,6 @@ export const adminChangeSubscriptionStatus = async (req, res) => {
       return res.json({
         success: true,
         message: "Subscription deactivated successfully",
-        data: updatedProfile,
-        user: updatedUser
       });
     }
 
@@ -443,8 +437,6 @@ export const adminChangeSubscriptionStatus = async (req, res) => {
     return res.json({
       success: true,
       message: "Subscription Status Changed",
-      data: updatedProfile,
-      user: updatedUser
     });
 
   } catch (error) {

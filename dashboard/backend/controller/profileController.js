@@ -106,7 +106,7 @@ export const editProfile = async (req, res) => {
       return res.status(404).json({ success: false, message: "Profile Not Found" });
     }
 
-    res.json({ success: true, message: "Successfully Profile Updated", data: updatedProfile });
+    res.json({ success: true, message: "Successfully Profile Updated" });
   } catch (error) {
     console.log(error);
     if (error.name === 'ValidationError') {
@@ -157,7 +157,7 @@ export const editSettings = async (req, res) => {
       );
     }
 
-    res.status(200).json({ success: true, message: "Settings updated successfully",data:up });
+    res.status(200).json({ success: true, message: "Settings updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "error", error: error.message });
@@ -406,9 +406,9 @@ try {
           user.bookMarkedProfiles.push({ userId: bookmarkProfileId, time: new Date() });
           user.activitys.push({userId: bookmarkProfileId, time: new Date(), event:`${bookmarkProfile.basicInfo.name} Bookmarked Your Profile` });
           await user.save();
-          return res.json({ message: 'Bookmark Added ', bookmarks: user.bookMarkedProfiles,success:true });
+          return res.json({ message: 'Bookmark Added ',success:true });
         }
-        return res.json({success:false, message: 'already Bookmarked !', viewCount: user.viewCount });
+        return res.json({success:false, message: 'already Bookmarked !' });
  
 } catch (error) {
     console.log(error);
@@ -444,7 +444,7 @@ if(isExist){
   user.bookMarkedProfiles.splice(index,1);
 
   await user.save();
-  return res.json({success:true,message:"bookmark Removed",data:user.bookMarkedProfiles});
+  return res.json({success:true,message:"bookmark Removed"});
 }
 
 return res.json({ success: false, message: " User Profile Not Found" });
@@ -522,9 +522,9 @@ export const handleViewCount = async(req,res)=>{
             user.viewedBy.push({ userId: viewerId, time: new Date() });
             user.activitys.push({userId: viewerId, time: new Date(), event:`${viewer.basicInfo.name} Viewed Your Profile` });
             await user.save();
-            return res.json({ message: 'View count updated', viewCount: user.viewCount });
+            return res.json({ message: 'View count updated' });
           }
-          return res.json({success:false, message: 'already viewed', viewCount: user.viewCount });
+          return res.json({success:false, message: 'already viewed' });
    
   } catch (error) {
       console.log(error);
@@ -561,7 +561,7 @@ export const getLatestProfile = async(req,res)=>{
 
 
 export const getSearchResult = async (req, res) => {
-  const { gender, age, zodiac, cast } = req.body;
+  const { gender, age, zodiac, cast, jobType ,salary} = req.body;
 
   try {
     const allProfiles = await profilesModel.find({});
@@ -572,8 +572,10 @@ export const getSearchResult = async (req, res) => {
       const matchesAge = !age || profile.personalDetails.age === age;
       const matchesCast = !cast || profile.basicInfo.cast.toLowerCase() === cast.toLowerCase();
       const matchesZodiac = !zodiac || profile.basicInfo.zodiac.toLowerCase() === zodiac.toLowerCase();
+      const matchJobType = !jobType || profile.jobDetails.jobType.toLowerCase() === jobType.toLowerCase();
+      const matchSalaryType = !salary || profile.jobDetails.salary.toLowerCase() >= salary.toLowerCase();
 
-      return matchesGender && matchesAge && matchesCast && matchesZodiac;
+      return matchesGender || matchesAge || matchesCast || matchesZodiac || matchJobType || matchSalaryType;
     });
   
     if(filtered.length > 0){
@@ -658,8 +660,6 @@ export const verifyAccount = async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "Verify request has been sent successfully!",
-        data: updatedAdmin,
-        data2:user
       });
     } else {
       return res.status(404).json({ success: false, message: "Failed to update profile" });
@@ -706,7 +706,7 @@ export const sendEnquiry = async (req, res) => {
 
     const data = await admin.save();
 
-    return res.json({success:true,message:"Enquiry sent successfully",data:data});
+    return res.json({success:true,message:"Enquiry sent successfully"});
 
     // const transporter = nodemailer.createTransport({
     //   service: "gmail",
