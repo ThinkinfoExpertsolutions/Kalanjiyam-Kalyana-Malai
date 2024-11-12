@@ -488,7 +488,7 @@ img{
 }
 
 .hom-top {
-    padding: 15px 0px;
+    padding: 8px 0px;
     width: 100%;
     background: rgb(255, 255, 255);
     box-shadow: rgba(51, 51, 51, 0.14) 0px 11px 11px -11px;
@@ -528,12 +528,12 @@ img{
 .logo {
     float: left;
     display: inline-block;
-    width: 300px;
+    width: 330px;
 }
 
 .logo-brand {
     display: inline-block;
-    margin-left: 8px;
+    margin-left: 30px;
 }
 
 /*-------------------------------------------------------*/
@@ -632,6 +632,7 @@ img{
 /*-------------------------------------------------------*/
 .menu {
     display: block;
+    margin-top: 8px;
     position: relative;
     font-size: 25px;
     text-align: center;
@@ -693,19 +694,20 @@ img{
 }
 
 .hom-nav .ic-logo {
-    width: 230px;
-    padding-top: 2px;
+    width: 250px;
+    height: 64px;
+    padding-bottom: 1px;
 }
 
 .hom-nav .bl {
     margin: 0px;
-    width: calc(100% - 450px);
+    width: calc(100% - 480px);
     float: left;
     padding: 0px 40px;
 }
 
 .hom-nav .bl ul {
-    margin: 0px auto;
+    margin: 10px auto;
     display: table;
 }
 
@@ -1082,7 +1084,7 @@ img{
 
 .logo-brand-only {
     width: 210px;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 .menu-pop p {
@@ -1405,8 +1407,8 @@ i.fa-instagram:hover {
 }
 
 .head-pro img {
-    width: 36px;
-    height: 36px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     object-fit: cover;
     float: left;
@@ -1469,17 +1471,17 @@ i.fa-instagram:hover {
 /*-------------------------------------------------------*/
 .head-pro b {
     padding: 0px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     color: #746a63;
     line-height: 15px;
     float: left;
+    margin: 6px 0px 0px;
     text-transform: uppercase;
 }
 
 .head-pro h4 {
-    margin: -7px 0px 0px;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 15px;
     text-overflow: ellipsis;
     white-space: pre;
