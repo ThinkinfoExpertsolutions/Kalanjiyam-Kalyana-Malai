@@ -155,10 +155,6 @@ const profilesSchema  =  mongoose.Schema({
     },
     jobType: {
       type: String,
-      enum: {
-        values: ['Full-time', 'Part-time', 'Freelance',],
-        message: 'Job Type must be Full-time, Part-time, Freelance, or Internship',
-      },
     },
   },
   
