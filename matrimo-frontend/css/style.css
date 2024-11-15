@@ -1083,7 +1083,8 @@ img{
 }
 
 .logo-brand-only {
-    width: 210px;
+    /* width: 210px; */
+    margin-top: 10px;
     margin-bottom: 18px;
 }
 
@@ -1116,6 +1117,7 @@ img{
     font-size: 18px;
     padding: 9px;
     margin-right: 10px;
+    margin-top: 6px;
     position: absolute;
     left: 0px;
     top: -4px;
@@ -1495,7 +1497,7 @@ i.fa-instagram:hover {
 }
 
 .ban-tit h1 b {
-    color: #f00;
+    color: rgb(245, 205, 4);
     font-size: 72px;
     font-weight: 700;
 }
@@ -3879,10 +3881,11 @@ span.mail::before {
     width: 100%;
     color: rgb(51, 51, 51);
     border-bottom: 1px solid rgb(233 233 233);
-    padding: 10px 0px;
+    padding: 10px 0px 25px 0;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
+    margin-left: 60px;
 }
 
 .mob-me-all ul li:last-child a {
@@ -4713,7 +4716,8 @@ span.mail::before {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.43);
+    background-image: linear-gradient(180deg, #190392 , #050504);
+
     inset: 0px;
     border-radius: 10px;
 }
@@ -6666,16 +6670,29 @@ span.mail::before {
 }
 
 .cta-dark {
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
+    background: #FBB03B;
+    color: white;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
     padding: 13px 30px;
     position: relative;
     display: inline-block;
     text-transform: uppercase;
-    /* margin-bottom: 50px; */
+    margin-bottom: 50px;
+}
+.cta-dark2 {
+    background: #6c757d;
+    margin-top: 10px;
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    position: relative;
+    display: inline-block;
+    text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
 .cta-dark-sml {
@@ -10034,7 +10051,9 @@ h2.db-tit{
         top: 0;
         right: 0;
         bottom: 0;
-        background-image: linear-gradient(358deg, black, #0000005e);
+        background-image: linear-gradient(180deg, #D4145A , #FBB03B);
+        /* background: url(../images/ban-bg1.jpeg) 0px center / cover no-repeat; */
+
     }
 
     .home-acces-main.inn::before {
@@ -10832,10 +10851,11 @@ h2.db-tit{
     }
 
     .ban-home:before {
-        width: 320px;
-        height: 219px;
-        left: calc(50% - 140px);
-        top: -140px;
+        width: 200px;
+        height: 200px;
+        /* left: calc(50% - 140px); */
+        top: -190px;
+        left: 116px
     }
 
     .hom-nav .ic-logo {
@@ -11746,6 +11766,7 @@ h2.db-tit{
 
     .all-pro-box div:nth-child(1) img {
         height: 225px;
+        object-fit:contain;
     }
 
     .ab-team ul li div:hover .social-light li,
@@ -12239,8 +12260,9 @@ h2.db-tit{
 
 .image-input-container {
     position: relative;
-    width: 100%;  /* Adjust the width as needed */
-    height: 150px; /* Adjust the height as needed */
+    border-radius: 8px;
+    width: 50%;  /* Adjust the width as needed */
+    height: 180px; /* Adjust the height as needed */
     border: 2px dashed #ccc;
     background-color: #f0f0f0;
     display: flex;
@@ -12253,6 +12275,7 @@ h2.db-tit{
     font-weight: bold;
     text-align: center;
     margin-bottom: 10px;
+    margin-left: 200px;
   }
 
   .image-input-container input[type="file"] {
@@ -12298,9 +12321,9 @@ h2.db-tit{
     margin-bottom: 20px;
   }
   .large-image-input {
-    margin-left: 150px;
-    width: 590px;
-    height: 300px;
+    margin-left: 150px; /* Margin for larger screens */
+    width: 590px; /* Fixed width for larger screens */
+    height: 300px; /* Fixed height for larger screens */
     border: 2px dashed #ccc;
     background-color: #f0f0f0;
     border-radius: 8px;
@@ -12308,20 +12331,43 @@ h2.db-tit{
     justify-content: center;
     align-items: center;
     color: #888;
-    font-size: 42px;
+    font-size: 42px; /* Large font size for the label */
     font-weight: bold;
     text-align: center;
     cursor: pointer;
     overflow: hidden;
     position: relative;
-  }
-  .large-image-input input[type="file"] {
+}
+
+.large-image-input input[type="file"] {
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0;
+    opacity: 0; /* Invisible file input */
     cursor: pointer;
-  }
+}
+
+/* Media Query for Tablets (768px and below) */
+@media (max-width: 768px) {
+    .large-image-input {
+        margin-left: 0; /* Remove left margin */
+        width: 100%; /* Full width for smaller screens */
+        height: 200px; /* Adjust height for smaller screens */
+        font-size: 32px; /* Smaller font size for the label */
+    }
+    .image-input-container{
+        margin-left: 10px;
+    }
+}
+
+/* Media Query for Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+    .large-image-input {
+        width: 100%;
+        height: 250px; /* Further reduce height */
+        font-size: 24px; /* Smaller font size for mobile */
+    }
+}
   .verified-text {
     font-size: 16px;
     color: green;
@@ -12332,4 +12378,84 @@ h2.db-tit{
 .verified-logo {
     width: 20px;
     height: 20px;
+}
+/* Base styles for the form */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* Media Query for Tablets (768px and below) */
+@media (max-width: 768px) {
+    .form-tit h1 {
+        font-size: 24px;
+    }
+
+    .form-tit h4 {
+        font-size: 18px;
+    }
+
+    .row {
+        flex-direction: column; /* Stack columns vertically */
+    }
+
+    .col-md-6 {
+        width: 100%; /* Make columns full width */
+    }
+
+    .gallery-grid {
+        display: flex;
+        display: flex;
+        flex-direction: column;
+        height: 700px; /* Allow wrapping of images */
+    }
+
+    .image-input-container,
+    .large-image-input {
+        width: 100%; /* Full width for image inputs */
+        display: flex;
+        justify-content: center; /* Center the image input */
+        margin-bottom: 15px;
+    }
+
+    .image-input {
+        flex: 1; /* Allow equal spacing for image inputs */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px dashed #ccc;
+        padding: 20px;
+        margin: 5px;
+    }
+}
+
+/* Media Query for Mobile Devices (480px and below) */
+
+@media (max-width: 480px) {
+    .form-tit h1 {
+        font-size: 20px;
+    }
+
+    .form-tit h4 {
+        font-size: 16px;
+    }
+
+    .form-control {
+        font-size: 14px; /* Smaller font for inputs */
+    }
+
+    .btn {
+        width: 100%; /* Full width button */
+        padding: 10px;
+    }
+
+    .image-input {
+        padding: 10px;
+         /* Adjust padding for smaller screens */
+    }
+    .large-image-input{
+        padding: 10px;
+
+    }
 }
