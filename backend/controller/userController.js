@@ -24,6 +24,15 @@ export const verify = async(req,res)=>{
     
     const {name,phone,email,password} = req.body;
 
+    if (!phone.match(/^[0-9]{10}$/)) {
+        return res.json({ success: false, message: "Please Enter Valid Phone Number!" });
+    }
+    
+    if(!validator.isEmail(email)){
+       return res.json({success:false,message:"Please Enter Valid Email !"});
+           
+    }
+    
     const existEmail =await userModel.findOne({email});
     const existPhone = await userModel.findOne({phone});
     
@@ -133,6 +142,7 @@ export const register = async(req,res)=>{
 export const getUserData = async(req,res)=>{
 
     const user_id =  req.id;
+    
 try {
     const userData = await profilesModel.findOne({user_id:user_id});
     const subscriptionData = await SubscriptionModel.findOne({user_id:user_id});

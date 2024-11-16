@@ -6,7 +6,7 @@ dotenv.config();
 // Middleware to check for authorized user
 const authMiddleware = async (req, res, next) => {
     const { token } = req.headers;
-
+   
     if (!token) {
         return res.status(401).json({ success: false, message: "Not Authorized. Please log in again." });
     }
