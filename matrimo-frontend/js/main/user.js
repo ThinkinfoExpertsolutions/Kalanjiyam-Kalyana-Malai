@@ -1,3 +1,5 @@
+let submiTAndShowMorePath = "http://127.0.0.1:5500/matrimo-frontend/login.html";
+
 async function fetchUserData() {
     let token = sessionStorage.getItem("token");
 
@@ -19,7 +21,9 @@ async function fetchUserData() {
         console.log(data);
         if (data.success) {
             sessionStorage.setItem("userData", JSON.stringify(data.userData));
-            updateNavbar(true);
+            updateNavbar(true,data);
+            submiTAndShowMorePath="http://127.0.0.1:5500/matrimo-frontend/all-profiles.html"
+            
         } else {
             updateNavbar(false);
         }
@@ -29,30 +33,28 @@ async function fetchUserData() {
     }
 }
 
-function updateNavbar(isUserLoggedIn) {
-    const registerAndSigninLinks = document.getElementsByClassName("auth"); // Get all elements with the class "auth"
-    const exploreLink = document.querySelector('.explore'); // Explore link
-    const dashboardLink = document.querySelector('.dashboard'); // Dashboard link
-    let logoutLink = document.querySelector(".logout-link"); // Logout link
-
-    // Debugging
-    console.log('registerAndSigninLinks:', registerAndSigninLinks);
-    console.log('exploreLink:', exploreLink);
-    console.log('dashboardLink:', dashboardLink);
+function updateNavbar(isUserLoggedIn, data) {
+    const registerAndSigninLinks = document.getElementsByClassName("auth");
+    const iconDiv = document.getElementsByClassName("al");
+    const exploreLink = document.querySelector('.explore');
+    const dashboardLink = document.querySelector('.dashboard');
+    let logoutLink = document.querySelector(".logout-link");
+    const userImg = document.getElementById("userImg");
+    const userName = document.getElementById("userName");
 
     // Create the logout link if it doesn't already exist
     if (!logoutLink) {
-        const logoutContainer = document.querySelector('.bl ul'); // Ensure container exists
+        const logoutContainer = document.querySelector('.bl ul');
         if (!logoutContainer) {
             console.error("Logout container not found.");
             return;
         }
 
         logoutLink = document.createElement('a');
-        logoutLink.href = '#'; // Replace with logout endpoint if needed
+        logoutLink.href = '#';
         logoutLink.innerText = "LOGOUT";
         logoutLink.classList.add("logout-link");
-        logoutLink.style.display = "none"; // Initially hidden
+        logoutLink.style.display = "none";
         logoutLink.addEventListener('click', logout);
         logoutContainer.appendChild(logoutLink);
     }
@@ -60,27 +62,59 @@ function updateNavbar(isUserLoggedIn) {
     // Update visibility and attributes based on login state
     if (isUserLoggedIn) {
         for (let link of registerAndSigninLinks) {
-            link.classList.remove('visible');
-            link.classList.add('hidden');
+            link.classList.toggle('hidden', true);
+            link.classList.toggle('visible', false);
         }
-        exploreLink.href = "all-profiles.html";
-        dashboardLink.href = "user-dashboard.html";
+        if (exploreLink && dashboardLink) {
+            exploreLink.href = "all-profiles.html";
+            dashboardLink.href = "user-dashboard.html";
+        }
         logoutLink.style.display = "inline-block";
+
+        if (data?.userData?.media?.profileImage) {
+            userImg.src = data.userData.media.profileImage;
+        } else {
+            userImg.src = "https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png";
+        }
+
+        if (userName) {
+            userName.innerHTML = data.userData.basicInfo.name || "User";
+        }
+
+        if (iconDiv.length > 0) {
+            iconDiv[0].href = `profile-details.html?id=${data.userData.profileID}`;
+        } else {
+            console.error("Icon div not found.");
+        }
+        if(document.getElementById("register")){
+            document.getElementById("register").style.display="none";
+            }
     } else {
         for (let link of registerAndSigninLinks) {
-            link.classList.remove('hidden');
-            link.classList.add('visible');
+            link.classList.toggle('hidden', false);
+            link.classList.toggle('visible', true);
         }
-        exploreLink.href = "login.html";
-        dashboardLink.href = "login.html";
+        if (exploreLink && dashboardLink) {
+            exploreLink.href = "login.html";
+            dashboardLink.href = "login.html";
+        }
         logoutLink.style.display = "none";
     }
-    
-    
 }
 
+if(document.getElementById("submit")){
 
-
+document.getElementById("submit").addEventListener("click",(e)=>{
+     e.preventDefault();
+     window.location.href=submiTAndShowMorePath;
+})
+}
+if(document.getElementById("showMore")){
+document.getElementById("showMore").addEventListener("click",(e)=>{
+     e.preventDefault();
+     window.location.href=submiTAndShowMorePath;
+})
+}
 
 
 function logout() {

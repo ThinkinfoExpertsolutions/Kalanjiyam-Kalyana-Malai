@@ -45,6 +45,14 @@ const profilesSchema  =  mongoose.Schema({
       type: String,
       trim: true,
     },
+    natchathiram: {
+      type: String,
+      trim: true,
+    },
+    district: {
+      type: String,
+      trim: true,
+    },
     zodiac:{
       type:String,
       trim:true,
@@ -124,6 +132,7 @@ const profilesSchema  =  mongoose.Schema({
   media: {
     profileImage: {
       type: String,
+      default:""
       
     },
     galleryImages: {
@@ -132,6 +141,7 @@ const profilesSchema  =  mongoose.Schema({
     },
     horoscopeImage:{
       type: String,
+      default:""
     }
   },
   
@@ -150,6 +160,10 @@ const profilesSchema  =  mongoose.Schema({
       min: [0, 'Salary must be a positive number'],
     },
     workingLocation: {
+      type: String,
+      trim: true,
+    },
+    workExperience: {
       type: String,
       trim: true,
     },

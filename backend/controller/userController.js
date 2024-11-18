@@ -146,7 +146,7 @@ export const getUserData = async(req,res)=>{
 try {
     const userData = await profilesModel.findOne({user_id:user_id});
     const subscriptionData = await SubscriptionModel.findOne({user_id:user_id});
-
+    
     if(!userData || !subscriptionData){
         return res.json({success:false,message:"User Data Not Found !"});
     }
@@ -311,7 +311,7 @@ export const resetPassword = async(req,res)=>{
 // FUNCTION FOR GIVE UNIQUE ID FOR USERS
 
 
-const createUniqueUserId = (mongoObjectId) => {
+export const createUniqueUserId = (mongoObjectId) => {
     
     const base64Id = Buffer.from(mongoObjectId.toString()).toString('base64').substring(0,6);
     return `USER-${base64Id}`;

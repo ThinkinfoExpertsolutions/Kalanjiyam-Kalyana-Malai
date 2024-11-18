@@ -1,6 +1,6 @@
 import adminModel from "../model/adminModel.js";
 import bcrypt from "bcrypt";
-import { generateToken, setEncryptedToken } from "./userController.js";
+import { createUniqueUserId, generateToken, setEncryptedToken } from "./userController.js";
 import profilesModel from "../model/profileModel.js";
 import { userModel } from "../model/userModel.js";
 import SubscriptionModel from "../model/subscriptionModel.js";
@@ -92,45 +92,41 @@ try {
 // CONTROLLER FOR UPDATE SOCIAL MEDIA LINKS
 
 
-export const updateSocialMediaLinks = async(req,res)=>{
+export const updateSocialMediaLinks = async (req, res) => {
+  const { instagram, facebook, youtube, whatsapp } = req.body;
+  const user_id = req.id;
 
-    const {instagram,facebook,youtube,whatsapp} = req.body;
+  // Dynamically construct the update object
+  const update = {};
+  if (facebook) update["socialMedia.facebook"] = facebook;
+  if (youtube) update["socialMedia.youtube"] = youtube;
+  if (whatsapp) update["socialMedia.whatsapp"] = whatsapp;
+  if (instagram) update["socialMedia.instagram"] = instagram;
 
-    const user_id =  req.id;
+  try {
+      // Only update if there are fields to update
+      if (Object.keys(update).length === 0) {
+          return res.status(400).json({ success: false, message: "No social media links provided" });
+      }
 
-    const update = {
-        "socialMedia.facebook" : facebook,
-        "socialMedia.youtube" : youtube,
-        "socialMedia.whatsapp" : whatsapp,
-       " socialMedia.instagram" : instagram,
+      const admin = await adminModel.findByIdAndUpdate(user_id, update, { new: true });
 
-    }
-  
-    try {
-        const admin = await adminModel.findByIdAndUpdate(user_id,update,{new:true});
+      if (admin) {
+          res.json({ success: true, message: "Links Updated", data: admin });
+      } else {
+          res.status(404).json({ success: false, message: "Admin not found" });
+      }
+  } catch (error) {
+      console.error(error);
+      if (error.name === 'ValidationError') {
+          const errors = Object.values(error.errors).map(err => err.message);
+          res.status(400).json({ success: false, message: 'Validation failed', errors });
+      } else {
+          res.status(500).json({ success: false, message: 'Server error', error: error.message });
+      }
+  }
+};
 
-        if(admin){
-            res.json({success:true,message:"Links Updated "});
-    
-        }else {
-            res.json({ success: false, message: "Admin not found" });
-        }
-        
-    
-    } catch (error) {
-        
-        console.log(error);
-        if (error.name === 'ValidationError') {
-            const errors = Object.values(error.errors).map(err => err.message);
-            res.json({success:false, message: 'Validation failed', errors });
-          } else {
-            res.status(500).json({ message: 'Server error', error: error.message });
-          }
-
-
-    }
-
-}
 
 
 
@@ -148,6 +144,9 @@ export const addNewProfile = async(req,res)=>{
         gender,
         age,
         zodiac,
+        natchathiram,
+        district,
+        workExperience,
         HoroscopeImage,
         religion,
         cast,
@@ -184,6 +183,8 @@ export const addNewProfile = async(req,res)=>{
                   religion,
           cast,
           zodiac,
+          natchathiram,
+          district,
           fatherName,
           motherName,
         },
@@ -209,6 +210,7 @@ export const addNewProfile = async(req,res)=>{
           position,
           salary,
           workingLocation: workLocation, 
+          workExperience,
           jobType,
         },
         education: {
@@ -223,6 +225,7 @@ export const addNewProfile = async(req,res)=>{
 
     const newProfile = await newProfileData.save();
     newProfile.user_id = newProfile._id;
+    newProfile.profileID = createUniqueUserId(newProfile._id);
     newProfile.save();
 
     if(newProfile){
