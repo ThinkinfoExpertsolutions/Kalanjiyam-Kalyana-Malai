@@ -376,85 +376,78 @@ export const editSettings = async (req, res) => {
 // }
 
 
-// CONROLLER FOR ADD BOOKMARK PROFILE
+// CONROLLER FOR ADD & REMOVE BOOKMARK PROFILE
 
 
-export const addBookmark = async(req,res)=>{
+export const handleBookmark = async (req, res) => {
+  const {  bookmarkProfileId, action } = req.body;
+   const userId = req.id;
+  try {
+      // Validate user
+      const user = await profilesModel.findOne({ user_id: userId });
+      if (!user) {
+          return res.json({ success: false, message: 'User not found' });
+      }
 
-const{userId,bookmarkProfileId}=req.body;
+      // Validate bookmarked profile
+      const bookmarkProfile = await profilesModel.findOne({ user_id: bookmarkProfileId });
+      if (!bookmarkProfile) {
+          return res.json({ success: false, message: 'Bookmark profile not found' });
+      }
 
-try {
-    
-  const user = await profilesModel.findOne({user_id:userId});
-  
+      if (action === 'add') {
+          // Check if already bookmarked
+          const existingUser = user.bookMarkedProfiles.find(
+              (profile) => profile.userId === bookmarkProfileId
+          );
 
-  if(!user){
-    return res.json({ message: 'User not found' });
+          if (!existingUser) {
+              // Add bookmark
+              user.bookMarkedProfiles.push({
+                  userId: bookmarkProfileId,
+                  time: new Date(),
+              });
+              bookmarkProfile.activitys.push({
+                  userId: bookmarkProfileId,
+                  time: new Date(),
+                  event: `${user.basicInfo.name} Bookmarked Your Profile`,
+              });
+
+              await user.save();
+              return res.json({ success: true, message: 'Bookmark Added' });
+          }
+
+          return res.json({ success: false, message: 'Already Bookmarked!' });
+      } else if (action === 'remove') {
+          // Check if bookmark exists
+          const isExist = user.bookMarkedProfiles.find(
+              (profile) => profile.userId === bookmarkProfileId
+          );
+
+          if (isExist) {
+              // Remove bookmark
+              user.bookMarkedProfiles = user.bookMarkedProfiles.filter(
+                  (profile) => profile.userId !== bookmarkProfileId
+              );
+
+              await user.save();
+              return res.json({ success: true, message: 'Bookmark Removed' });
+          }
+
+          return res.json({ success: false, message: 'Bookmark not found' });
+      } else {
+          return res.json({ success: false, message: 'Invalid action' });
+      }
+  } catch (error) {
+      console.log(error);
+      return res.json({
+          success: false,
+          message: 'An error occurred',
+          error: error.message,
+      });
   }
+};
 
-
-  const bookmarkProfile = await profilesModel.findOne({user_id:bookmarkProfileId});
-  if(!bookmarkProfile){
-    return res.json({ message: 'bookmark profile not found' });
-  }
-
-
-
-  const existingUser = user.bookMarkedProfiles.find(profile => profile.userId === bookmarkProfileId)
-  
-  if(!existingUser){
-          user.bookMarkedProfiles.push({ userId: bookmarkProfileId, time: new Date() });
-          user.activitys.push({userId: bookmarkProfileId, time: new Date(), event:`${bookmarkProfile.basicInfo.name} Bookmarked Your Profile` });
-          await user.save();
-          return res.json({ message: 'Bookmark Added ',success:true });
-        }
-        return res.json({success:false, message: 'already Bookmarked !' });
- 
-} catch (error) {
-    console.log(error);
-    return res.json({ success: false, message: "An error occurred", error: error.message });
-
-}
-
-}
-
-
-// CONTROLLER FOR REMOVE BOOKMARK PROFILE
-
-
-export const removeBookmark = async(req,res)=>{
-
-  const{userId,bookmarkedProfileId}=req.body;
-
-try {
-    
-  const user = await profilesModel.findOne({user_id:userId});
-  if(!user){
-    return res.json({ message: 'User not found' });
-  }
-  const bookmarkProfile = await profilesModel.findOne({user_id:bookmarkedProfileId});
-  if(!bookmarkProfile){
-    return res.json({ message: 'bookmark profile not found' });
-  }
-
-const isExist = user.bookMarkedProfiles.find(profile => profile.userId === bookmarkedProfileId);
-
-if(isExist){
-  var index = user.bookMarkedProfiles.indexOf(bookmarkedProfileId);
-  user.bookMarkedProfiles.splice(index,1);
-
-  await user.save();
-  return res.json({success:true,message:"bookmark Removed"});
-}
-
-return res.json({ success: false, message: " User Profile Not Found" });
-
-}catch(error){
-  console.log(error);
-  return res.json({ success: false, message: "An error occurred", error: error.message });
-}
-
-}
 
 
 
