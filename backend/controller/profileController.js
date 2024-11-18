@@ -414,6 +414,7 @@ export const handleBookmark = async (req, res) => {
               });
 
               await user.save();
+              await bookmarkProfile.save();
               return res.json({ success: true, message: 'Bookmark Added' });
           }
 
