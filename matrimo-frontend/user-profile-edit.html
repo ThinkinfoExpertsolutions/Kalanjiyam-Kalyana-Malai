@@ -346,7 +346,14 @@
         </div>
     </div>
     <!-- END USER PROFILE MENU POPUP -->
-
+    <div id="loader" class="loader-container" style="display: none;">
+        <div class="loader-content">
+          <div class="spinner"></div>
+          <p>loading...</p>
+        </div>
+      </div>
+      
+      
     <!-- REGISTER -->
     <section>
         <div class="login pro-edit-update">
@@ -355,106 +362,105 @@
                     <div class="inn">
                         <div class="rhs">
                                 <div class="form-login">
-                                    <form>
-                                       
+                                    <form id="profileForm">
                                         <!--PROFILE BIO-->
                                         <div class="edit-pro-parti">
                                             <div class="form-tit">
                                                 <h4>Basic info</h4>
                                                 <h1>Edit my profile</h1>
                                             </div>
-                                            <label class="lb" style="margin-bottom: 10px; "><b>Profile Image:</b></label>
-                                            <div class="image-input-container">
-                                                <span>+</span>
-                                                <input type="file" accept="image/*">
-                                              </div>
-                                              <div class="form-group">
+                                            <label class="lb" style="margin-bottom: 10px;"><b>Profile Image:</b></label>
+                                                <div class="profile-image-input">
+                                                    <img 
+                                                        id="profilePhoto" 
+                                                        src="https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg" 
+                                                        alt="Choose Profile Image"
+                                                    />
+                                                    <input 
+                                                        type="file" 
+                                                        id="profileImage" 
+                                                        accept="image/*" 
+                                                        onchange="handleImageChange(event, 'profilePhoto')"
+                                                    />
+                                                </div>
+                                            <div class="form-group">
                                                 <label class="lb">Name:</label>
-                                                <input type="text" class="form-control" placeholder="Enter your name" name="name" required>
-                                              </div>
-                                              
-                                              <div class="form-group">
+                                                <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" required>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Father's Name:</label>
-                                                <input type="text" class="form-control" placeholder="Enter father's name" name="fatherName">
-                                              </div>
-                                              
-                                              <div class="form-group">
+                                                <input type="text" class="form-control" id="fatherName" placeholder="Enter father's name" name="fatherName">
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Mother's Name:</label>
-                                                <input type="text" class="form-control" placeholder="Enter mother's name" name="motherName">
-                                              </div>
-
-                                              <div class="form-group">
+                                                <input type="text" class="form-control" id="motherName" placeholder="Enter mother's name" name="motherName">
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Family Name:</label>
-                                                <input type="text" class="form-control" placeholder="Enter your family name" name="familyName">
-                                              </div>
-                                              
-                                              <div class="form-group">
+                                                <input type="text" class="form-control" id="familyName" placeholder="Enter your family name" name="familyName">
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Date of Birth:</label>
-                                                <input type="date" class="form-control" name="dateOfBirth">
-                                              </div>
-                                              
-                                              <div class="form-group">
+                                                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth">
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Gender:</label>
-                                                <select class="form-control" name="gender">
-                                                  <option value="">Select Gender</option>
-                                                  <option value="Male">Male</option>
-                                                  <option value="Female">Female</option>
-                                                  <option value="Other">Other</option>
+                                                <select class="form-control" id="gender" name="gender">
+                                                    <option value="">Select Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
                                                 </select>
-                                              </div>
-                                              
-                                              <div class="form-group">
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Religion:</label>
-                                                <select class="form-control" name="religion">
-                                                    <option> Religion </option>
-                                                        <option>Hinduism (இந்து சமயம்)</option>
-                                                        <option>Islam (இஸ்லாம்)</option>
-                                                        <option>Christianity (கிறிஸ்தவம்)</option>
-                                                        <option value="Other">Other</option>
-
-                                                  </select>
-                                              </div>
-                                              
-                                              <div class="form-group">
+                                                <select class="form-control" id="religion" name="religion">
+                                                    <option value="">Religion</option>
+                                                    <option>Hinduism (இந்து சமயம்)</option>
+                                                    <option>Islam (இஸ்லாம்)</option>
+                                                    <option>Christianity (கிறிஸ்தவம்)</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Cast:</label>
-                                                <select class="form-control" name="cast" id="cast-select" onchange="handleCastChange(this)">
-                                                  <option>Cast</option>
-                                                  <option>பிராமணர் - Brahmin</option>
-                                                  <option>செட்டியார் - Chettiar</option>
-                                                  <option>கவுண்டர் - Gounder</option>
-                                                  <option>முதலியார் - Mudaliyar</option>
-                                                  <option>நாடார் - Nadar</option>
-                                                  <option>பிள்ளை - Pillai</option>
-                                                  <option>தேவர் - Thevar</option>
-                                                  <option>வன்னியர் - Vanniyar</option>
-                                                  <option>Scheduled Castes (SC)</option>
-                                                  <option>Scheduled Tribes (ST)</option>
-                                                  <option value="other">Other</option>
+                                                <select class="form-control" id="cast" name="cast">
+                                                    <option>Cast</option>
+                                                    <option>பிராமணர் - Brahmin</option>
+                                                    <option>செட்டியார் - Chettiar</option>
+                                                    <option>கவுண்டர் - Gounder</option>
+                                                    <option>முதலியார் - Mudaliyar</option>
+                                                    <option>நாடார் - Nadar</option>
+                                                    <option>பிள்ளை - Pillai</option>
+                                                    <option>தேவர் - Thevar</option>
+                                                    <option>வன்னியர் - Vanniyar</option>
+                                                    <option>Scheduled Castes (SC)</option>
+                                                    <option>Scheduled Tribes (ST)</option>
+                                                    <option value="other">Other</option>
                                                 </select>
-                                                <input type="text" class="form-control" placeholder="Enter other cast" name="castOther" id="cast-other" style="display: none;">
-                                              </div>
-                                              
-                                              <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Enter other cast" name="castOther" id="castOther" style="display: none;">
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Zodiac:</label>
-                                                <select class="form-control" name="zodiac">
-                                                  <option>Zodiac (இராசி )</option>
-                                                  <option>மேஷம் - Aries</option>
-                                                  <option> ரிஷபம் - Taurus</option>
-                                                  <option>மிதுனம் - Gemini</option>
-                                                  <option>கடகம் - Cancer</option>
-                                                  <option>கன்னி - Virgo</option>
-                                                  <option>துலாம் - Libra</option>
-                                                  <option>விருச்சிகம் - Scorpio</option>
-                                                  <option>தனுசு - Sagittarius</option>
-                                                  <option>மகரம் - Capricorn</option>
-                                                  <option>கும்பம் - Aquarius</option>
-                                                  <option>மீனம் - Pisces</option>
+                                                <select class="form-control" id="zodiac" name="zodiac">
+                                                    <option>Zodiac (இராசி )</option>
+                                                    <option>மேஷம் - Aries</option>
+                                                    <option>ரிஷபம் - Taurus</option>
+                                                    <option>மிதுனம் - Gemini</option>
+                                                    <option>கடகம் - Cancer</option>
+                                                    <option>கன்னி - Virgo</option>
+                                                    <option>துலாம் - Libra</option>
+                                                    <option>விருச்சிகம் - Scorpio</option>
+                                                    <option>தனுசு - Sagittarius</option>
+                                                    <option>மகரம் - Capricorn</option>
+                                                    <option>க ும்பம் - Aquarius</option>
+                                                    <option>மீனம் - Pisces</option>
                                                 </select>
-                                              </div>
-                                              <div class="form-group">
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="lb">Natchathiram:</label>
-                                                <select class="form-control" name="natchathiram">
-                                                    <option> Natchathiram (நட்சத்திரம்)</option>
+                                                <select class="form-control" id="natchathiram" name="natchathiram">
+                                                    <option>Natchathiram (நட்சத்திரம்)</option>
                                                     <option>Ashwini (அசுவினி)</option>
                                                     <option>Bharani (பரணி)</option>
                                                     <option>Karthikai (கார்த்திகை)</option>
@@ -484,46 +490,65 @@
                                                     <option>Punarvasu (பரிந்த)</option>
                                                 </select>
                                             </div>
-                                              
-                                              <div class="form-group">
+                                            <div class="form-group">
                                                 <label class="lb">District:</label>
-                                                <select class="form-control" name="tamilNaduDistrict">
-                                                  <option value="">Select District</option>
-                                                  <option>Chennai</option>
-                                                  <option>Coimbatore</option>
-                                                  <option>Madurai</option>
-                                                  <option>Tiruchirappalli</option>
-                                                  <option>Salem</option>
-                                                  <option>Tirunelveli</option>
-                                                  <option>Erode</option>
-                                                  <option>Vellore</option>
-                                                  <option>Thanjavur</option>
-                                                  <option>Tuticorin</option>
-                                                  <option>Dharmapuri</option>
-                                                  <option>Dindigul</option>
-                                                  <option>Kancheepuram</option>
-                                                  <option>Kanyakumari</option>
-                                                  <option>Krishnagiri</option>
-                                                  <option>Namakkal</option>
-                                                  <option>Nilgiris</option>
-                                                  <option>Perambalur</option>
-                                                  <option>Pudukkottai</option>
-                                                  <option>Ramanathapuram</option>
-                                                  <option>Sivaganga</option>
-                                                  <option>Theni</option>
-                                                  <option>Thiruvarur</option>
-                                                  <option>Thiruvannamalai</option>
-                                                  <option>Thiruvallur</option>
-                                                  <option>Villupuram</option>
-                                                  <option>Virudhunagar</option>
+                                                <select class="form-control" id="district" name="tamilNaduDistrict">
+                                                    <option value="">Select District</option>
+                                                    <option>Chennai</option>
+                                                    <option>Coimbatore</option>
+                                                    <option>Madurai</option>
+                                                    <option>Tiruchirappalli</option>
+                                                    <option>Salem</option>
+                                                    <option>Tirunelveli</option>
+                                                    <option>Erode</option>
+                                                    <option>Vellore</option>
+                                                    <option>Thanjavur</option>
+                                                    <option>Tuticorin</option>
+                                                    <option>Dharmapuri</option>
+                                                    <option>Dindigul</option>
+                                                    <option>Kancheepuram</option>
+                                                    <option>Kanyakumari</option>
+                                                    <option>Krishnagiri</option>
+                                                    <option>Namakkal</option>
+                                                    <option>Nilgiris</option>
+                                                    <option>Perambalur</option>
+                                                    <option>Pudukkottai</option>
+                                                    <option>Ramanathapuram</option>
+                                                    <option>Sivaganga</option>
+                                                    <option>Theni</option>
+                                                    <option>Thiruvarur</option>
+                                                    <option>Thiruvannamalai</option>
+                                                    <option>Thiruvallur</option>
+                                                    <option>Villupuram</option>
+                                                    <option>Virudhunagar</option>
                                                 </select>
-                                              </div>
-                                              <div class="form-group">
-                                                <label class="lb">Address</label>
-                                                <input type="text" class="form-control" placeholder="Enter your Address" name="address">
-                                              </div>
+                                            </div>
                                         </div>
                                         <!--END PROFILE BIO-->
+                                        <!--PROFILE BIO-->
+                                        <div class="edit-pro-parti">
+                                            <div class="form-tit">
+                                                <h4>Basic info</h4>
+                                                <h1>Contact Details</h1>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label class="lb">Phone:</label>
+                                                    <input type="tel" class="form-control" id="phone" placeholder="Enter your Phone No" name="phone">
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label class="lb">Email:</label>
+                                                    <input type="email" class="form-control" id="email" placeholder="Enter your Email" name="email">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 form-group">
+                                                    <label class="lb">Address:</label>
+                                                    <input type="text" class="form-control" id="address" name="address" placeholder="Enter your Address" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--END CONTACT DETAILS-->
                                         <!--PROFILE BIO-->
                                         <div class="edit-pro-parti">
                                             <div class="form-tit">
@@ -533,44 +558,33 @@
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Weight (kg):</label>
-                                                    <input type="number" class="form-control" name="weight" min="1" required>
+                                                    <input type="number" class="form-control" id="weight" name="weight" min="1" required>
                                                 </div>
-                                            </div>
-                                    
-                                            <!-- Height Field -->
-                                            <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Height (cm):</label>
-                                                    <input type="number" class="form-control" name="height" min="1" required>
+                                                    <input type="number" class="form-control" id="height" name="height" min="1" required>
                                                 </div>
                                             </div>
-                                    
-                                            <!-- Age Field -->
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Age:</label>
-                                                    <input type="number" class="form-control" name="age" min="0" required>
+                                                    <input type="number" class="form-control" id="age" name="age" min="0" required>
                                                 </div>
                                             </div>
-                                    
-                                            <!-- About Yourself Field -->
                                             <div class="row">
                                                 <div class="col-md-12 form-group">
                                                     <label class="lb">About Yourself:</label>
-                                                    <textarea class="form-control" name="about" maxlength="500" rows="4" placeholder="Tell us about yourself" required></textarea>
+                                                    <textarea class="form-control" id="about" name="about" maxlength="500" rows="4" placeholder="Tell us about yourself" required></textarea>
                                                 </div>
                                             </div>
-                                    
-                                            <!-- Hobbies Field -->
                                             <div class="row">
                                                 <div class="col-md-12 form-group">
                                                     <label class="lb">Hobbies:</label>
-                                                    <input type="text" class="form-control" name="hobbies" placeholder="Enter your hobbies" required>
+                                                    <input type="text" class="form-control" id="hobbies" name="hobbies" placeholder="Enter your hobbies" required>
                                                 </div>
                                             </div>
-                                    
                                         </div>
-                                        <!--END PROFILE BIO-->
+                                        <!--END PERSONAL DETAILS-->
                                         <!--PROFILE BIO-->
                                         <div class="edit-pro-parti">
                                             <div class="form-tit">
@@ -579,7 +593,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="lb">Job type:</label>
-                                                <select class="form-select chosen-select" data-placeholder="Select your Job Type" name="jobType">
+                                                <select class="form-select" id="jobType" name="jobType">
                                                     <option>Business</option>
                                                     <option>Employee</option>
                                                     <option>Government</option>
@@ -587,56 +601,46 @@
                                                     <option>Others</option>
                                                 </select>
                                             </div>
-                                            
                                             <div class="form-group">
                                                 <label class="lb">Company name:</label>
-                                                <input type="text" class="form-control" placeholder="Enter your company name" name="companyName">
+                                                <input type="text" class="form-control" id="companyName" placeholder="Enter your company name" name="companyName">
                                             </div>
-                                            
-                                            
-                                            
-                                            
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Salary:</label>
-                                                    <input type="number" class="form-control" placeholder="Enter your salary" name="salary">
+                                                    <input type="number" class="form-control" id="salary" placeholder="Enter your salary" name="salary">
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Position:</label>
-                                                   <input type="text" class="form-control" placeholder="Enter your position" name="position">
+                                                    <input type="text" class="form-control" id="position" placeholder="Enter your position" name="position">
                                                 </div>
-                        
                                             </div>
-                                            
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Job total experience:</label>
-                                                    <input type="text" class="form-control" placeholder="Enter your job experience" name="workExperience">
+                                                    <input type="text" class="form-control" id="workExperience" placeholder="Enter your job experience" name="workExperience">
                                                 </div>
                                                 <div class="col-md-6 form-group">
-                                                    <label class="lb">Job Woking Location</label>
-                                                    <input type="text" class="form-control" placeholder="Enter your Woking Location" name="workingLocation">
+                                                    <label class="lb">Job Working Location:</label>
+                                                    <input type="text" class="form-control" id="workingLocation" placeholder="Enter your Working Location" name="workingLocation">
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label class="lb">Degree:</label>
-                                                <input type="text" class="form-control" placeholder="Enter your degree" name="degree">
+                                                <input type="text" class="form-control" id="degree" placeholder="Enter your degree" name="degree">
                                             </div>
-                                            
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">School:</label>
-                                                    <input type="text" class="form-control" placeholder="Enter your school name" name="school">
+                                                    <input type="text" class="form-control" id="school" placeholder="Enter your school name" name="school">
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">College:</label>
-                                                    <input type="text" class="form-control" placeholder="Enter your college name" name="college">
+                                                    <input type="text" class="form-control" id="college" placeholder="Enter your college name" name="college">
                                                 </div>
                                             </div>
-                                            
                                         </div>
-                                        <!--END PROFILE BIO-->
+                                        <!--END JOB & EDUCATION-->
                                         <!--PROFILE BIO-->
                                         <div class="edit-pro-parti">
                                             <div class="form-tit">
@@ -646,35 +650,25 @@
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">WhatsApp:</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" id="whatsapp">
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Facebook:</label>
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control" id="facebook">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Instagram:</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control" id="instagram">
                                                 </div>
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">X:</label>
-                                                    <input type="text" class="form-control" >
+                                                    <input type="text" class="form-control" id="x">
                                                 </div>
                                             </div>
-                                            <!-- <div class="row">
-                                                <div class="col-md-6 form-group">
-                                                    <label class="lb">Youtube:</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-md-6 form-group">
-                                                    <label class="lb">Linkedin:</label>
-                                                    <input type="text" class="form-control" >
-                                                </div>
-                                            </div> -->
                                         </div>
-                                        <!--END PROFILE BIO-->
+                                        <!--END SOCIAL MEDIA-->
                                         <!--PROFILE BIO-->
                                         <div class="edit-pro-parti">
                                             <div class="form-tit">
@@ -684,31 +678,41 @@
                                             <div class="gallery-images">
                                                 <div class="gallery-grid">
                                                     <div class="image-input">
-                                                        <span>+</span>
-                                                        <input type="file" accept="image/*" >
-                                                      </div>
-                                                      <div class="image-input">
-                                                        <span>+</span>
-                                                        <input type="file" accept="image/*" >
-                                                      </div>
-                                                      <div class="image-input">
-                                                        <span>+</span>
-                                                        <input type="file" accept="image/*" >
-                                                      </div>
+                                                        <img src="https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg" alt="Choose Image" class="image-icon" id="image1">
+                                                        <input type="file" accept="image/*" id="userImage1" onchange="handleImageChange(event, 'image1')">
+                                                    </div>
+                                                    <div class="image-input">
+                                                        <img src="https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg" alt="Choose Image" class="image-icon" id="image2">
+                                                        <input type="file" accept="image/*" id="userImage2" onchange="handleImageChange(event, 'image2')">
+                                                    </div>
+                                                    <div class="image-input">
+                                                        <img src="https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg" alt="Choose Image" class="image-icon" id="image3">
+                                                        <input type="file" accept="image/*" id="userImage3" onchange="handleImageChange(event, 'image3')">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        
                                         <div class="edit-pro-parti">
                                             <div class="form-tit">
                                                 <h4>Gallery</h4>
                                                 <h1>Horoscope Image</h1>
                                             </div>
                                             <div class="large-image-input">
-                                                <span>+</span>
-                                                <input type="file" accept="image/*">
+                                                <label for="horoscopeImage">
+                                                  <img
+                                                  id="horoscopePhoto"
+                                                    src="https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg"
+                                                    alt="Choose Image"
+                                                    class="image-icon"
+                                                  />
+                                                </label>
+                                                <input type="file" accept="image/*" id="horoscopeImage"  onchange="handleImageChange(event, 'horoscopePhoto')"/>
                                               </div>
+                                              
                                         </div>
-                                        <!--END PROFILE BIO-->
+                                        <!--END GALLERY-->
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
@@ -784,7 +788,7 @@
     <!-- Script to verify and retrieve the user details -->
     <script src="js/main/user.js"></script> 
     <script src="js/main/websiteData.js"></script>
-
+    <script src="js/main/editProfile.js"></script>
 </body>
 
 

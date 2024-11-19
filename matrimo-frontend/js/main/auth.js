@@ -79,7 +79,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
                 alert(data.message); // Show success message (user registered)
                 sessionStorage.setItem("token", data.encryptedToken); // Store token in localStorage
                 // Redirect to dashboard or login page
-                window.location.href = `http://127.0.0.1:5500/matrimo-frontend/user-profile-edit.html`;
+                window.location.href = `user-profile-edit.html?id=${data.userData.profileID}`;
             } else {
                 alert(data.message || "Registration failed."); // Show error message
             }

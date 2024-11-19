@@ -18,6 +18,8 @@ export const editProfile = async (req, res) => {
     age,
     zodiac,
     religion,
+    natchathiram,
+    district,
     cast,
     fatherName,
     motherName,
@@ -31,7 +33,8 @@ export const editProfile = async (req, res) => {
     companyName,
     position,
     salary,
-    workLocation,
+    workingLocation,
+    workExperience,
     jobType,
     school,
     college,
@@ -39,11 +42,9 @@ export const editProfile = async (req, res) => {
     socialMedia,
   } = req.body;
 
-  const paramsId = req.params.id;
-  const user_id = req.body;
-  if(user_id === paramsId){
-    return  res.status(403).json({ message: "Unauthorized access" });
-  }
+ 
+  const user_id = req.id;
+ 
 
   try {
     
@@ -61,6 +62,8 @@ export const editProfile = async (req, res) => {
         gender,
         religion,
         cast,
+        natchathiram,
+        district,
         zodiac,
         fatherName,
         motherName,
@@ -81,7 +84,8 @@ export const editProfile = async (req, res) => {
         companyName,
         position,
         salary,
-        workingLocation: workLocation, 
+        workingLocation,
+        workExperience,
         jobType,
       },
       education: {

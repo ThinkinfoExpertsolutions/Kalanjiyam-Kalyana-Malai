@@ -24,8 +24,8 @@ if(token){
         if (data.success) {
             sessionStorage.setItem("userData", JSON.stringify(data.userData));
             updateNavbar(true,data);
-            submiTAndShowMorePath="http://127.0.0.1:5500/matrimo-frontend/all-profiles.html"
-            
+            // updateEditProfilePath(data);
+            submiTAndShowMorePath="http://127.0.0.1:5500/matrimo-frontend/all-profiles.html";
         } else {
             updateNavbar(false);
         }
@@ -119,6 +119,28 @@ document.getElementById("showMore").addEventListener("click",(e)=>{
 })
 }
 
+// function updateEditProfilePath(data) {
+//     try {
+//         // Find the button element
+//         const editProfileBtn = document.getElementById("editProfilepath");
+//         if (!editProfileBtn) {
+//             console.error("Edit profile button not found");
+//             return;
+//         }
+
+//         // Check if the required data is present
+//         if (!data || !data.userData || !data.userData.profileID) {
+//             console.error("Invalid data structure. 'profileID' is missing.");
+//             return;
+//         }
+
+//         // Set the href attribute
+//         editProfileBtn.href = `user-profile-edit.html?id=${data.userData.profileID}`;
+//     } catch (error) {
+//         console.error("An error occurred while updating the edit profile path:", error);
+//     }
+// }
+
 
 function logout() {
     window.location.href = "http://127.0.0.1:5500/matrimo-frontend/index.html"; // Redirect to login page
@@ -128,3 +150,4 @@ function logout() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchUserData);
+

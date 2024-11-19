@@ -12267,87 +12267,107 @@ h2.db-tit{
     
 }
 
-.image-input-container {
+.profile-image-input {
     position: relative;
-    border-radius: 8px;
-    width: 50%;  /* Adjust the width as needed */
-    height: 180px; /* Adjust the height as needed */
+    width: 230px; /* Large container width */
+    height: 230px; /* Large container height */
     border: 2px dashed #ccc;
-    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    overflow: hidden;
-    color: #888;
-    font-size: 28px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
     margin-left: 200px;
-  }
-
-  .image-input-container input[type="file"] {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-  }
-
-  .image-input-container span {
-    pointer-events: none;
-  }
-  .image-input {
-    width: 250px;
-    height: 200px;
-    border: 2px dashed #ccc;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #888;
-    font-size: 32px;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    border-radius: 8px;
-  }
-
-  .image-input input[type="file"] {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-  }
-  .gallery-grid {
-    display: flex;
-   /* justify-content: space-between; */
-   gap: 40px;
-    margin-bottom: 20px;
-  }
-  .large-image-input {
-    margin-left: 150px; /* Margin for larger screens */
-    width: 590px; /* Fixed width for larger screens */
-    height: 300px; /* Fixed height for larger screens */
-    border: 2px dashed #ccc;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #888;
-    font-size: 42px; /* Large font size for the label */
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
+    margin-bottom: 10px;
+    background-color: transparent;
 }
 
+/* Default image styling */
+.profile-image-input img {
+    width: 50%; /* Smaller default width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Fit the image without distortion */
+    border-radius: 8px; /* Matches container's border-radius */
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+
+.profile-image-input input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Makes the file input invisible */
+    cursor: pointer;
+}
+
+
+  
+.image-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    object-fit: cover;
+    width: 300px; /* Larger container width */
+    height: 250px; /* Larger container height */
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: transparent;
+    /* Optional background */
+}
+
+/* Default image styling */
+.image-input .image-icon {
+    width: 50%; /* Smaller default width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits the container */
+    cursor: pointer;
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+/* Invisible file input to trigger on click of image */
+.image-input input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Invisible input */
+    cursor: pointer;
+}
+
+/* Layout for gallery grid */
+.gallery-grid {
+    display: flex;
+    gap: 40px; /* Space between image inputs */
+    margin-bottom: 20px;
+}
+  /* Main container for the image input */
+  .large-image-input {
+    margin-left: 150px; /* Margin for larger screens */
+    width: 590px; /* Large container width */
+    height: 300px; /* Large container height */
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background-color: white; /* Optional background */
+}
+
+/* Default image styling */
+.large-image-input .image-icon {
+    width: 150px; /* Small default width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+    cursor: pointer;
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+
+/* Hiding the file input while keeping it functional */
 .large-image-input input[type="file"] {
     position: absolute;
     width: 100%;
@@ -12356,25 +12376,25 @@ h2.db-tit{
     cursor: pointer;
 }
 
-/* Media Query for Tablets (768px and below) */
+/* Media Query for Tablets (768px and below)
 @media (max-width: 768px) {
     .large-image-input {
-        margin-left: 0; /* Remove left margin */
-        width: 100%; /* Full width for smaller screens */
-        height: 200px; /* Adjust height for smaller screens */
-        font-size: 32px; /* Smaller font size for the label */
+        margin-left: 0; Remove left margin
+        width: 100%; Full width for smaller screens
+        height: 200px; Adjust height for smaller screens
+        font-size: 32px; Smaller font size for the label
     }
     .image-input-container{
         margin-left: 10px;
     }
-}
+} */
 
-/* Media Query for Mobile Devices (480px and below) */
+/* Media Query for Mobile Devices (480px and below)
 @media (max-width: 480px) {
     .large-image-input {
         width: 100%;
-        height: 250px; /* Further reduce height */
-        font-size: 24px; /* Smaller font size for mobile */
+        height: 250px; Further reduce height
+        font-size: 24px; Smaller font size for mobile
     }
 }
   .verified-text {
@@ -12388,7 +12408,7 @@ h2.db-tit{
     width: 20px;
     height: 20px;
 }
-/* Base styles for the form */
+Base styles for the form
 .form-control {
     width: 100%;
     padding: 10px;
@@ -12398,10 +12418,10 @@ h2.db-tit{
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-}
+} */
 
-/* Media Query for Tablets (768px and below) */
-@media (max-width: 768px) {
+ /* Media Query for Tablets (768px and below) 
+ @media (max-width: 768px) {
     .form-tit h1 {
         font-size: 24px;
     }
@@ -12411,30 +12431,30 @@ h2.db-tit{
     }
 
     .row {
-        flex-direction: column; /* Stack columns vertically */
+        flex-direction: column; Stack columns vertically
     }
 
     .col-md-6 {
-        width: 100%; /* Make columns full width */
+        width: 100%; Make columns full width
     }
 
     .gallery-grid {
         display: flex;
         display: flex;
         flex-direction: column;
-        height: 700px; /* Allow wrapping of images */
+        height: 700px; Allow wrapping of images
     }
 
     .image-input-container,
     .large-image-input {
-        width: 100%; /* Full width for image inputs */
+        width: 100%; Full width for image inputs
         display: flex;
-        justify-content: center; /* Center the image input */
+        justify-content: center; Center the image input
         margin-bottom: 15px;
     }
 
     .image-input {
-        flex: 1; /* Allow equal spacing for image inputs */
+        flex: 1; Allow equal spacing for image inputs
         display: flex;
         justify-content: center;
         align-items: center;
@@ -12442,11 +12462,11 @@ h2.db-tit{
         padding: 20px;
         margin: 5px;
     }
-}
+}  */
 
 /* Media Query for Mobile Devices (480px and below) */
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
     .form-tit h1 {
         font-size: 20px;
     }
@@ -12456,25 +12476,25 @@ h2.db-tit{
     }
 
     .form-control {
-        font-size: 14px; /* Smaller font for inputs */
+        font-size: 14px; Smaller font for inputs
     }
 
     .btn {
-        width: 100%; /* Full width button */
+        width: 100%; Full width button
         padding: 10px;
     }
 
     .image-input {
         padding: 10px;
-         /* Adjust padding for smaller screens */
+         Adjust padding for smaller screens
     }
     .large-image-input{
         padding: 10px;
 
     }
-}
+} */
 
-.loader {
+.loader1 {
     width: 50px;
     height: 50px;
     border: 5px solid #f3f3f3;
@@ -12488,3 +12508,49 @@ h2.db-tit{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/* Blur background when loader is active */
+/* Loader container with blurred background */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(5px); /* Blurred background effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  /* Centered loader content */
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Spinning animation */
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+  }
+  
+  /* Spin animation keyframes */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  

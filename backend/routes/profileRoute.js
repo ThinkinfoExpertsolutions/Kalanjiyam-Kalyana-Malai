@@ -9,7 +9,7 @@ const profileRouter = express.Router();
 
 // ROUTES FOR USER DASHBOARD DETAILS
 
-profileRouter.patch("/edit-profile/:id",editProfile);
+profileRouter.patch("/edit-profile",authMiddleware,editProfile);
 profileRouter.patch("/edit-settings/:id",editSettings);
 profileRouter.get("/get-profile-data/:id",getProfileData);
 profileRouter.patch('/profile/:id/view',handleViewCount);
