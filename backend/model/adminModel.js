@@ -28,6 +28,7 @@ const adminSchema =  mongoose.Schema({
       userId: String,
       profileID:String,
       email:String,
+      name:String,
       phone:String,
       subject:String,
       details:String,

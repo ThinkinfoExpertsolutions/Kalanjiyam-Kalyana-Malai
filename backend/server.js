@@ -1,4 +1,5 @@
 import express from "express";
+import formidable from "formidable";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import userRouter from "./routes/userRoute.js";
@@ -17,6 +18,7 @@ connectDB()
 
 app.use(express.json());
 app.use(cors());
+
 
 // API
 

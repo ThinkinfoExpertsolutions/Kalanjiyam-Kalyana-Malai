@@ -670,7 +670,8 @@ export const verifyAccount = async (req, res) => {
 
 
 export const sendEnquiry = async (req, res) => {
-  const userId = req.params.id;
+
+  const userId = req.id;
   const { name, email, phone, subject, details, profileID } = req.body;
 
   try {
@@ -690,6 +691,7 @@ export const sendEnquiry = async (req, res) => {
 
     admin.enquirys.push({
       userId: userId,
+      name:name,
       profileID:profileID,
       email:email,
       phone:phone,
@@ -700,7 +702,7 @@ export const sendEnquiry = async (req, res) => {
 
     const data = await admin.save();
 
-    return res.json({success:true,message:"Enquiry sent successfully"});
+    return res.json({success:true,message:"Your inquiry has been sent successfully! We will get back to you soon."});
 
     // const transporter = nodemailer.createTransport({
     //   service: "gmail",

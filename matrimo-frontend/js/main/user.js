@@ -3,10 +3,12 @@ let submiTAndShowMorePath = "http://127.0.0.1:5500/matrimo-frontend/login.html";
 async function fetchUserData() {
     let token = sessionStorage.getItem("token");
 
-    if (!token) {
-        const tokenMatch = document.cookie.match(/(^|;) ?token=([^;]*)(;|$)/);
-        if (tokenMatch) token = tokenMatch[2];
-    }
+    // if (!token) {
+    //     const tokenMatch = document.cookie.match(/(^|;) ?token=([^;]*)(;|$)/);
+    //     if (tokenMatch) token = tokenMatch[2];
+    // }
+if(token){
+
 
     try {
         const response = await fetch("http://localhost:5000/api/user/user", {
@@ -31,6 +33,7 @@ async function fetchUserData() {
         console.error("Error fetching user data:", error);
         updateNavbar(false);
     }
+}
 }
 
 function updateNavbar(isUserLoggedIn, data) {

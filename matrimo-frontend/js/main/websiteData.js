@@ -93,13 +93,13 @@ function updateSocialMediaLinks(data) {
                         <div class="pro-detail">
                             <h4><a href="profile-details.html?id=${user._id}">${user.basicInfo.name}</a></h4>
                             <div class="pro-bio">
-                                <span>${user.education.degree}</span>
                                 <span>${user.jobDetails.position}</span>
+                                <span>${user.basicInfo.district}</span>
                                 <span>${user.personalDetails.age} Years old</span>
-                                <span>Height: ${user.personalDetails.height} Cms</span>
+                                <span>${user.basicInfo.cast}</span>
                             </div>
                             <div class="links">
-                                <a href="profile-details.html">More details</a>
+                                <a href="profile-details.html?id=${user.profileID}">More details</a>
                             </div>
                         </div>
                         <span 
