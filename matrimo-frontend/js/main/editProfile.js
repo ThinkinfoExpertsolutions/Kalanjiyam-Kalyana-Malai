@@ -17,8 +17,7 @@ document.getElementById('familyName').value = userData.basicInfo.familyName || '
 document.getElementById('dateOfBirth').value = userData.basicInfo.dateOfBirth || '';
 document.getElementById('gender').value = userData.basicInfo.gender || '';
 document.getElementById('religion').value = userData.basicInfo.religion || '';
-document.getElementById('cast').value = userData.basicInfo.cast || '';
-document.getElementById('castOther').value = userData.basicInfo.castOther || '';
+// document.getElementById('castOther').value = userData.basicInfo.castOther || '';
 document.getElementById('zodiac').value = userData.basicInfo.zodiac || '';
 document.getElementById('natchathiram').value = userData.basicInfo.natchathiram || '';
 document.getElementById('district').value = userData.basicInfo.district || '';
@@ -43,6 +42,14 @@ document.getElementById('whatsapp').value = userData.socialMedia[0] || '';
 document.getElementById('facebook').value = userData.socialMedia[1] || '';
 document.getElementById('instagram').value = userData.socialMedia[2] || '';
 document.getElementById('x').value = userData.socialMedia[3] || '';
+
+if(userData.basicInfo.cast.includes("other")){
+    document.getElementById('cast').value = "other" || '';
+    const otheCastInput = document.getElementById('otherCast');
+    otheCastInput.style.display="block";
+    otheCastInput.value = userData.basicInfo.cast.split("-")[1] || ''
+}
+
 // Update profile image
 updateImage("profilePhoto", userData.media.profileImage);
 
@@ -57,7 +64,6 @@ updateImage("image3", userData.media.galleryImages[2]);
 
 function updateImage(elementId, imageUrl) {
     const imageElement = document.getElementById(elementId);
-    console.log(imageUrl)
     if(imageUrl != undefined){
         imageElement.src = imageUrl;
         imageElement.style.width = "100%"; 
@@ -83,12 +89,12 @@ function handleImageChange(event, imageId) {
         reader.readAsDataURL(imageFile);  // Read the selected file as a data URL
     }
 }
-
+let userInfoData;
 document.getElementById('profileForm').addEventListener('submit',async function(event) {
     event.preventDefault(); // Prevent the form from submitting
 
     // Retrieve values from the form
-    const userInfoData = {
+    userInfoData = {
        
         name: document.getElementById('name').value,
         fatherName: document.getElementById('fatherName').value,
@@ -98,7 +104,6 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         gender: document.getElementById('gender').value,
         religion: document.getElementById('religion').value,
         cast: document.getElementById('cast').value,
-        castOther: document.getElementById('castOther').value,
         zodiac: document.getElementById('zodiac').value,
         natchathiram: document.getElementById('natchathiram').value,
         district: document.getElementById('district').value,
@@ -122,7 +127,11 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         socialMedia:[document.getElementById('whatsapp').value,document.getElementById('facebook').value, document.getElementById('instagram').value, document.getElementById('x').value],
     };
 
+    handleCastChange();
+    
+
     const formData = new FormData();
+
     formData.append("profileImage", document.getElementById('profileImage').files[0]);
     formData.append("horoscopeImage", document.getElementById('horoscopeImage').files[0]);
     formData.append('galleryImages', document.getElementById('userImage1').files[0]);
@@ -135,6 +144,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
     
     try {
         showLoader()
+        console.log(userInfoData)
         const dataResponse = await fetch("http://localhost:5000/api/edit-profile", {
             method: "PATCH",
             headers: {
@@ -143,21 +153,21 @@ document.getElementById('profileForm').addEventListener('submit',async function(
             },
             body: JSON.stringify(userInfoData), // Convert payload to JSON string
         });
-        const data = dataResponse.json();
+        const data = await dataResponse.json();
 
-        const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
-            method: "POST",
-            headers: {
-                token: token, // Token header for authentication
-            },
-            body: formData, // Convert payload to JSON string
-        });
+        // const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
+        //     method: "POST",
+        //     headers: {
+        //         token: token, // Token header for authentication
+        //     },
+        //     body: formData, // Convert payload to JSON string
+        // });
         
         hideLoader()
 
         const data2 = await imageResponse.json();
 
-        if(data2.success && data.success){
+        if( data.success){
             alert(data2.message);
         }else{
             alert(data2.message);
@@ -180,5 +190,20 @@ function hideLoader() {
 }
   // Example usage
   setTimeout(showLoader, 1000); // Simulate showing the loader after 1 second
-  setTimeout(hideLoader, 3000); // Hide loader after 5 seconds
+  setTimeout(hideLoader, 2000); // Hide loader after 5 seconds
   
+  function handleCastChange() {
+    const castDropdown = document.getElementById('cast');
+    const otherInput = document.getElementById('otherCast');
+
+    // Show the input field if "Other" is selected
+    if (castDropdown.value === 'other') {
+        otherInput.style.display = 'block';
+        otherInput.required = true; // Make it mandatory if shown
+        userInfoData.cast = `other-${otherInput.value.trim()}`;
+    } else {
+        otherInput.style.display = 'none';
+        otherInput.value = ''; // Clear the input if it's hidden
+        otherInput.required = false; // Remove the mandatory field property
+    }
+}

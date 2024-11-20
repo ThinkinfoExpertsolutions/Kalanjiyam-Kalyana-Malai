@@ -416,16 +416,16 @@
                                                 <label class="lb">Religion:</label>
                                                 <select class="form-control" id="religion" name="religion">
                                                     <option value="">Religion</option>
-                                                    <option>Hinduism (இந்து சமயம்)</option>
-                                                    <option>Islam (இஸ்லாம்)</option>
-                                                    <option>Christianity (கிறிஸ்தவம்)</option>
+                                                    <option> இந்து (Hindu)</option>
+                                                    <option> இஸ்லாம் (Islam)</option>
+                                                    <option> கிறிஸ்தவம் (Christianity)</option>
                                                     <option value="Other">Other</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="lb">Cast:</label>
-                                                <select class="form-control" id="cast" name="cast">
-                                                    <option>Cast</option>
+                                                <select class="form-control" id="cast" name="cast" onchange="handleCastChange()">
+                                                    <option value="">Select Caste</option>
                                                     <option>பிராமணர் - Brahmin</option>
                                                     <option>செட்டியார் - Chettiar</option>
                                                     <option>கவுண்டர் - Gounder</option>
@@ -438,7 +438,16 @@
                                                     <option>Scheduled Tribes (ST)</option>
                                                     <option value="other">Other</option>
                                                 </select>
-                                                <input type="text" class="form-control" placeholder="Enter other cast" name="castOther" id="castOther" style="display: none;">
+                                            
+                                                <!-- Input field for "Other" caste, hidden by default -->
+                                                <input 
+                                                    type="text" 
+                                                    id="otherCast" 
+                                                    name="otherCast" 
+                                                    class="form-control mt-2" 
+                                                    placeholder="Enter your caste" 
+                                                    style="display: none;"
+                                                />
                                             </div>
                                             <div class="form-group">
                                                 <label class="lb">Zodiac:</label>
@@ -460,34 +469,35 @@
                                             <div class="form-group">
                                                 <label class="lb">Natchathiram:</label>
                                                 <select class="form-control" id="natchathiram" name="natchathiram">
-                                                    <option>Natchathiram (நட்சத்திரம்)</option>
-                                                    <option>Ashwini (அசுவினி)</option>
-                                                    <option>Bharani (பரணி)</option>
-                                                    <option>Karthikai (கார்த்திகை)</option>
-                                                    <option>Rohini (ரோகினி)</option>
-                                                    <option>Mrigashirsha (மிருகசிரிசம்)</option>
-                                                    <option>Arudra (திருவாதிரை)</option>
-                                                    <option>Punarvasu (புனர்பூசம்)</option>
-                                                    <option>Pushya (பூசம்)</option>
-                                                    <option>Ashlesha (ஆயில்யம்)</option>
-                                                    <option>Magha (மகா)</option>
-                                                    <option>Purva Phalguni (பூரம்)</option>
-                                                    <option>Uttara Phalguni (உத்திரம்)</option>
-                                                    <option>Hasta (ஹஸ்தம்)</option>
-                                                    <option>Chitra (சித்திரை)</option>
-                                                    <option>Swati (சுவாதி)</option>
-                                                    <option>Vishakha (விசாகம்)</option>
-                                                    <option>Anuradha (அனுஷம்)</option>
-                                                    <option>Jyeshtha (கேட்டை)</option>
-                                                    <option>Mula (மூலம்)</option>
-                                                    <option>Purvashada (பூராடம்)</option>
-                                                    <option>Uttarashada (உத்திராடம்)</option>
-                                                    <option>Shravan (திருவோணம்)</option>
-                                                    <option>Purvabhadrapada (பூரட்டாதி)</option>
-                                                    <option>Uttarabhadrapada (உத்திரட்டாதி)</option>
-                                                    <option>Revati (ரேவதி)</option>
-                                                    <option>Avittam (அவிதம்)</option>
-                                                    <option>Punarvasu (பரிந்த)</option>
+                                                    <option>நட்சத்திரம் (Natchathiram)</option>
+                                                    <option>அசுவினி (Ashwini)</option>
+                                                    <option>பரணி (Bharani)</option>
+                                                    <option>கார்த்திகை (Karthikai)</option>
+                                                    <option>ரோகினி (Rohini)</option>
+                                                    <option>மிருகசிரிசம் (Mrigashirsha)</option>
+                                                    <option>திருவாதிரை (Arudra)</option>
+                                                    <option>புனர்பூசம் (Punarvasu)</option>
+                                                    <option>பூசம் (Pushya)</option>
+                                                    <option>ஆயில்யம் (Ashlesha)</option>
+                                                    <option>மகா (Magha)</option>
+                                                    <option>பூரம் (Purva Phalguni)</option>
+                                                    <option>உத்திரம் (Uttara Phalguni)</option>
+                                                    <option>ஹஸ்தம் (Hasta)</option>
+                                                    <option>சித்திரை (Chitra)</option>
+                                                    <option>சுவாதி (Swati)</option>
+                                                    <option>விசாகம் (Vishakha)</option>
+                                                    <option>அனுஷம் (Anuradha)</option>
+                                                    <option>கேட்டை (Jyeshtha)</option>
+                                                    <option>மூலம் (Mula)</option>
+                                                    <option>பூராடம் (Purvashada)</option>
+                                                    <option>உத்திராடம் (Uttarashada)</option>
+                                                    <option>திருவோணம் (Shravan)</option>
+                                                    <option>பூரட்டாதி (Purvabhadrapada)</option>
+                                                    <option>உத்திரட்டாதி (Uttarabhadrapada)</option>
+                                                    <option>ரேவதி (Revati)</option>
+                                                    <option>அவிதம் (Avittam)</option>
+                                                    <option>பரிந்த (Punarvasu)</option>
+                                                    
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -572,9 +582,10 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-12 form-group">
+                                                <class class="col-md-12 form-group">
                                                     <label class="lb">About Yourself:</label>
                                                     <textarea class="form-control" id="about" name="about" maxlength="500" rows="4" placeholder="Tell us about yourself" required></textarea>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -595,10 +606,48 @@
                                                 <label class="lb">Job type:</label>
                                                 <select class="form-select" id="jobType" name="jobType">
                                                     <option>Business</option>
-                                                    <option>Employee</option>
-                                                    <option>Government</option>
-                                                    <option>Jobless</option>
-                                                    <option>Others</option>
+    <option>Employee</option>
+    <option>Government</option>
+    <option>Jobless</option>
+    <option>Others</option>
+    <option>Software Engineer/IT Professional</option>
+    <option>Business Analyst</option>
+    <option>Manager/HR Professional</option>
+    <option>Marketing/Sales Executive</option>
+    <option>Doctor</option>
+    <option>Nurse/Medical Assistant</option>
+    <option>Pharmacist</option>
+    <option>Healthcare Administrator</option>
+    <option>Teacher/Professor</option>
+    <option>Research Scholar</option>
+    <option>Lecturer</option>
+    <option>Education Consultant</option>
+    <option>Entrepreneur</option>
+    <option>Business Owner</option>
+    <option>Freelancer</option>
+    <option>Consultant</option>
+    <option>Lawyer/Advocate</option>
+    <option>Judge</option>
+    <option>Legal Advisor</option>
+    <option>Mechanical Engineer</option>
+    <option>Civil Engineer</option>
+    <option>Electrical Engineer</option>
+    <option>Architect</option>
+    <option>Writer/Author</option>
+    <option>Journalist</option>
+    <option>Graphic Designer</option>
+    <option>Film/TV Professional</option>
+    <option>Electrician</option>
+    <option>Plumber</option>
+    <option>Technician</option>
+    <option>Carpenter</option>
+    <option>Musician</option>
+    <option>Dancer</option>
+    <option>Actor</option>
+    <option>Photographer</option>
+    <option>Student</option>
+    <option>Retired</option>
+    <option>Homemaker</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">

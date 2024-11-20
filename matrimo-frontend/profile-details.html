@@ -356,46 +356,39 @@
                     <div class="profile">
                         <div class="pg-pro-big-im">
                             <div class="s1">
-                                <img src="images/profiles/profile-large.jpg" loading="lazy" class="pro" alt="">
+                                <img id="profileImage" src="images/profiles/profile-large.jpg" loading="lazy" class="pro" alt="">
                             </div>
-                            <!-- <div class="s3">
-                                <a href="#!" class="cta fol cta-chat">Chat now</a>
-                                <span class="cta cta-sendint" data-toggle="modal" data-target="#sendInter">Send
-                                    interest</span>
-                            </div> -->
                         </div>
                     </div>
                     <div class="profi-pg profi-bio">
                         <div class="lhs">
                             <div class="pro-pg-intro">
-                                <h1>Nivetha</h1>
+                                <h1 id="name">Nivetha</h1>
                                 <div class="pro-info-status">
-                                    <!-- <span class="stat-1"><b>100</b> viewers</span>
-                                    <span class="stat-2"><b>Available</b> online</span> -->
                                 </div>
                                 <ul>
                                     <li>
                                         <div>
                                             <img src="images/icon/pro-city.png" loading="lazy" alt="">
-                                            <span>City: <strong>Chennai</strong></span>
+                                            <span>City: <strong id="district"></strong></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <img src="images/icon/pro-age.png" loading="lazy" alt="">
-                                            <span>Age: <strong>21</strong></span>
+                                            <span>Age: <strong id="age"></strong></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/religion-2383388-1995924.png" loading="lazy" alt="">
-                                            <span>Religion: <strong>Hindhu</strong></span>
+                                            <span>Religion: <strong id="religion"></strong></span>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <img src="https://cdn-icons-png.flaticon.com/512/9631/9631363.png" loading="lazy" alt="">
-                                            <span>Job: <strong>IT</strong></span>
+                                            <span>Job: <strong id="jobType"></strong></span>
                                         </div>
                                     </li>
                                 </ul>
@@ -403,7 +396,8 @@
                             <!-- PROFILE ABOUT -->
                             <div class="pr-bio-c pr-bio-abo">
                                 <h3>About</h3>
-                                <p>Hello! I'm Priya, a positive and caring person who loves exploring new places and spending time with family. I work as a [Your Profession, e.g., software engineer] and enjoy cooking, reading, and discovering new cuisines in my free time. </p> <p>I'm looking for a kind and understanding partner who values family and shares similar life goals. I believe a strong relationship is built on trust, respect, and friendship. Excited to start this journey and create a beautiful future together!</p>
+                                <p id="about"></p>
+                                <!-- <p id="about">Hello! I'm Priya, a positive and caring person who loves exploring new places and spending time with family. I work as a [Your Profession, e.g., software engineer] and enjoy cooking, reading, and discovering new cuisines in my free time. </p> <p>I'm looking for a kind and understanding partner who values family and shares similar life goals. I believe a strong relationship is built on trust, respect, and friendship. Excited to start this journey and create a beautiful future together!</p> -->
                             </div>
                             <!-- END PROFILE ABOUT -->
                             <!-- PROFILE ABOUT -->
@@ -412,21 +406,21 @@
                                 <div id="image-gallery">
                                     <div class="pro-gal-imag">
                                         <div class="img-wrapper">
-                                            <a href="#!"><img src="images/profiles/1.jpg" class="img-responsive" alt=""></a>
+                                            <a href="#!"><img id="userImage1" src="images/profiles/1.jpg" class="img-responsive" alt=""></a>
                                             <div class="img-overlay"><i class="fa fa-arrows-alt" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="pro-gal-imag">
                                         <div class="img-wrapper">
-                                            <a href="#!"><img src="images/profiles/6.jpg" class="img-responsive" alt=""></a>
+                                            <a href="#!"><img id="userImage2" src="images/profiles/6.jpg" class="img-responsive" alt=""></a>
                                             <div class="img-overlay"><i class="fa fa-arrows-alt" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="pro-gal-imag">
                                         <div class="img-wrapper">
-                                            <a href="#!"><img src="images/profiles/14.jpg" class="img-responsive" alt=""></a>
+                                            <a href="#!"><img id="userImage3" src="images/profiles/14.jpg" class="img-responsive" alt=""></a>
                                             <div class="img-overlay"><i class="fa fa-arrows-alt" aria-hidden="true"></i>
                                             </div>
                                         </div>
@@ -438,12 +432,12 @@
                             <div class="pr-bio-c pr-bio-conta">
                                 <h3>Contact info</h3>
                                 <ul>
-                                    <li><span><i class="fa fa-mobile"
+                                    <li><span id="phone"><i class="fa fa-mobile"
                                                 aria-hidden="true"></i><b>Phone:</b>+92 (8800) 68 - 8960</span></li>
-                                    <li><span><i class="fa fa-envelope-o"
+                                    <li><span id="email"><i class="fa fa-envelope-o"
                                                 aria-hidden="true"></i><b>Email:</b>angelinajoliewed@gmail.com</span>
                                     </li>
-                                    <li><span><i class="fa fa fa-map-marker" aria-hidden="true"></i><b>Address: </b>28800
+                                    <li><span id="address"><i class="fa fa fa-map-marker" aria-hidden="true"></i><b>Address: </b>28800
                                             Orchard Lake Road, Suite 180 Farmington Hills, U.S.A.</span></li>
                                 </ul>
                             </div>
@@ -452,28 +446,42 @@
                             <div class="pr-bio-c pr-bio-info">
                                 <h3>Personal information</h3>
                                 <ul>
-                                    <li><b>Name:</b> Angelina Jolie</li>
-                                    <li><b>Fatheres name:</b> John smith</li>
-                                    <li><b>Family name:</b> Joney family</li>
-                                    <li><b>Age:</b> 24</li>
-                                    <li><b>Date of birth:</b>03 Jan 1998</li>
-                                    <li><b>Height:</b>167cm</li>
-                                    <li><b>Weight:</b>65kg</li>
-                                    <li><b>Degree:</b> MSC Computer Science</li>
-                                    <li><b>Religion:</b> Hindhu</li>
-                                    <li><b>Cast:</b> Sengunthar</li>
-                                    <li><b>Profession:</b> Working</li>
-                                    <li><b>Company:</b> Google</li>
-                                    <li><b>Position:</b> Web developer</li>
-                                    <li><b>Salary:</b> 50,000</li>
+                                    <li id="name1"></li>
+                                    <li id="gender"></li>
+                                    <li id="familyName"></li>
+                                    <li id="fatherName"></li>
+                                    <li id="motherName"></li>
+                                    <li id="dateOfBirth"></li>
+                                    <li id="age1"></li>
+                                    <li id="height"></li>
+                                    <li id="weight">></li>
+                                    <li id="religion1"></li>
+                                    <li id="cast"></li>
+                                    <li id="natchathiram"></li>
+                                    <li id="zodiac"></li>
+                                    <li id="district1"></li>
+                                </ul>
+                            </div>
+                            <div class="pr-bio-c pr-bio-info">
+                                <h3>Job & Education Information</h3>
+                                <ul>
+                                    <li id="jobType1"></li>
+                                    <li id="companyName"></li>
+                                    <li id="position"></li>
+                                    <li id="salary"></li>
+                                    <li id="workingLocation"></li>
+                                    <li id="workExperience"></li>
+                                    <li id="degree"></li>
+                                    <li id="college"></li>
+                                    <!-- <li id="school"></li> -->
                                 </ul>
                             </div>
                             <!-- END PROFILE ABOUT -->
                             <!-- PROFILE ABOUT -->
                             <div class="pr-bio-c pr-bio-hob">
                                 <h3>Hobbies</h3>
-                                <ul>
-                                    <li><span>Modelling</span></li>
+                                <ul id="hobbies">
+                                    <!-- <li><span>Modelling</span></li>
                                     <li><span>Watching movies</span></li>
                                     <li><span>Playing volleyball</span></li>
                                     <li><span>Hangout with family</span></li>
@@ -481,20 +489,18 @@
                                     <li><span>Books reading</span></li>
                                     <li><span>Music</span></li>
                                     <li><span>Cooking</span></li>
-                                    <li><span>Yoga</span></li>
+                                    <li><span>Yoga</span></li> -->
                                 </ul>
                             </div>
                             <!-- END PROFILE ABOUT -->
                             <!-- PROFILE ABOUT -->
                             <div class="pr-bio-c menu-pop-soci pr-bio-soc">
                                 <h3>Social media</h3>
-                                <ul>
-                                    <li><a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <ul >
+                                    <li><a id="facebook" href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a id="x" href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a id="whatsapp" href="#!"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+                                    <li><a id="instagram" href="#!"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                 </ul>
                             </div>
                             <!-- END PROFILE ABOUT -->
@@ -504,7 +510,7 @@
                           <div class="imageContainer">
                             <h3>Horoscope Image</h3>
 
-                                 <img src="https://www.matri4web.com/img/placeholder/horoscope-tamil.jpg" alt="" srcset="">
+                                 <img id="horoscopeImage" src="https://www.matri4web.com/img/placeholder/horoscope-tamil.jpg" alt="" srcset="">
 
                           </div>
                         <!-- PROFILE lHS -->
@@ -770,6 +776,7 @@
         <!-- Script to verify and retrieve the user details -->
         <script src="js/main/user.js"></script> 
         <script src="js/main/websiteData.js"></script>
+        <script src="js/main/profileDetails.js"></script>
 
 </body>
 

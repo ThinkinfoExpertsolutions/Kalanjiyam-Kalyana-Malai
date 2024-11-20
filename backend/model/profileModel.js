@@ -99,8 +99,8 @@ const profilesSchema  =  mongoose.Schema({
       maxlength: [500, 'About Yourself cannot be more than 500 characters'],
     },
     hobbies: {
-      type: [String], 
-      default: [],
+      type: String, 
+      
     },
 //     interestList: {
 //       newRequest: {type: [String],default: []},

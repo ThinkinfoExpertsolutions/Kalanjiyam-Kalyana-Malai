@@ -462,28 +462,18 @@ export const handleBookmark = async (req, res) => {
 
 export const getProfileData = async(req,res)=>{
   
-  const paramsId = req.params.id;
-  const userId = req.body;
-  if(userId === paramsId){
-    return  res.status(403).json({ message: "Unauthorized access" });
-  }
+  const profileID = req.params.id;
+  
 
 try {
-  const [user ,profile] = await Promise.all([
-    checkUserFound(userId, "userModel"),
-    checkUserFound(userId, "profilesModel"),
-]);
+  const profile = await profilesModel.findOne({profileID:profileID})
 
-if(!user){
-  return res.status(404).json({ success: false, message: " User Not Found" });
-}
 if(!profile){
   return res.status(404).json({ success: false, message: " User Profile Not Found" });
 }
   
-const data = await profilesModel.findOne({user_id:userId});
 
-res.json({success:true,data:data});
+res.json({success:true,data:profile});
 
 } catch (error) {
   console.log(error);
