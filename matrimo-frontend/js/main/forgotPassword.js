@@ -53,13 +53,13 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
             alert("Passwords do not match!");
             return;
         }
-
+       showLoader()
         const response = await fetch("http://localhost:5000/api/user/user/reset-password", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, newPassword, comfirmPassword })
         });
-
+       hideLoader()
         const data = await response.json();
 
         if (data.success) {
@@ -70,3 +70,11 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
         }
     }
 });
+
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
+}

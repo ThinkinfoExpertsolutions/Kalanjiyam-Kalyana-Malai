@@ -58,6 +58,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
             }
 
             // Send OTP verification request to backend for email
+            showLoader()
             const response = await fetch("http://localhost:5000/api/user/register", {
                 method: "POST",
                 headers: {
@@ -71,7 +72,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
                     otp,
                 }),
             });
-
+        hideLoader()
             const data = await response.json();
 
             if (data.success) {
@@ -90,7 +91,13 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
     }
 });
 
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
 
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
+}
 
 
 

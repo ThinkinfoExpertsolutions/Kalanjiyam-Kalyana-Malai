@@ -12,7 +12,7 @@ const profileRouter = express.Router();
 profileRouter.patch("/edit-profile",authMiddleware,editProfile);
 profileRouter.patch("/edit-settings/:id",editSettings);
 profileRouter.get("/get-profile-data/:id",getProfileData);
-profileRouter.patch('/profile/:id/view',handleViewCount);
+profileRouter.patch('/profile/:id/view',authMiddleware,handleViewCount);
 profileRouter.patch("/handle-bookmark",authMiddleware,handleBookmark);
 profileRouter.get("/get-latest-profile",getLatestProfile);
 profileRouter.get("/get-search-result",getSearchResult);

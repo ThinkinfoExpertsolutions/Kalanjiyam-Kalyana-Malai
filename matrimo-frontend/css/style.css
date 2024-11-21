@@ -12545,6 +12545,9 @@ Base styles for the form
     animation: spin 1s linear infinite;
     margin-bottom: 15px;
   }
+  .spinner p{
+    color: white;
+  }
   
   /* Spin animation keyframes */
   @keyframes spin {

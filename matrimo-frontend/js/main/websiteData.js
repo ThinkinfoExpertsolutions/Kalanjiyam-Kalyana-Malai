@@ -1,5 +1,6 @@
 
 document.addEventListener("DOMContentLoaded",async()=>{
+    showLoader()
     try {
         const response = await fetch("http://localhost:5000/api/get-latest-profile",{
             method: "GET",
@@ -7,6 +8,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
                 "Content-Type": "application/json",
             }
         });
+        hideLoader()
         const data = await response.json();
 
         if(data.success){
@@ -91,7 +93,7 @@ function updateSocialMediaLinks(data) {
                             </a>
                         </div>
                         <div class="pro-detail">
-                            <h4><a href="profile-details.html?id=${user._id}">${user.basicInfo.name}</a></h4>
+                            <h4><a href="profile-details.html?id=${user.profileID}" onclick="handleViewCount('${user.user_id}', event)">${user.basicInfo.name}</a></h4>
                             <div class="pro-bio">
                                 <span>${user.jobDetails.position}</span>
                                 <span>${user.basicInfo.district}</span>
@@ -99,7 +101,7 @@ function updateSocialMediaLinks(data) {
                                 <span>${user.basicInfo.cast}</span>
                             </div>
                             <div class="links">
-                                <a href="profile-details.html?id=${user.profileID}">More details</a>
+                                <a href="profile-details.html?id=${user.profileID}"  onclick="handleViewCount('${user.user_id}', event)">More details</a>
                             </div>
                         </div>
                         <span 
@@ -155,7 +157,7 @@ function toggleBookmark(userId, element) {
 
   // Prepare the action for the backend
   const action = isBookmarked ? 'remove' : 'add';
-
+   showLoader()
   // Send request to backend
   fetch(`http://localhost:5000/api/handle-bookmark`, {
       method: 'PATCH',
@@ -170,6 +172,7 @@ function toggleBookmark(userId, element) {
   })
       .then((response) => response.json())
       .then((data) => {
+        hideLoader()
           if (!data.success) {
               // Revert UI if the request fails
               toggleBookmarkUI(!isBookmarked);
@@ -186,5 +189,43 @@ function toggleBookmark(userId, element) {
 }
 
 
+async function handleViewCount(userId,event){
+    event.preventDefault();
+    console.log(userId)
+    try {
+        showLoader()
+         const response = await fetch(`http://localhost:5000/api/profile/${userId}/view`,{
+            method: 'PATCH',
+            headers: {
+          'Content-Type': 'application/json',
+          "token":sessionStorage.getItem("token")
+           },
+        });
+        hideLoader();
+        const data = await response.json();
+      if(data.success){
+            console.log(data.message);
+       }else{
+        console.log(data.message);
 
+       }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    }
+}
+
+
+
+
+
+
+
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
+}
 

@@ -4,7 +4,7 @@ const defaultImageUrl = "https://static.vecteezy.com/system/resources/previews/0
 
 async function getProfileData (profileID){
     try {
-        
+        showLoader()
         const response = await fetch(`http://localhost:5000/api/get-profile-data/${profileID}`, {
             method: "GET",
             headers: {
@@ -12,7 +12,7 @@ async function getProfileData (profileID){
             },
             
         });
-
+       hideLoader()
         const data = await response.json();
         if(data.success){
             const userData = data.data;
@@ -138,7 +138,7 @@ function updateProfileData(elements, userData) {
     hobbiesArray.forEach((hobby) => {
         if (hobby.trim()) { // Avoid adding empty items
             const li = document.createElement("li");
-            li.innerHTML = hobby.trim(); // Remove unnecessary spaces
+            li.innerHTML = `<li><span>${hobby.trim()}</span></li>`; // Remove unnecessary spaces
             elements.hobbies.appendChild(li);
         }
     });
@@ -207,4 +207,12 @@ if(window.location.pathname.endsWith("profile-details.html")){
      })
     console.log(profileID);
   
+}
+
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
 }

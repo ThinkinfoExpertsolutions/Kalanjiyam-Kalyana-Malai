@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         try {
+            showLoader()
             const response = await fetch("http://localhost:5000/api/user/signin", {
                 method: "POST",
                 headers: {
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 },
                 body: JSON.stringify(userData),
             });
-
+            hideLoader()
             const data = await response.json();
 
             if (data.success) {
@@ -53,3 +54,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
+}

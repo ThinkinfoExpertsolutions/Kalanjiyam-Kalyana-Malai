@@ -11,6 +11,7 @@ if(token){
 
 
     try {
+        showLoader()
         const response = await fetch("http://localhost:5000/api/user/user", {
             method: "GET",
             headers: {
@@ -18,7 +19,7 @@ if(token){
                 "token": token,
             }
         });
-
+       hideLoader()
         const data = await response.json();
         console.log(data);
         if (data.success) {
@@ -151,3 +152,10 @@ function logout() {
 
 document.addEventListener("DOMContentLoaded", fetchUserData);
 
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
+}

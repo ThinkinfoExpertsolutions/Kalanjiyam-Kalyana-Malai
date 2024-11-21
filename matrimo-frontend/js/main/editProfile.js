@@ -14,10 +14,9 @@ document.getElementById('name').value = userData.basicInfo.name || '';
 document.getElementById('fatherName').value = userData.basicInfo.fatherName || '';
 document.getElementById('motherName').value = userData.basicInfo.motherName || '';
 document.getElementById('familyName').value = userData.basicInfo.familyName || '';
-document.getElementById('dateOfBirth').value = userData.basicInfo.dateOfBirth || '';
+document.getElementById('dateOfBirth').value = userData.basicInfo.dateOfBirth.split("T")[0] || '';
 document.getElementById('gender').value = userData.basicInfo.gender || '';
 document.getElementById('religion').value = userData.basicInfo.religion || '';
-// document.getElementById('castOther').value = userData.basicInfo.castOther || '';
 document.getElementById('zodiac').value = userData.basicInfo.zodiac || '';
 document.getElementById('natchathiram').value = userData.basicInfo.natchathiram || '';
 document.getElementById('district').value = userData.basicInfo.district || '';
@@ -48,6 +47,9 @@ if(userData.basicInfo.cast.includes("other")){
     const otheCastInput = document.getElementById('otherCast');
     otheCastInput.style.display="block";
     otheCastInput.value = userData.basicInfo.cast.split("-")[1] || ''
+}else{
+    document.getElementById('cast').value = userData.basicInfo.cast || '';
+
 }
 
 // Update profile image
@@ -60,6 +62,10 @@ updateImage("horoscopePhoto", userData.media.horoscopeImage);
 updateImage("image1", userData.media.galleryImages[0]);
 updateImage("image2", userData.media.galleryImages[1]);
 updateImage("image3", userData.media.galleryImages[2]);
+
+const element = getAllElementsById();
+calculatePercentage(element);
+
 }
 
 function updateImage(elementId, imageUrl) {
@@ -89,7 +95,10 @@ function handleImageChange(event, imageId) {
         reader.readAsDataURL(imageFile);  // Read the selected file as a data URL
     }
 }
+
+
 let userInfoData;
+
 document.getElementById('profileForm').addEventListener('submit',async function(event) {
     event.preventDefault(); // Prevent the form from submitting
 
@@ -129,22 +138,32 @@ document.getElementById('profileForm').addEventListener('submit',async function(
 
     handleCastChange();
     
-
     const formData = new FormData();
 
-    formData.append("profileImage", document.getElementById('profileImage').files[0]);
-    formData.append("horoscopeImage", document.getElementById('horoscopeImage').files[0]);
-    formData.append('galleryImages', document.getElementById('userImage1').files[0]);
-    formData.append('galleryImages', document.getElementById('userImage2').files[0]);
-    formData.append('galleryImages', document.getElementById('userImage3').files[0]);
-
+    const profileImage = document.getElementById('profileImage').files[0];
+    if (profileImage) formData.append("profileImage", profileImage);
+    
+    const horoscopeImage = document.getElementById('horoscopeImage').files[0];
+    if (horoscopeImage) formData.append("horoscopeImage", horoscopeImage);
+    
+    const userImage1 = document.getElementById('userImage1').files[0];
+    if (userImage1) formData.append("galleryImages", userImage1);
+    
+    const userImage2 = document.getElementById('userImage2').files[0];
+    if (userImage2) formData.append("galleryImages", userImage2);
+    
+    const userImage3 = document.getElementById('userImage3').files[0];
+    if (userImage3) formData.append("galleryImages", userImage3);
+    
 
     console.log(userInfoData); // Output the data to the console
+    let response1=false;
+    let response2=false;
 
-    
     try {
         showLoader()
-        console.log(userInfoData)
+       
+
         const dataResponse = await fetch("http://localhost:5000/api/edit-profile", {
             method: "PATCH",
             headers: {
@@ -154,24 +173,40 @@ document.getElementById('profileForm').addEventListener('submit',async function(
             body: JSON.stringify(userInfoData), // Convert payload to JSON string
         });
         const data = await dataResponse.json();
-
-        // const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
-        //     method: "POST",
-        //     headers: {
-        //         token: token, // Token header for authentication
-        //     },
-        //     body: formData, // Convert payload to JSON string
-        // });
+        if(data.success){
+            response1=true;
+        }
         
+     // Check if any images were added to formData
+
+     
+if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.has("galleryImages")) {
+    const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
+        method: "POST",
+        headers: {
+            token: token, // Token header for authentication
+        },
+        body: formData, // Send the form data
+    });
+
+    const data2 = await imageResponse.json();
+    if (data2.success) {
+        response2 = true;
+    }
+}
         hideLoader()
 
-        const data2 = await imageResponse.json();
-
-        if( data.success){
-            alert(data2.message);
+        if( response1 && response2){
+            alert("Profile Information And Image Updated Successfully!");
+        }else if(response1){
+            alert("Profile Information Updated Successfully!");
+        }else if(response2){
+            alert("Profile Image Updated Successfully!");
         }else{
-            alert(data2.message);
+            alert("error");
         }
+        const element = getAllElementsById();
+         calculatePercentage(element);
 
     } catch (error) {
          console.error("Error occurred:", error);
@@ -188,9 +223,7 @@ function showLoader() {
 function hideLoader() {
     document.getElementById("loader").style.display = "none";
 }
-  // Example usage
-  setTimeout(showLoader, 1000); // Simulate showing the loader after 1 second
-  setTimeout(hideLoader, 2000); // Hide loader after 5 seconds
+
   
   function handleCastChange() {
     const castDropdown = document.getElementById('cast');
@@ -206,4 +239,89 @@ function hideLoader() {
         otherInput.value = ''; // Clear the input if it's hidden
         otherInput.required = false; // Remove the mandatory field property
     }
+}
+
+function getAllElementsById() {
+    const ids = [
+        'profilePhoto',
+        'name',
+        'district',
+        'age',
+        'religion',
+        'jobType',
+        'about',
+        'gallery',
+        'image-gallery',
+        'phone',
+        'email',
+        'address',
+        'gender',
+        'familyName',
+        'fatherName',
+        'motherName',
+        'dateOfBirth',
+        'height',
+        'weight',
+        'cast',
+        'natchathiram',
+        'zodiac',
+        'image1',
+        'image2',
+        'image3',
+        'jobType',
+        'companyName',
+        'position',
+        'salary',
+        'workingLocation',
+        'workExperience',
+        'degree',
+        'college',
+        'school',
+        'hobbies',
+        'horoscopePhoto',
+        'whatsapp',
+        'instagram',
+        'facebook',
+        'x'
+    ];
+
+    // Create an object to store the elements
+    const elements = {};
+
+    // Loop through the IDs and get the elements
+    ids.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            elements[id] = element; // Store the element in the object
+        }
+    });
+
+    return elements; // Return the object with elements
+}
+
+function calculatePercentage(elements) {
+    let filledCount = 0;
+
+    // Loop through all elements and check if they have a value
+    for (let key in elements) {
+        const element = elements[key];
+        if (element.type === "file" || element.type === "checkbox" || element.type === "radio") {
+            // Handle special input types
+            if (element.checked || element.files?.length > 0) {
+                filledCount++;
+            }
+        } else if (element.value !== "") {
+            // Count non-empty values for other elements
+            filledCount++;
+        }else if(!element.value !== ""){
+            console.log(element)
+        }
+    }
+
+    const total = Object.keys(elements).length;
+    const percentage = Math.round((filledCount / total) * 100);
+
+    sessionStorage.setItem("profileCompletion", String(percentage));
+
+    console.log(`Profile Completion: ${percentage}%`);
 }

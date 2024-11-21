@@ -490,8 +490,12 @@ export const handleViewCount = async(req,res)=>{
   
   const userId = req.params.id;
 
-  const {viewerId} = req.body;
-
+  const viewerId = req.id;
+  
+if(viewerId === userId){
+  return res.json({success:true, message: 'both are same' });
+  
+}
   try {
     
     const user = await profilesModel.findOne({user_id:userId});
@@ -500,7 +504,7 @@ export const handleViewCount = async(req,res)=>{
     }
     const viewer = await profilesModel.findOne({user_id:viewerId});
     if(!viewer){
-      return res.json({ message: 'User not found' });
+      return res.json({data:viewerId, message: 'ViewerID not found' });
     }
 
     const existingUser = user.viewedBy.find(view => view.userId === viewerId)
@@ -510,7 +514,7 @@ export const handleViewCount = async(req,res)=>{
             user.viewedBy.push({ userId: viewerId, time: new Date() });
             user.activitys.push({userId: viewerId, time: new Date(), event:`${viewer.basicInfo.name} Viewed Your Profile` });
             await user.save();
-            return res.json({ message: 'View count updated' });
+            return res.json({success:true, message: 'View count updated' });
           }
           return res.json({success:false, message: 'already viewed' });
    
