@@ -642,7 +642,7 @@ export const getRelatedProfile = async(req,res)=>{
 }
 
 export const verifyAccount = async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.id;
 
   try {
     

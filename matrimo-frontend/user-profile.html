@@ -361,7 +361,7 @@
                         <div class="col-md-4 col-lg-3">
                             <div class="db-nav">
                                 <div class="db-nav-pro">
-                                    <img src="https://thumbs.dreamstime.com/b/portrait-confident-stylish-indian-arabian-latino-ethnic-male-man-student-rich-businessman-guy-satisfied-cheerful-client-tourist-315652506.jpg" class="img-fluid" alt="">
+                                    <img id="profileImage" src="https://thumbs.dreamstime.com/b/portrait-confident-stylish-indian-arabian-latino-ethnic-male-man-student-rich-businessman-guy-satisfied-cheerful-client-tourist-315652506.jpg" class="img-fluid" alt="">
                                 </div>
                                 <div class="db-nav-list">
                                     <ul>
@@ -388,11 +388,8 @@
                                                 <i class="fa fa-cog" aria-hidden="true"></i>Setting
                                             </a>
                                         </li> -->
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-sign-out" aria-hidden="true"></i>Log out
-                                            </a>
-                                        </li>
+                                        <li><a href="index.html" onclick="logout(event)"><i class="fa fa-sign-out" aria-hidden="true"></i>Log out</a></li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -400,79 +397,62 @@
                         <div class="col-md-8 col-lg-9">
                             <div class="row">
                                 <div class="col-md-12 col-lg-6 col-xl-8 db-sec-com">
-                                    <h2 class="db-tit">Profiles status</h2>
+                                    <h2 class="db-tit">Profiles Status</h2>
                                     <div class="db-profile">
                                         <div class="img" style="width: fit-content;">
-                                            <img src="https://thumbs.dreamstime.com/b/portrait-confident-stylish-indian-arabian-latino-ethnic-male-man-student-rich-businessman-guy-satisfied-cheerful-client-tourist-315652506.jpg" loading="lazy" alt="" style="object-fit: contain; border-radius: 15px;">
+                                            <img id="profileImageLarge" src="https://thumbs.dreamstime.com/b/portrait-confident-stylish-indian-arabian-latino-ethnic-male-man-student-rich-businessman-guy-satisfied-cheerful-client-tourist-315652506.jpg" loading="lazy" alt="" style="object-fit: contain;  width: 620px; height: 330px; border-radius: 8px;">
                                         </div>
-                                        <div class="edit1">
-                                            <a href="user-profile-edit.html" id="editProfilepath" class="cta-dark2" >Edit profile</a>
+                                        
+                                        <!-- Profile Verification Status Section -->
+                                        <div class="profile-status">
+                                            <!-- If Profile is Verified -->
+                                            <div id="verified-section" class="verified-status">
+                                                <span class="verified-text">Verified</span>
+                                                <img src="https://iconape.com/wp-content/png_logo_vector/google-verified.png" alt="Verified" class="verified-logo">
+                                            </div>
+                                            
+                                            <!-- If Profile is Unverified -->
+                                            <div id="unverified-section" class="unverified-status">
+                                                <span class="unverified-text">Unverified</span>
+                                                <img src="https://iconape.com/wp-content/png_logo_vector/google-unverified.png" alt="Unverified" class="unverified-logo">
+                                                <button id="verify-request" class="cta-dark5">Send Verification Request</button>
+                                            </div>
                                         </div>
-                                        <div class="edit1">
-                                            <span class="verified-text">Verified</span>
-                                            <img src="https://e7.pngegg.com/pngimages/676/937/png-clipart-blue-and-white-check-logo-social-media-verified-badge-facebook-computer-icons-coin-blue-angle-thumbnail.png" alt="Verified" class="verified-logo">
+                                
+                                        <!-- Edit Profile Button Section -->
+                                        <div class="profile-actions">
+                                            <a href="user-profile-edit.html" id="editProfilePathBtn" class="cta-dark5">Edit Profile</a>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-lg-6 col-xl-4 db-sec-com">
-                                    <h2 class="db-tit">Profiles status</h2>
-                                    <div class="db-pro-stat">
-                                        <h6>Profile completion</h6>
-                                        <!-- <div class="dropdown">
-                                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                                                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="#">Edid profile</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="#">View profile</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="#">Profile visibility settings</a>
-                                                </li>
-                                            </ul>
-                                        </div> -->
-                                        <div class="db-pro-pgog">
-                                            <span>
-                                                <b class="count">90</b>%
-                                            </span>
-                                        </div>
-                                        <ul class="pro-stat-ic">
-                                            <li style="display: none;">
-                                                <!-- <span>
-                                                    <i class="fa fa-heart-o like" aria-hidden="true"></i>
-                                                    <b>12</b>Likes
-                                                </span> -->
-                                            </li>
-                                            <li>
-                                                <span>
-                                                    <i class="fa fa-eye view" aria-hidden="true"></i>
-                                                    <b>12</b>Views
-                                                </span>
-                                            </li>
-                                            <br>
-                                            <li>
-                                                <span>
-                                                    <i class="fa fa-handshake-o inte" aria-hidden="true" style="position: relative; left: -32px;"></i>
-                                                    <div class="content1" style="position: relative; top: -24px; left: 40px">
-                                                    <b>12</b>Bookmarks
-                                                    </div>
-                                                </span>
-                                            </li>
-                                            <li style="display: none;">
-                                                <!-- <span>
-                                                    <i class="fa fa-hand-pointer-o clic" aria-hidden="true"></i>
-                                                    <b>12</b>Clicks
-                                                </span> -->
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                                 
+                                <div class="col-md-12 col-lg-6 col-xl-4 db-sec-com">
+                                    <h2 class="db-tit">Profiles status</h2>
+                                <div class="db-pro-stat">
+                                    <h6>Profile completion</h6>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
+                                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                          <li><a class="dropdown-item" href="#" id="editProfilePath">Edid profile</a></li>
+                                          <li><a class="dropdown-item" href="#" id="viewProfilePath">View profile</a></li>
+                                        </ul>
+                                      </div>
+                                    <div class="db-pro-pgog">
+                                        <span id="profileCompletion"></span>
+                                    </div>
+                                    <ul class="pro-stat-ic">
+                                        <!-- <li><span><i class="fa fa-heart-o like" aria-hidden="true"></i><b>12</b>Likes</span></li> -->
+                                        <li><span id="viewCount"><i class="fa fa-eye view" aria-hidden="true"></i><b >12</b>Views</span></li>
+                                        <li><span id='bookmarkCount'><i class="fa fa-handshake-o inte" aria-hidden="true"></i><b>12</b >Bookmark</span></li>
+                                        <!-- <li><span><i class="fa fa-hand-pointer-o clic" aria-hidden="true"></i><b>12</b>Clicks</span></li> -->
+                                    </ul>
+                                </div>
+                                </div>
+                                
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12 db-sec-com db-pro-stat-pg">
                                     <h2 class="db-tit">Profiles views</h2>
                                     <div class="db-pro-stat-view-filter cho-round-cor chosenini">
@@ -492,7 +472,7 @@
                                         <canvas id="Chart_leads"></canvas>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -562,7 +542,7 @@
         <script src="js/custom.js"></script>
         <script src="js/main/user.js"></script> 
         <script src="js/main/websiteData.js"></script>
-
+       <script src="js/main/dashboard.js"></script>
         <script>
         
 

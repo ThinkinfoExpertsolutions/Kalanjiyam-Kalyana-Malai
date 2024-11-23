@@ -364,75 +364,54 @@
                                     <li><a href="user-chat.html"><i class="fa fa-bell" aria-hidden="true"></i>Notifications</a></li>
                                     <li><a href="user-plan.html" class="act"><i class="fa fa-money" aria-hidden="true"></i>Plan</a></li>
                                     <!-- <li><a href="user-setting.html"><i class="fa fa-cog" aria-hidden="true"></i>Setting</a></li> -->
-                                    <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>Log out</a></li>
+                                    <li><a href="index.html" onclick="logout(event)"><i class="fa fa-sign-out" aria-hidden="true"></i>Log out</a></li>
+
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-9">
                         <div class="row">
-                            <div class="col-md-4 db-sec-com">
+                            <div class="col-md-12 col-lg-6 col-xl-4 db-sec-com">
                                 <h2 class="db-tit">Plan details</h2>
                                 <div class="db-pro-stat">
-                                    <h6 class="tit-top-curv">Current plan</h6>
+                                    <h6 class="tit-top-curv" id="planStatus">No Active Plan</h6>
                                     <div class="db-plan-card">
-                                        <img src="images/icon/plan.png" alt="">
+                                        <img src="images/icon/plan.png" alt="Plan Icon">
                                     </div>
                                     <div class="db-plan-detil">
                                         <ul>
-                                            <li>Plan name: <strong>Standard</strong></li>
-                                            <li>Validity: <strong>6 Months</strong></li>
-                                            <li>Valid till <strong>24 June 2024</strong></li>
-                                            <li><a href="#" class="cta-3">Upgrade now</a></li>
+                                            <li>Status: <strong id="planeName">No Active Plan</strong></li>
+                                            <li>Validity: <strong id="duration">N/A</strong></li>
+                                            <li>Valid till: <strong id="validTill">N/A</strong></li>
+                                            <li >
+                                                <a id="updgradeBtn" href="plans.html" class="cta-3" id="upgradeButton">Upgrade now</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-8 db-sec-com">
-                                <h2 class="db-tit">All invoice</h2>
+                                <h2 class="db-tit">History</h2>
                                 <div class="db-invoice">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                          <tr>
-                                            <th>Plan type</th>
-                                            <th>Duration</th>
-                                            <th>Cost</th>
-                                            <th>Invoice</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td>Platinum</td>
-                                            <td>12 Months(May 2023 - June 2024)</td>
-                                            <td>$500</td>
-                                            <td><a href="#" class="cta-dark cta-sml" download><span>Download</span></a></td>
-                                          </tr>
-                                          <tr>
-                                            <td>Standard</td>
-                                            <td>6 Months(Aug 2021 - Jan 2022)</td>
-                                            <td>$250</td>
-                                            <td><a href="#" class="cta-dark cta-sml" download><span>Download</span></a></td>
-                                          </tr>
-                                          <tr>
-                                            <td>Standard</td>
-                                            <td>6 Months(Jan 2021 - July 2021)</td>
-                                            <td>$250</td>
-                                            <td><a href="#" class="cta-dark cta-sml" download><span>Download</span></a></td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
+                                  <table class="table table-bordered" id="invoiceTable">
+                                    <thead>
+                                      <tr>
+                                        <th>Plan Type</th>
+                                        <th>Duration (Days)</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <!-- Dynamic Rows Will Be Inserted Here -->
+                                    </tbody>
+                                  </table>
                                 </div>
-                            </div>
-                            <!-- <div class="col-md-12 db-sec-com">
-                                <div class="alert alert-warning db-plan-canc">
-                                    <p><strong>Plan cancellation:</strong> <a href="#" data-bs-toggle="modal" data-bs-target="#plancancel">Click here</a> to cancell the current plan.</p>
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-md-12 db-sec-com">
-                                <div class="alert alert-warning db-plan-canc db-plan-canc-app">
-                                    <p>Your plan cancellation request has been successfully received by the admin. Once the admin approves your cancellation, the cost will be sent to you.</p>
-                                </div>
-                            </div> -->
+                              </div>
+                              
+                            
                         </div>
                     </div>
                 </div>
@@ -501,17 +480,17 @@
     <!-- END -->
 
     <!-- INTEREST POPUP -->
-    <div class="modal fade plncanl-pop" id="plancancel">
+    <!-- <div class="modal fade plncanl-pop" id="plancancel">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
-                <!-- Modal Header -->
+                Modal Header
                 <div class="modal-header">
                     <h4 class="modal-title seninter-tit">Plan cancellation</h4>
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                 </div>
 
-                <!-- Modal body -->
+                Modal body
                 <div class="modal-body seninter chosenini">
                     <div class="row">
                         <div class="col-md-6 lhs-poli">
@@ -577,7 +556,7 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- END INTEREST POPUP -->
 
     <!-- Optional JavaScript -->
@@ -589,6 +568,7 @@
     <script src="js/select-opt.js"></script>
     <script src="js/Chart.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/main/dashboard.js"></script>
     <script>
          //COMMON SLIDER
     $('.slider').slick({

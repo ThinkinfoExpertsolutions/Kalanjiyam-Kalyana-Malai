@@ -224,7 +224,14 @@ const profilesSchema  =  mongoose.Schema({
         image:String
       }
       ],
-
+     planHistory:[
+      {
+        startDate:Date,
+        endDate:Date,
+        price:Number,
+        durationInDays:Number
+      }
+     ],
     settings:{
       profileVisibleOption: {
         type: String,
@@ -243,7 +250,6 @@ const profilesSchema  =  mongoose.Schema({
   },
   verification_status: {
     type: String,
-    enum: ['Verified', 'Pending','UnVerified'],
     default: 'UnVerified',
   },
   subscription_status: {

@@ -17,7 +17,7 @@ profileRouter.patch("/handle-bookmark",authMiddleware,handleBookmark);
 profileRouter.get("/get-latest-profile",getLatestProfile);
 profileRouter.get("/get-search-result",getSearchResult);
 profileRouter.get("/get-related-profiles/:id",getRelatedProfile);
-profileRouter.post("/verify-account/:id",authMiddleware,verifyAccount);
+profileRouter.post("/verify-account",authMiddleware,verifyAccount);
 profileRouter.post("/send-quiry",authMiddleware,sendEnquiry);
 profileRouter.post("/upload-images",upload,authMiddleware,uploadImage);
 

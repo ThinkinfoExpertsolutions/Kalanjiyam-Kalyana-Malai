@@ -376,39 +376,35 @@ export const adminChangeSubscriptionStatus = async (req, res) => {
   const { userId, durationInDays, price, isActive } = req.body;
 
   try {
-    
+    // Find the existing subscription profile
     const profile = await SubscriptionModel.findOne({ user_id: userId });
-
-    
-    if (!isActive) {
-      if (!profile) {
-        return res.status(404).json({ success: false, message: "User Profile Not Found" });
-      }
-
-      
-      const updatedProfile = await SubscriptionModel.findOneAndUpdate(
-        { user_id: userId },
-        { price: 0, durationInDays: 0, startDate: 0, endDate: 0, isActive: false },
-        { new: true, runValidators: true }
-      );
-      const updatedUser = await profilesModel.findOneAndUpdate(
-        { user_id: userId },
-        { subscription_status: false },
-        { new: true }
-      );
-
-      return res.json({
-        success: true,
-        message: "Subscription deactivated successfully",
-      });
-    }
-
-    
     if (!profile) {
       return res.status(404).json({ success: false, message: "User Profile Not Found" });
     }
 
     
+    if (!isActive) {
+      // Deactivate subscription
+      
+
+      // Update subscription status to inactive
+      await SubscriptionModel.findOneAndUpdate(
+        { user_id: userId },
+        { price: 0, durationInDays: 0, startDate: 0, endDate: 0, isActive: false },
+        { new: true, runValidators: true }
+      );
+
+      // Update user profile with subscription history
+      await profilesModel.findOneAndUpdate(
+        { user_id: userId },
+        { subscription_status: false },
+        { new: true }
+      );
+
+      return res.json({ success: true, message: "Subscription deactivated successfully" });
+    }
+
+    // Check if the user is already subscribed
     if (profile.isActive) {
       return res.status(400).json({ success: false, message: "User Already Subscribed!" });
     }
@@ -416,7 +412,7 @@ export const adminChangeSubscriptionStatus = async (req, res) => {
     // Activate new subscription
     const startDate = new Date();
     const endDate = new Date(Date.now() + durationInDays * 24 * 60 * 60 * 1000);
-
+    
     const newSubscription = {
       price,
       durationInDays,
@@ -425,22 +421,30 @@ export const adminChangeSubscriptionStatus = async (req, res) => {
       isActive: true
     };
 
-    const updatedProfile = await SubscriptionModel.findOneAndUpdate(
+    // Update or create subscription for the user
+    await SubscriptionModel.findOneAndUpdate(
       { user_id: userId },
       newSubscription,
       { new: true, upsert: true, runValidators: true }
     );
 
-    const updatedUser = await profilesModel.findOneAndUpdate(
+    // Get the updated subscription and push to plan history
+    const updatedProfile = await SubscriptionModel.findOne({ user_id: userId });
+    
+    // Update user profile with subscription status and plan history
+    const data = await profilesModel.findOneAndUpdate(
       { user_id: userId },
       { subscription_status: true },
       { new: true }
     );
+     data.planHistory.push({
+      price:updatedProfile.price,
+      startDate: updatedProfile.startDate,
+      endDate: updatedProfile.endDate,
+      durationInDays: updatedProfile.durationInDays})
+      await data.save();
 
-    return res.json({
-      success: true,
-      message: "Subscription Status Changed",
-    });
+    return res.json({ success: true, message: "Subscription Status Changed" ,p:data.planHistory });
 
   } catch (error) {
     console.error(error.message);
