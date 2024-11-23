@@ -109,7 +109,7 @@ function updateSocialMediaLinks(data) {
                     </div>
                     <div class="pro-detail">
                         <h4>
-                            <a href="profile-details.html?id=${user.profileID}" onclick="handleViewCount('${user.user_id}', event)">
+                            <a href="" onclick="handleViewCount('${user.user_id}', event,'${user.profileID}')">
                                 ${user.basicInfo.name.split(" ")[0]}
                             </a>
                         </h4>
@@ -123,7 +123,7 @@ function updateSocialMediaLinks(data) {
                             </span>
                         </div>
                         <div class="links">
-                            <a href="profile-details.html?id=${user.profileID}" onclick="handleViewCount('${user.user_id}', event)">More details</a>
+                            <a href="" onclick="handleViewCount('${user.user_id}', event,'${user.profileID}')">More details</a>
                         </div>
                     </div>
                     <span 
@@ -220,9 +220,13 @@ function toggleBookmark(userId, element) {
 }
 
 
-async function handleViewCount(userId,event){
+async function handleViewCount(userId,event,profileID){
     event.preventDefault();
     console.log(userId)
+    if(!sessionStorage.getItem("token")){
+        window.location.href=`login.html`;
+        return;
+    }
     try {
         showLoader()
          const response = await fetch(`http://localhost:5000/api/profile/${userId}/view`,{
@@ -236,6 +240,7 @@ async function handleViewCount(userId,event){
         const data = await response.json();
       if(data.success){
             console.log(data.message);
+            window.location.href=`profile-details.html?id=${profileID}`
        }else{
         console.log(data.message);
 

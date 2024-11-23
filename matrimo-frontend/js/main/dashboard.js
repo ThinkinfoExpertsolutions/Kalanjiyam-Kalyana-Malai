@@ -3,8 +3,8 @@ const subscriptionData = data2 ? JSON.parse(data2) : null;
 
 
 const data = sessionStorage.getItem("userData");
-const profilesData = sessionStorage.getItem("newProfiles");
 const userData = data ? JSON.parse(data) : null;
+const profilesData = sessionStorage.getItem("newProfiles");
 const leatestProfiles = profilesData ? JSON.parse(profilesData) : null;
 const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
 document.addEventListener('DOMContentLoaded',()=>{

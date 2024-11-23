@@ -538,7 +538,7 @@ export const handleViewCount = async (req, res) => {
       return res.json({ success: true, message: 'View count updated',r:user.activitys });
     }
 
-    return res.json({ success: false, message: 'Already viewed' });
+    return res.json({ success: true, message: 'Already viewed' });
   } catch (error) {
     console.error(error);
     return res.json({ success: false, message: 'An error occurred', error: error.message });
