@@ -3302,7 +3302,9 @@ table th{
     padding-bottom: 10px;
     text-overflow: ellipsis;
     white-space: pre;
-    overflow: hidden;
+    overflow: visible;
+    text-overflow: unset; 
+    white-space: normal;
     position: relative;
     font-weight: 600;
     text-align: left;
@@ -9171,6 +9173,9 @@ span.mail::before {
 }
 .db-nav-pro img{
     border-radius: 10px;
+    object-fit: contain;
+    width: 250px;
+    height: 200px;
 }
 .db-sec-com{margin-bottom: 40px;position: relative;}
 

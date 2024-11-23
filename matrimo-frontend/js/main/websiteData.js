@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded",async()=>{
 
         if(data.success){
               updateSocialMediaLinks(data);
+              
               updateNewProfiles(data.data);
+              sessionStorage.setItem("newProfiles",JSON.stringify(data.data));
         }else{
             alert(data.message);
         }
@@ -55,78 +57,107 @@ function updateSocialMediaLinks(data) {
     }
   }
   
-
   function updateNewProfiles(profiles) {
-    const profilesContainer = document.getElementById('newProfiles');
-    
-    // Show a loader before data is received
-    const loader = document.createElement('div');
-    loader.classList.add('loader'); // You can customize this class for the loader style
-    loader.innerHTML = 'Loading profiles...'; // You can change this to a spinner or other loader
-    profilesContainer.appendChild(loader);
-    
+    const profilesContainer = document.getElementById('newProfiles1');
+
+    // Check if the container exists
+    if (!profilesContainer) {
+        // console.error("Profiles container with ID 'newProfiles1' not found.");
+        return;
+    }
+
+    console.log("Profiles data received:", profiles);
+
     let count = 0;
     const myProfile = sessionStorage.getItem("userData");
+    const parsedData = myProfile ? JSON.parse(myProfile) : null;
 
-    let isBookmarked = false;
+    if (!parsedData) {
+        console.warn("No user data found in session storage.");
+    }
 
-    // Loop through the profiles data
     profiles.forEach(user => {
-        // Check if the profile is bookmarked
-        if (myProfile) {
-            const parsedData = JSON.parse(myProfile);
-            isBookmarked = parsedData.bookMarkedProfiles.some(
-                (profile) => profile.userId === user.user_id
-            );
-        }
+        try {
+            // Ensure required fields are available before processing
+            const hasRequiredFields =
+                user.media?.profileImage &&
+                user.basicInfo?.name &&
+                user.education?.degree &&
+                user.personalDetails?.age &&
+                user.personalDetails?.height &&
+                user.user_id !== parsedData?.user_id;
 
-        const listItem = document.createElement('li');
-        
-        // Check if required fields are available
-        if (user.media.profileImage && user.basicInfo.name && user.education.degree && user.personalDetails.age && user.personalDetails.height) {
-            if (count < 4) {
-                listItem.innerHTML = `
-                    <div class="all-pro-box" data-useravil="avilyes" data-aviltxt="Available online">
-                        <div class="pro-img">
-                            <a href="profile-details.html">
-                                <img src="${user.media.profileImage}" alt="">
+            if (!hasRequiredFields) {
+                console.warn("Skipping profile due to missing required fields:", user);
+                return;
+            }
+
+            // Check if the profile is bookmarked
+            const isBookmarked = parsedData?.bookMarkedProfiles?.some(
+                (profile) => profile.userId === user.profileID
+            ) || false;
+
+            // Create a list item for the profile
+            const listItem = document.createElement('li');
+
+            listItem.innerHTML = `
+                <div class="all-pro-box" data-useravil="avilyes" data-aviltxt="Available online">
+                    <div class="pro-img">
+                        <a href="profile-details.html">
+                            <img src="${user.media.profileImage}" alt="${user.basicInfo.name}">
+                        </a>
+                    </div>
+                    <div class="pro-detail">
+                        <h4>
+                            <a href="profile-details.html?id=${user.profileID}" onclick="handleViewCount('${user.user_id}', event)">
+                                ${user.basicInfo.name.split(" ")[0]}
                             </a>
+                        </h4>
+                        <div class="pro-bio">
+                            <span>${user.jobDetails?.position || "N/A"}</span>
+                            <span>${user.basicInfo?.district || "N/A"}</span>
+                            <span>${user.personalDetails?.age} Years old</span>
+                            <span>${user.basicInfo.cast?.includes("other") 
+                                ? user.basicInfo.cast.split("-")[0] 
+                                : user.basicInfo.cast || "N/A"}
+                            </span>
                         </div>
-                        <div class="pro-detail">
-                            <h4><a href="profile-details.html?id=${user.profileID}" onclick="handleViewCount('${user.user_id}', event)">${user.basicInfo.name}</a></h4>
-                            <div class="pro-bio">
-                                <span>${user.jobDetails.position}</span>
-                                <span>${user.basicInfo.district}</span>
-                                <span>${user.personalDetails.age} Years old</span>
-                                <span>${user.basicInfo.cast}</span>
-                            </div>
-                            <div class="links">
-                                <a href="profile-details.html?id=${user.profileID}"  onclick="handleViewCount('${user.user_id}', event)">More details</a>
-                            </div>
+                        <div class="links">
+                            <a href="profile-details.html?id=${user.profileID}" onclick="handleViewCount('${user.user_id}', event)">More details</a>
                         </div>
-                        <span 
-                            class="enq-sav" 
-                            data-toggle="tooltip" 
-                            title="Click to save this profile."
-                            onclick="toggleBookmark('${user._id}', this)"
-                        >
-                            <i class="${isBookmarked ? "fa fa-bookmark" : "fa fa-bookmark-o"}" aria-hidden="true"></i>
-                        </span>
-                    </div>`;
+                    </div>
+                    <span 
+                        class="enq-sav" 
+                        data-toggle="tooltip" 
+                        title="Click to save this profile."
+                        onclick="toggleBookmark('${user.profileID}', this)"
+                    >
+                        <i class="${isBookmarked ? "fa fa-bookmark" : "fa fa-bookmark-o"}" aria-hidden="true"></i>
+                    </span>
+                </div>`;
 
+            // Append to the container if the count is less than 4
+            if (count < 4) {
                 profilesContainer.appendChild(listItem);
                 count++;
+                console.log(`Profile added: ${user.profileID}`);
+            } else {
+                console.log("Maximum profile count reached. Skipping:", user.profileID);
             }
+        } catch (error) {
+            console.error("Error processing profile:", user, error);
         }
     });
 
-    // Remove the loader once profiles are loaded
-    if (profiles.length > 0) {
-        loader.remove();
-    } else {
-        loader.innerHTML = 'No profiles found';
-    }
+    console.log("All profiles processed.");
 }
+
+// // Remove the loader once profiles are loaded
+// if (profiles.length > 0) {
+//     loader.remove();
+// } else {
+//     loader.innerHTML = 'No profiles found';
+// }
 
   
 

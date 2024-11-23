@@ -394,7 +394,7 @@ export const handleBookmark = async (req, res) => {
       }
 
       // Validate bookmarked profile
-      const bookmarkProfile = await profilesModel.findOne({ user_id: bookmarkProfileId });
+      const bookmarkProfile = await profilesModel.findOne({ profileID: bookmarkProfileId });
       if (!bookmarkProfile) {
           return res.json({ success: false, message: 'Bookmark profile not found' });
       }
@@ -408,13 +408,21 @@ export const handleBookmark = async (req, res) => {
           if (!existingUser) {
               // Add bookmark
               user.bookMarkedProfiles.push({
-                  userId: bookmarkProfileId,
+                  userId: bookmarkProfile.profileID,
                   time: new Date(),
+                  name:bookmarkProfile.basicInfo.name,
+                  age:bookmarkProfile.personalDetails.age,
+                  location:bookmarkProfile.basicInfo.district,
+                  religion:bookmarkProfile.basicInfo.religion,
+                  jobType:bookmarkProfile.jobDetails.jobType,
+                  image:bookmarkProfile.media.profileImage
               });
               bookmarkProfile.activitys.push({
-                  userId: bookmarkProfileId,
-                  time: new Date(),
-                  event: `${user.basicInfo.name} Bookmarked Your Profile`,
+                profileID: bookmarkProfile.profileID,
+                time: new Date(),
+                event: `${bookmarkProfile.basicInfo.name} Bookmarked  Your Profile`,
+                profileImage:bookmarkProfile.media.profileImge,
+                name:bookmarkProfile.basicInfo.name
               });
 
               await user.save();
@@ -486,45 +494,57 @@ res.json({success:true,data:profile});
 // CONTROLLER FOR VIEWS COUNT
 
 
-export const handleViewCount = async(req,res)=>{
-  
-  const userId = req.params.id;
+export const handleViewCount = async (req, res) => {
+  const userId = req.params.id; // ID of the profile being viewed
+  const  viewerId  = req.id; // Extract the viewerId from the request body
 
-  const viewerId = req.id;
-  
-if(viewerId === userId){
-  return res.json({success:true, message: 'both are same' });
-  
-}
-  try {
-    
-    const user = await profilesModel.findOne({user_id:userId});
-    if(!user){
-      return res.json({ message: 'User not found' });
-    }
-    const viewer = await profilesModel.findOne({user_id:viewerId});
-    if(!viewer){
-      return res.json({data:viewerId, message: 'ViewerID not found' });
-    }
-
-    const existingUser = user.viewedBy.find(view => view.userId === viewerId)
-    
-    if(!existingUser){
-            user.viewCount += 1;
-            user.viewedBy.push({ userId: viewerId, time: new Date() });
-            user.activitys.push({userId: viewerId, time: new Date(), event:`${viewer.basicInfo.name} Viewed Your Profile` });
-            await user.save();
-            return res.json({success:true, message: 'View count updated' });
-          }
-          return res.json({success:false, message: 'already viewed' });
-   
-  } catch (error) {
-      console.log(error);
-      return res.json({ success: false, message: "An error occurred", error: error.message });
-
+  // Validate viewerId and userId
+  if (!viewerId) {
+    return res.json({ success: false, message: 'viewerId is required' });
   }
 
-}
+  if (viewerId === userId) {
+    return res.json({ success: true, message: 'Viewer and user are the same' });
+  }
+
+  try {
+    // Find the user whose profile is being viewed
+    const user = await profilesModel.findOne({ user_id: userId });
+    if (!user) {
+      return res.json({ success: false, message: 'User not found' });
+    }
+
+    // Find the viewer's profile
+    const viewer = await profilesModel.findOne({ user_id: viewerId });
+    if (!viewer) {
+      return res.json({ success: false, message: 'Viewer not found', data: viewerId });
+    }
+   
+    // Check if the viewer has already viewed this profile
+    const existingView = user.viewedBy.find(view => view.userId === viewerId);
+
+    if (!existingView) {
+      // Increment the view count and record the viewer's activity
+      user.viewCount += 1;
+      user.viewedBy.push({ userId: viewerId, time: new Date()});
+      user.activitys.push({
+        profileID: viewer.profileID,
+        time: new Date(),
+        event: ` Viewed Your Profile`,
+        image:viewer.media.profileImage,
+        name:viewer.basicInfo.name
+      });
+      await user.save();
+      return res.json({ success: true, message: 'View count updated',r:user.activitys });
+    }
+
+    return res.json({ success: false, message: 'Already viewed' });
+  } catch (error) {
+    console.error(error);
+    return res.json({ success: false, message: 'An error occurred', error: error.message });
+  }
+};
+
 
 
 // CONTROLLER FOR GET LATEST PROFILE
@@ -534,7 +554,7 @@ export const getLatestProfile = async(req,res)=>{
 
   try {
     
-    const allProfiles = await profilesModel.find({});
+    const allProfiles = await profilesModel.find({}).limit(7);
     const admin = await adminModel.findById("6728727049b63d85da15a516");
     const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
 

@@ -24,6 +24,9 @@ if(token){
         console.log(data);
         if (data.success) {
             sessionStorage.setItem("userData", JSON.stringify(data.userData));
+            sessionStorage.setItem("subscriptionData", JSON.stringify(data.subscriptionData));
+            sessionStorage.setItem("viewCount",data.userData.viewCount);
+
             updateNavbar(true,data);
             // updateEditProfilePath(data);
             submiTAndShowMorePath="http://127.0.0.1:5500/matrimo-frontend/all-profiles.html";

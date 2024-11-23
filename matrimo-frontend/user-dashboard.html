@@ -353,7 +353,7 @@
                 <div class="row">
                     <div class="col-md-4 col-lg-3">
                         <div class="db-nav">
-                            <div class="db-nav-pro"><img src="https://thumbs.dreamstime.com/b/portrait-confident-stylish-indian-arabian-latino-ethnic-male-man-student-rich-businessman-guy-satisfied-cheerful-client-tourist-315652506.jpg" class="img-fluid" alt=""></div>
+                            <div class="db-nav-pro"><img id="profileImage" src="https://thumbs.dreamstime.com/b/portrait-confident-stylish-indian-arabian-latino-ethnic-male-man-student-rich-businessman-guy-satisfied-cheerful-client-tourist-315652506.jpg" class="img-fluid" alt=""></div>
                             <div class="db-nav-list">
                                 <ul>
                                     <li><a href="user-dashboard.html" class="act"><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard</a></li>
@@ -369,94 +369,9 @@
                     </div>
                     <div class="col-md-8 col-lg-9">
                         <div class="col-md-12 db-sec-com db-new-pro-main">
-                            <h2 class="db-tit">New Profiles Matches</h2>
-                            <ul class="slider">
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ3rZ29ISCdET8Y5BHhIBT1XrCwlTfm4ofdg&s" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <div class="pro-ave" title="User currently available">
-                                            <!-- <span class="pro-ave-yes"></span> -->
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/10/10/Photos/Processed/GitaGopinath.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="https://images.pexels.com/photos/2784078/pexels-photo-2784078.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="https://im.indiatimes.in/content/2024/May/ashima-arora_665409c7f39c4.jpg?w=1200&h=900&cc=1&webp=1&q=75" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="https://plus.unsplash.com/premium_photo-1682096118912-c90b30e0f822?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGluZGlhbiUyMHdvbWFuJTIwaW4lMjBibGFja3xlbnwwfHwwfHx8MA%3D%3D" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <!-- <li>
-                                    <div class="db-new-pro">
-                                        <img src="images/profiles/men2.jpeg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <div class="pro-ave" title="User currently available">
-                                            <span class="pro-ave-yes"></span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="db-new-pro">
-                                        <img src="https://thumbs.dreamstime.com/b/portrait-confident-stylish-indian-arabian-latino-ethnic-male-man-student-rich-businessman-guy-satisfied-cheerful-client-tourist-315652506.jpg" alt="" class="profile">
-                                        <div>
-                                            <h5>Julia ann</h5>
-                                            <span class="city">New york</span>
-                                            <span class="age">22 Years old</span>
-                                        </div>
-                                        <div class="pro-ave" title="User currently available">
-                                            <span class="pro-ave-yes"></span>
-                                        </div>
-                                        <a href="profile-details.html" class="fclick" target="_blank">&nbsp;</a>
-                                    </div>
-                                </li> -->
+                            <h2 class="db-tit">New Profiles</h2>
+                            <ul class="slider" id="dashboardNewProfiles">
+                                <!-- li elements -->
                             </ul>
                         </div>
                         <div class="row">
@@ -464,23 +379,22 @@
                                 <h2 class="db-tit">Profiles status</h2>
                                 <div class="db-pro-stat">
                                     <h6>Profile completion</h6>
-                                    <!-- <div class="dropdown">
+                                    <div class="dropdown">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
                                             <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                                         </button>
                                         <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" href="#">Edid profile</a></li>
-                                          <li><a class="dropdown-item" href="#">View profile</a></li>
-                                          <li><a class="dropdown-item" href="#">Profile visibility settings</a></li>
+                                          <li><a class="dropdown-item" href="#" id="editProfilePath">Edid profile</a></li>
+                                          <li><a class="dropdown-item" href="#" id="viewProfilePath">View profile</a></li>
                                         </ul>
-                                      </div> -->
+                                      </div>
                                     <div class="db-pro-pgog">
-                                        <span><b class="count">90</b>%</span>
+                                        <span id="profileCompletion"></span>
                                     </div>
                                     <ul class="pro-stat-ic">
                                         <!-- <li><span><i class="fa fa-heart-o like" aria-hidden="true"></i><b>12</b>Likes</span></li> -->
-                                        <li><span><i class="fa fa-eye view" aria-hidden="true"></i><b>12</b>Views</span></li>
-                                        <li><span><i class="fa fa-handshake-o inte" aria-hidden="true"></i><b>12</b>Bookmark</span></li>
+                                        <li><span id="viewCount"><i class="fa fa-eye view" aria-hidden="true"></i><b >12</b>Views</span></li>
+                                        <li><span id='bookmarkCount'><i class="fa fa-handshake-o inte" aria-hidden="true"></i><b>12</b >Bookmark</span></li>
                                         <!-- <li><span><i class="fa fa-hand-pointer-o clic" aria-hidden="true"></i><b>12</b>Clicks</span></li> -->
                                     </ul>
                                 </div>
@@ -488,56 +402,29 @@
                             <div class="col-md-12 col-lg-6 col-xl-4 db-sec-com">
                                 <h2 class="db-tit">Plan details</h2>
                                 <div class="db-pro-stat">
-                                    <h6 class="tit-top-curv">Standard plan</h6>
-                                    <!-- <div class="dropdown">
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                          <li><a class="dropdown-item" href="#">Edid profile</a></li>
-                                          <li><a class="dropdown-item" href="#">View profile</a></li>
-                                          <li><a class="dropdown-item" href="#">Plan change</a></li>
-                                          <li><a class="dropdown-item" href="#">Download invoice now</a></li>
-                                        </ul>
-                                    </div> -->
+                                    <h6 class="tit-top-curv" id="planStatus">No Active Plan</h6>
                                     <div class="db-plan-card">
-                                        <img src="images/icon/plan.png" alt="">
+                                        <img src="images/icon/plan.png" alt="Plan Icon">
                                     </div>
                                     <div class="db-plan-detil">
                                         <ul>
-                                            <li>Plan name: <strong>Standard</strong></li>
-                                            <li>Validity: <strong>6 Months</strong></li>
-                                            <li>Valid till <strong>24 June 2024</strong></li>
-                                            <li><a href="#" class="cta-3">Upgrade now</a></li>
+                                            <li>Status: <strong id="planeName">No Active Plan</strong></li>
+                                            <li>Validity: <strong id="duration">N/A</strong></li>
+                                            <li>Valid till: <strong id="validTill">N/A</strong></li>
+                                            <li >
+                                                <a id="updgradeBtn" href="plans.html" class="cta-3" id="upgradeButton">Upgrade now</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="col-lg-12 col-xl-4 db-sec-com">
                                 <h2 class="db-tit">Recent Activities</h2>
                                     <div class="db-pro-stat">
                                         <div class="db-inte-prof-list db-inte-prof-chat">
-                                            <ul>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/2.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Viewed Your Profile</span> </div>
-                                                </li>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/16.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Book Mark Your Profile</span> </div>
-                                                </li>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/13.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Like Your Profile</span> </div>
-                                                </li>
-                                                <li>
-                                                    <div class="db-int-pro-1"> <img src="images/profiles/14.jpg" alt=""> </div>
-                                                    <div class="db-int-pro-2">
-                                                        <h5>Julia Ann</h5> <span>Book Mark Your Profile</span> </div>
-                                                </li>
+                                            <ul id="activities">
+                                                <!-- li elements -->
                                             </ul>
                                         </div>
                                     </div>
@@ -576,8 +463,8 @@
   <div class="tab-content">
     <div id="home" class="container tab-pane active"><br>
       <div class="db-inte-prof-list">
-            <ul>
-                <li>
+            <ul id="Bookmarks">
+                <!-- <li>
                     <div class="db-int-pro-1"> <img src="https://plus.unsplash.com/premium_photo-1682096118912-c90b30e0f822?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGluZGlhbiUyMHdvbWFuJTIwaW4lMjBibGFja3xlbnwwfHwwfHx8MA%3D%3D" alt=""></div>
                     <div class="db-int-pro-2">
                         <h5>John Smith</h5> 
@@ -592,10 +479,7 @@
                         </ol>
                         <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
                     </div>
-                    <!-- <div class="db-int-pro-3">
-                        <button type="button" class="btn btn-success btn-sm">Accept</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Denay</button>
-                    </div> -->
+                   
                 </li>
                 <li>
                     <div class="db-int-pro-1"> <img src="images/profiles/2.jpg" alt=""> </div>
@@ -647,53 +531,14 @@
                         <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
                     </div>
                    
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
     <div id="menu1" class="container tab-pane fade"><br>
         <div class="db-inte-prof-list">
             <ul>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/14.jpeg" alt=""> </div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Bookmarked on: 10:30 AM, 18 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div id="menu2" class="container tab-pane fade"><br>
-        <div class="db-inte-prof-list">
-            <ul>
-                <li>
-                    <div class="db-int-pro-1"> <img src="images/profiles/13.jpg" alt=""> </div>
-                    <div class="db-int-pro-2">
-                        <h5>John Smith</h5> 
-                        <ol class="poi">
-                            <li>City: <strong>Illunois</strong></li>
-                            <li>Age: <strong>21</strong></li>
-                            <li>Height: <strong>5.7</strong></li>
-                            <li>Job: <strong>Working</strong></li>
-                        </ol>
-                        <ol class="poi poi-date">
-                            <li>Bookmarked on: 10:30 AM, 18 August 2024</li>
-                        </ol>
-                        <a href="profile-details.html" class="cta-5" target="_blank">View full profile</a>
-                    </div>
-                    
-                </li>
+                
             </ul>
         </div>
     </div>
@@ -702,11 +547,12 @@
                                 </div>
                             </div>
                             <div class="col-md-12 db-sec-com">
-                                <h2 class="db-tit">Profiles views</h2>
+                                <!-- <h2 class="db-tit">Profiles views</h2>
                                 <div class="chartin">
                                     <canvas id="Chart_leads" ></canvas>
-                                </div>
+                                </div> -->
                             </div>
+                            <!-- <button id="test">test</button> -->
                         </div>
                     </div>
                 </div>
@@ -753,7 +599,12 @@
         </div>
     </section>
     <!-- END -->
-
+    <div id="loader" class="loader-container" style="display: none;">
+        <div class="loader-content">
+          <div class="spinner"></div>
+          <p>loading...</p>
+        </div>
+      </div>
     <!-- COPYRIGHTS -->
     <section>
         <div class="cr">
@@ -779,7 +630,7 @@
     <script src="js/custom.js"></script>
     <script src="js/main/user.js"></script> 
     <script src="js/main/websiteData.js"></script>
-
+   <script src="js/main/dashboard.js"></script>
     <script>
          //COMMON SLIDER
     $('.slider').slick({
@@ -813,29 +664,87 @@
     });
 });
 
-var xValues = "0";
-    var yValues = "50";
 
-    new Chart("Chart_leads", {
-        type: "line",
-        data: {
-            labels: xValues,
-            datasets: [{
-                fill: false,
-                lineTension: 0,
-                backgroundColor: "#f1bb51",
-                borderColor: "#fae9c8",
-                data: yValues
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {display: false},
-            scales: {
-                yAxes: [{ticks: {min: 0, max: 100}}]
-            }
-        }
-    });
+// let viewData = JSON.parse(localStorage.getItem('viewData')) || [];
+
+// // Function to get today's date in 'YYYY-MM-DD' format
+// function getTodayDate() {
+//     const today = new Date();
+//     return today.toISOString().split('T')[0];
+// }
+
+// // Initialize today's view count
+// const today = getTodayDate();
+// const todayEntry = viewData.find(entry => entry.date === today);
+// let viewCount = todayEntry ? todayEntry.count : 14; // Start from 14 if not found
+
+// // Add or update today's view count
+// function addViewCount() {
+//     const existingEntry = viewData.find(entry => entry.date === today);
+//     if (existingEntry) {
+//         existingEntry.count += 1;
+//     } else {
+//         viewData.push({ date: today, count: viewCount });
+//     }
+
+//     // Save the updated data to local storage
+//     localStorage.setItem('viewData', JSON.stringify(viewData));
+//     updateChart(); // Refresh the chart
+// }
+
+// // Initialize the chart
+// const ctx = document.getElementById("Chart_leads").getContext("2d");
+// const chart = new Chart(ctx, {
+//     type: "line",
+//     data: {
+//         labels: viewData.map(entry => entry.date), // Use dates as labels
+//         datasets: [{
+//             label: "View Count",
+//             fill: false,
+//             lineTension: 0,
+//             backgroundColor: "#f1bb51",
+//             borderColor: "#fae9c8",
+//             data: viewData.map(entry => entry.count) // Use counts as data
+//         }]
+//     },
+//     options: {
+//         responsive: true,
+//         plugins: {
+//             legend: { display: false }
+//         },
+//         scales: {
+//             y: {
+//                 min: 0,
+//                 max: 100, // Adjust max as needed
+//                 ticks: {
+//                     stepSize: 10
+//                 }
+//             },
+//             x: {
+//                 ticks: {
+//                     autoSkip: true,
+//                     maxTicksLimit: 7 // Show at most 7 dates
+//                 }
+//             }
+//         }
+//     }
+// });
+
+// // Update the chart dynamically
+// function updateChart() {
+//     chart.data.labels = viewData.map(entry => entry.date); // Update labels with dates
+//     chart.data.datasets[0].data = viewData.map(entry => entry.count); // Update data
+//     chart.update(); // Refresh the chart
+// }
+
+// // Simulate incrementing the view count (for testing purposes)
+// document.getElementById("test").addEventListener('click', () => {
+//     viewCount += 1;
+//     addViewCount();
+// });
+
+// // Initialize the chart with the current data
+// updateChart(); // Refresh the chart to reflect changes
     </script>
 </body>
 

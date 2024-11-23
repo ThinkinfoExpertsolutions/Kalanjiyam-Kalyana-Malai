@@ -43,7 +43,6 @@ const profilesSchema  =  mongoose.Schema({
     },
     cast: {
       type: String,
-      trim: true,
     },
     natchathiram: {
       type: String,
@@ -206,15 +205,23 @@ const profilesSchema  =  mongoose.Schema({
     ],
     activitys: [
       {
-        userId: String,
+        profileID: String,
         event:String,
-        time: Date 
+        time: Date ,
+        image:String,
+        name:String
       }
     ],
     bookMarkedProfiles: [
       {
         userId: String,
-        time: Date 
+        time: Date ,
+        name:String,
+        location:String,
+        age:Number,
+        religion:String,
+        jobType:String,
+        image:String
       }
       ],
 
