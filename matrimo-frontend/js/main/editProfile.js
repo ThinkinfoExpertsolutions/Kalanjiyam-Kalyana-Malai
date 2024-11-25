@@ -1,3 +1,4 @@
+let percentage;
 
 const Data = sessionStorage.getItem("userData");
 const userData = JSON.parse(Data);
@@ -17,6 +18,9 @@ if(window.location.pathname.endsWith("user-profile-edit.html")){
         document.getElementById('dateOfBirth').value = userData.basicInfo.dateOfBirth ? userData.basicInfo.dateOfBirth.split("T")[0] : '';
         document.getElementById('gender').value = userData.basicInfo.gender ? userData.basicInfo.gender : '';
         document.getElementById('religion').value = userData.basicInfo.religion ? userData.basicInfo.religion : '';
+        document.getElementById('zodiac').value = userData.basicInfo.zodiac ? userData.basicInfo.zodiac : '';
+        document.getElementById('familyType').value = userData.personalDetails.familyType ? userData.personalDetails.familyType : '';
+        document.getElementById('martialStatus').value = userData.personalDetails.martialStatus ? userData.personalDetails.martialStatus : '';
         document.getElementById('zodiac').value = userData.basicInfo.zodiac ? userData.basicInfo.zodiac : '';
         document.getElementById('natchathiram').value = userData.basicInfo.natchathiram ? userData.basicInfo.natchathiram : '';
         document.getElementById('district').value = userData.basicInfo.district ? userData.basicInfo.district : '';
@@ -73,7 +77,7 @@ calculatePercentage(element);
 
 function updateImage(elementId, imageUrl) {
     const imageElement = document.getElementById(elementId);
-    console.log(imageElement.src)
+   
     if(imageUrl != undefined){
         imageElement.src = imageUrl;
         imageElement.style.width = "100%"; 
@@ -102,7 +106,6 @@ function handleImageChange(event, imageId) {
 
 
 let userInfoData;
-
 document.getElementById('profileForm').addEventListener('submit',async function(event) {
     event.preventDefault(); // Prevent the form from submitting
 
@@ -119,6 +122,8 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         cast: document.getElementById('cast').value,
         zodiac: document.getElementById('zodiac').value,
         natchathiram: document.getElementById('natchathiram').value,
+        martialStatus:document.getElementById("martialStatus").value,
+        familyType:document.getElementById("familyType").value,
         district: document.getElementById('district').value,
         phone: document.getElementById('phone').value,
         email: document.getElementById('email').value,
@@ -137,6 +142,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         degree: document.getElementById('degree').value,
         school: document.getElementById('school').value,
         college: document.getElementById('college').value,
+        profileCompletion:percentage,
         socialMedia:[document.getElementById('whatsapp').value,document.getElementById('facebook').value, document.getElementById('instagram').value, document.getElementById('x').value],
     };
 
@@ -160,7 +166,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
     if (userImage3) formData.append("galleryImages", userImage3);
     
 
-    console.log(userInfoData); // Output the data to the console
+
     let response1=false;
     let response2=false;
 
@@ -201,32 +207,23 @@ if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.h
         hideLoader()
 
         if( response1 && response2){
-            alert("Profile Information And Image Updated Successfully!");
+            showSuccessToast("Profile Information And Image Updated Successfully!");
         }else if(response1){
-            alert("Profile Information Updated Successfully!");
+            showSuccessToast("Profile Information Updated Successfully!");
         }else if(response2){
-            alert("Profile Image Updated Successfully!");
+            showSuccessToast("Profile Image Updated Successfully!");
         }else{
-            alert("error");
+            showErrorToast("error");
         }
-        const element = getAllElementsById();
-         calculatePercentage(element);
+
 
     } catch (error) {
          console.error("Error occurred:", error);
-        alert("An error occurred. Please try again later.");
+        showErrorToast("An error occurred. Please try again later.");
     }
 });
 
 
-// Show loader
-function showLoader() {
-    document.getElementById("loader").style.display = "flex";
-}
-
-function hideLoader() {
-    document.getElementById("loader").style.display = "none";
-}
 
   
   function handleCastChange() {
@@ -321,9 +318,49 @@ function calculatePercentage(elements) {
     }
 
     const total = Object.keys(elements).length;
-    const percentage = Math.round((filledCount / total) * 100);
+    const Totalpercentage = Math.round((filledCount / total) * 100);
 
-    sessionStorage.setItem("profileCompletion", String(percentage));
+     percentage = Totalpercentage;
 
-    console.log(`Profile Completion: ${percentage}%`);
 }
+
+
+
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "flex";
+ }
+ 
+ function hideLoader() {
+     const loader = document.getElementById("loader");
+     if(!loader){
+      return;
+     };
+     loader.style.display = "none";
+ }
+
+ function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  

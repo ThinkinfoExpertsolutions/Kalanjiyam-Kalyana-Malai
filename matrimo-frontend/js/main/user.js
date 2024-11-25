@@ -21,7 +21,7 @@ if(token){
         });
        hideLoader()
         const data = await response.json();
-        console.log(data);
+      
         if (data.success) {
             sessionStorage.setItem("userData", JSON.stringify(data.userData));
             sessionStorage.setItem("subscriptionData", JSON.stringify(data.subscriptionData));
@@ -48,7 +48,9 @@ function updateNavbar(isUserLoggedIn, data) {
     let logoutLink = document.querySelector(".logout-link");
     const userImg = document.getElementById("userImg");
     const userName = document.getElementById("userName");
-
+ if(!registerAndSigninLinks || !iconDiv || !exploreLink || !dashboardLink || !userImg ||!userName){
+    return;
+ }
     // Create the logout link if it doesn't already exist
     if (!logoutLink) {
         const logoutContainer = document.querySelector('.bl ul');
@@ -156,9 +158,98 @@ function logout(e) {
 document.addEventListener("DOMContentLoaded", fetchUserData);
 
 function showLoader() {
-    document.getElementById("loader").style.display = "flex";
+   const loader = document.getElementById("loader");
+   if(!loader){
+    return;
+   };
+   loader.style.display = "flex";
 }
 
 function hideLoader() {
-    document.getElementById("loader").style.display = "none";
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "none";
 }
+
+function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  
+// Redirection for logged-in users to index page
+if(window.location.pathname.endsWith("login.html") || window.location.pathname.endsWith("sign-up.html") || window.location.pathname.endsWith("forgot.html")){
+    if(sessionStorage.getItem("token")){
+        window.location.href = "index.html";
+    }
+}
+
+// List of user-specific pages
+const userPages = [
+    "all-profiles.html",
+    "profile-details.html",
+    "user-chat.html",
+    "user-dashboard.html",
+    "user-profile-edit.html",
+    "user-interests.html",
+    "user-plan.html",
+    "user-profile.html"
+];
+
+// Redirection for non-logged-in users to index page
+if(userPages.some(page => window.location.pathname.endsWith(page))){
+    if(!sessionStorage.getItem("token")){
+        window.location.href = "index.html";
+    }
+}
+
+// document.addEventListener('contextmenu', function(e) {
+//     e.preventDefault(); // Disable right-click context menu
+// });
+
+
+
+
+// document.addEventListener("keydown", function (e) {
+//     // Prevent Ctrl + Shift + I
+//     if (e.ctrlKey && e.shiftKey && e.key === "I") {
+//         e.preventDefault();
+        
+//     }
+
+//     // Prevent Ctrl + Shift + J (Console)
+//     if (e.ctrlKey && e.shiftKey && e.key === "J") {
+//         e.preventDefault();
+    
+//     }
+
+//     // Prevent Ctrl + U (View Source)
+//     if (e.ctrlKey && e.key === "U") {
+//         e.preventDefault();
+      
+//     }
+
+//     // Prevent F12 (DevTools Shortcut)
+//     if (e.key === "F12") {
+//         e.preventDefault();
+        
+//     }
+// });

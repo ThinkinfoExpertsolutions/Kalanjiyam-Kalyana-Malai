@@ -1598,6 +1598,7 @@ img{
 @media screen and (max-width:1450px) {
 
 }
+<<<<<<< HEAD
 
 /* Dropdown Styling */
 .dropdown {
@@ -1774,3 +1775,113 @@ img{
               box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
               letter-spacing: 1px;
         }
+=======
+.profile-image-input {
+    position: relative;
+    width: 230px; /* Large container width */
+    height: 230px; /* Large container height */
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 200px;
+    margin-bottom: 10px;
+    background-color: transparent;
+}
+
+/* Default image styling */
+.profile-image-input img {
+    width: 50%; /* Smaller default width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Fit the image without distortion */
+    border-radius: 8px; /* Matches container's border-radius */
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+
+.profile-image-input input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Makes the file input invisible */
+    cursor: pointer;
+}
+
+
+  
+.image-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    object-fit: cover;
+    width: 300px; /* Larger container width */
+    height: 250px; /* Larger container height */
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: transparent;
+    /* Optional background */
+}
+
+/* Default image styling */
+.image-input .image-icon {
+    width: 50%; /* Smaller default width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits the container */
+    cursor: pointer;
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+/* Invisible file input to trigger on click of image */
+.image-input input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Invisible input */
+    cursor: pointer;
+}
+
+/* Layout for gallery grid */
+.gallery-grid {
+    display: flex;
+    gap: 40px; /* Space between image inputs */
+    margin-bottom: 20px;
+}
+  /* Main container for the image input */
+  .large-image-input {
+    margin-left: 150px; /* Margin for larger screens */
+    width: 590px; /* Large container width */
+    height: 300px; /* Large container height */
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background-color: white; /* Optional background */
+}
+
+/* Default image styling */
+.large-image-input .image-icon {
+    width: 150px; /* Small default width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+    cursor: pointer;
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+
+/* Hiding the file input while keeping it functional */
+.large-image-input input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Invisible file input */
+    cursor: pointer;
+}
+>>>>>>> e1b128dcf5a2eaab2a1c110a8e24ae49d2afebe3

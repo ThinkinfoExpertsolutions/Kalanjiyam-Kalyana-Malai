@@ -4,8 +4,12 @@ const subscriptionData = data2 ? JSON.parse(data2) : null;
 
 const data = sessionStorage.getItem("userData");
 const userData = data ? JSON.parse(data) : null;
+
 const profilesData = sessionStorage.getItem("newProfiles");
 const leatestProfiles = profilesData ? JSON.parse(profilesData) : null;
+
+
+
 const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
 document.addEventListener('DOMContentLoaded',()=>{
 
@@ -30,47 +34,54 @@ document.addEventListener('DOMContentLoaded',()=>{
     updatePlanTable(userData.planHistory);
 })
 
-function updateNewProfiles(userData,leatestProfiles){
-         
-    const dashboardNewProfiles = document.getElementById("dashboardNewProfiles");
-    if(!dashboardNewProfiles){
-         return;
-    }
-    leatestProfiles.forEach(profile=>{
-      
-        if(profile.user_id === userData.user_id){
-            return;
-        }
+function updateNewProfiles(userData, leatestProfiles) {
+  const dashboardNewProfiles = document.getElementById("dashboardNewProfiles");
 
-    if(profile.media.profileImage || profile.basicInfo.name || profile.personalDetails.age ||profile.basicInfo.district ||profile.profileID){
-        
-    const li = document.createElement("li");
+  if (!dashboardNewProfiles) {
+      return;
+  }
 
-    li.innerHTML = `
-         <div class="db-new-pro">
-                 <img src="${profile.media.profileImage}" alt="" class="profile">
-                 <div>
-                     <h5>${profile.basicInfo.name}</h5>
-                     <span class="city">${profile.basicInfo.district}</span>
-                     <span class="age">${profile.personalDetails.age} Years old</span>
-                 </div>
-                 <div class="pro-ave" title="User currently available">
-                 </div>
-                 <a  href="profile-details.html?id=${profile.profileID}" class="fclick" target="_blank">&nbsp;</a>
-             </div>
-    `
-    dashboardNewProfiles.appendChild(li);
+  // Check if 'leatestProfiles' is defined and is an array
+  if (!Array.isArray(leatestProfiles)) {
+      console.log("Latest profiles data is not an array or is undefined.");
+      return;
+  }
 
-    }
-    })
+  
 
+  leatestProfiles.forEach(profile => {
+      if (profile.user_id === userData.user_id) {
+          return;
+      }
+
+      if (profile.media.profileImage || profile.basicInfo.name || profile.personalDetails.age || profile.basicInfo.district || profile.profileID) {
+          const li = document.createElement("li");
+
+          li.innerHTML = `
+              <div class="db-new-pro">
+                  <img src="${profile.media.profileImage || defaultProfileImage}" alt="" class="profile">
+                  <div>
+                      <h5>${profile.basicInfo.name}</h5>
+                      <span class="city">${profile.basicInfo.district}</span>
+                      <span class="age">${profile.personalDetails.age} Years old</span>
+                  </div>
+                 
+                  </div>
+                  <a href="profile-details.html?id=${profile.profileID}" class="fclick" >&nbsp;</a>
+              </div>
+          `;
+
+          dashboardNewProfiles.appendChild(li);
+      }
+  });
 }
+
 
 function UpdateProfileCompletion(userData){
     
    // Early return if the element is not found
-const profileCompletion = sessionStorage.getItem("profileCompletion");
-console.log(profileCompletion)
+const profileCompletion = userData.profileCompletion
+
 const profileCompletionElement = document.getElementById("profileCompletion");
 if (!profileCompletionElement) return;  // Exit if element not found
 profileCompletionElement.innerHTML = `<b class="count">${profileCompletion !== null ? profileCompletion : "0"}</b>%`;
@@ -170,7 +181,7 @@ function updateBookmarkList(userData) {
           <img src="${user.image || defaultProfileImage}" alt="${user.name || 'Unknown User'}'s profile picture">
         </div>
         <div class="db-int-pro-2">
-          <h5>${user.name || 'Unknown User'}</h5>
+          <h5>${user.name || ' User'}</h5>
           <ol class="poi">
             <li>City: <strong>${user.location || 'N/A'}</strong></li>
             <li>Age: <strong>${user.age || 'N/A'}</strong></li>
@@ -235,20 +246,20 @@ function updateBookmarkList(userData) {
         hideLoader();
         if (!data.success) {
           toggleBookmarkUI(!isBookmarked);
-          alert(data.message || 'Failed to update bookmark. Please try again.');
+          showErrorToast(data.message || 'Failed to update bookmark. Please try again.');
         }
-        alert(data.message);
+        showErrorToast(data.message);
       })
       .catch((error) => {
         console.error('Error:', error);
         toggleBookmarkUI(!isBookmarked);
-        alert('An error occurred. Please try again.');
+        showErrorToast('An error occurred. Please try again.');
       });
   }
   
   function updatePlan(subscriptionData) {
     // Get the HTML elements by their IDs
-    console.log(subscriptionData)
+    
     const planNameElement = document.getElementById("planeName");
     const planStatus = document.getElementById("planStatus");
     const durationElement = document.getElementById("duration");
@@ -292,28 +303,35 @@ function updateBookmarkList(userData) {
 
 const sendVerifyBtn = document.getElementById("verify-request");
 if (sendVerifyBtn) { // Check if the element exists
+
+  if(userData.verification_status === "Pending"){
+    sendVerifyBtn.style.backgroundColor = "#FEBE10";
+    sendVerifyBtn.innerText = "Pending...!";
+  }
+
   sendVerifyBtn.addEventListener("click", async (e) => {
     e.preventDefault();
     try {
+      showLoader()
       const response = await fetch("http://localhost:5000/api/verify-account", {
         method: "POST",
         headers: {
           token: sessionStorage.getItem('token'),
         },
       });
-
+     hideLoader()
       const data = await response.json();
 
       if (data.success) {
-        alert(data.message);
-        sendVerifyBtn.style.backgroundColor = "yellow";
+        showSuccessToast(data.message);
+        sendVerifyBtn.style.backgroundColor = "#FEBE10";
         sendVerifyBtn.innerText = "Pending...!";
       } else {
-        alert(data.message);
+        showErrorToast(data.message);
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred. Please try again later.');
+      showErrorToast('An error occurred. Please try again later.');
     }
   });
 }
@@ -376,3 +394,40 @@ function formatDate(date) {
 }
 
 
+function showLoader() {
+  const loader = document.getElementById("loader");
+  if(!loader){
+   return;
+  };
+  loader.style.display = "flex";
+}
+
+function hideLoader() {
+   const loader = document.getElementById("loader");
+   if(!loader){
+    return;
+   };
+   loader.style.display = "none";
+}
+
+function showSuccessToast(msg) {
+  Toastify({
+    text: msg,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    close: true,
+  }).showToast();
+}
+
+function showErrorToast(msg) {
+  Toastify({
+    text: msg,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+    close: true,
+  }).showToast();
+}

@@ -17,7 +17,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
         if (!isOtpSent) {
             // Step 1: Send OTP
             if (!name || !email || !phone || !password) {
-                alert("Please fill in all required fields.");
+                showErrorToast("Please fill in all required fields.");
                 return;
             }
 
@@ -38,7 +38,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
             const data = await response.json();
 
             if (data.success) {
-                alert(data.message); // Show success message (OTP sent to email)
+                showSuccessToast(data.message); // Show success message (OTP sent to email)
                 document.getElementById("otpContainer").style.display = "block"; // Show OTP input field
                 document.getElementById("actionBtn").textContent = "Verify"; // Change button text to "Verify"
                 document.querySelectorAll(".form-control").forEach((element) => {
@@ -48,12 +48,12 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
                 });
                 isOtpSent = true; // Mark OTP as sent
             } else {
-                alert(data.message || "Failed to send OTP."); // Show error message
+                showErrorToast(data.message || "Failed to send OTP."); // Show error message
             }
         } else {
             // Step 2: Verify OTP and Register
             if (!otp) {
-                alert("Please enter the OTP.");
+                showErrorToast("Please enter the OTP.");
                 return;
             }
 
@@ -77,28 +77,56 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
 
             if (data.success) {
                 
-                alert(data.message); // Show success message (user registered)
+                showSuccessToast(data.message); // Show success message (user registered)
                 sessionStorage.setItem("token", data.encryptedToken); // Store token in localStorage
                 // Redirect to dashboard or login page
                 window.location.href = `user-profile-edit.html?id=${data.userData.profileID}`;
             } else {
-                alert(data.message || "Registration failed."); // Show error message
+                showErrorToast(data.message || "Registration failed."); // Show error message
             }
         }
     } catch (error) {
         console.error("Error occurred:", error);
-        alert("An error occurred. Please try again later.");
+        showErrorToast("An error occurred. Please try again later.");
     }
 });
 
 function showLoader() {
-    document.getElementById("loader").style.display = "flex";
-}
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "flex";
+ }
+ 
+ function hideLoader() {
+     const loader = document.getElementById("loader");
+     if(!loader){
+      return;
+     };
+     loader.style.display = "none";
+ }
 
-function hideLoader() {
-    document.getElementById("loader").style.display = "none";
-}
 
-
-
-
+ function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  

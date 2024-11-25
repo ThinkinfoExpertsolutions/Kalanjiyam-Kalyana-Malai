@@ -2,7 +2,7 @@
 <html lang="en">
 
 
-<!-- Mirrored from rn53themes.net/themes/matrimo/all-profiles.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Oct 2024 14:13:52 GMT -->
+
 <head>
     <title>Wedding Matrimony</title>
     <!--== META TAGS ==-->
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -99,27 +99,7 @@
                 <li><a href="#!"><i class="fa fa-envelope-o" aria-hidden="true"></i> kalanjiyamsalem@gmail.com</a></li>
                 <li><a href="#!"><i class="fa fa-map-marker" aria-hidden="true"></i>EB office, Muthunayackenpatti main road, Sundhar Nagar, backside, Salem, Tamil Nadu 636302</a></li>
             </ul>
-            <!-- <div class="menu-pop-help">
-                <h4>Support Team</h4>
-                <div class="user-pro">
-                    <img src="images/profiles/1.jpg" alt="" loading="lazy">
-                </div>
-                <div class="user-bio">
-                    <h5>Ashley emyy</h5>
-                    <span>Senior personal advisor</span>
-                    <a href="enquiry.html" class="btn btn-primary btn-sm">Ask your doubts</a>
-                </div>
-            </div>
-            <div class="menu-pop-soci">
-                <ul>
-                    <li><a href="#!"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                    <li><a href="#!"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li><a href="#!"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
-                    <li><a href="#!"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                    <li><a href="#!"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                    <li><a href="#!"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                </ul>
-            </div> -->
+           
         </div>
     </div>
     <!-- END HEADER & MENU -->
@@ -270,19 +250,10 @@
                 <li><a href="all-profiles.html">All profiles</a></li>
                 <li><a href="profile-details.html">My Profile</a></li>
                 <li><a href="plans.html">Pricing plans</a></li>
-                <!-- <li><a href="login.html">Login</a></li>
-                <li><a href="sign-up.html">Sign-up</a></li> -->
-                <!-- <li><a href="photo-gallery.html">Photo gallery</a></li>
-                <li><a href="photo-gallery-1.html">Photo gallery 1</a></li> -->
+              
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="about.html">About</a></li>
-                <!-- <li><a href="blog.html">Blog</a></li> -->
-                <!-- <li><a href="blog-detail.html">Blog detail</a></li> -->
-                <!-- <li><a href="enquiry.html">Ask your doubts</a></li> -->
-                <!-- <li><a href="make-reservation.html">Make Reservation</a></li> -->
-                <!-- <li><a href="faq.html">FAQ</a></li> -->
-                <!-- <li><a href="coming-soon.html" target="_blank">Coming soon</a></li> -->
-                <!-- <li><a href="404.html">404</a></li> -->
+                
             </ul>
             <div class="menu-pop-help">
                 <h4>Support </h4>
@@ -375,10 +346,10 @@
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-search" aria-hidden="true"></i> I'm looking for</h4>
                             <div class="form-group">
-                                <select class="chosen-select">
+                                <select class="chosen-select" name="basicInfo.gender" onchange="handleChange(event)">
                                     <option value="">I'm looking for</option>
-                                    <option value="Men">Men</option>
-                                    <option value="Women">Women</option>
+                                    <option value="Male">Men</option>
+                                    <option value="Female">Women</option>
                                 </select>
                             </div>
                         </div>
@@ -387,16 +358,12 @@
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-clock-o" aria-hidden="true"></i>Age</h4>
                             <div class="form-group">
-                                <select class="chosen-select">
+                                <select class="chosen-select" name="personalDetails.age" id="ageRange" onchange="handleChange(event)">
                                     <option value="">Select age</option>
-                                    <option value="">18 to 30</option>
-                                    <option value="">31 to 40</option>
-                                    <option value="">41 to 50</option>
-                                    <option value="">51 to 60</option>
-                                    <option value="">61 to 70</option>
-                                    <option value="">71 to 80</option>
-                                    <option value="">81 to 90</option>
-                                    <option value="">91 to 100</option>
+                                    <option value="18-25">18 to 25</option>
+                                    <option value="25-35">25 to 35</option>
+                                    <option value="35-45">35 to 45</option>
+                                    <option value="45-60">45+</option>
                                 </select>
                             </div>
                         </div>
@@ -405,18 +372,18 @@
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-bell-o" aria-hidden="true"></i>Select Cast</h4>
                             <div class="form-group">
-                                <select class="chosen-select">
-                                    <option>Cast</option>
-                                    <option>பிராமணர் - Brahmin</option>
-                                    <option>செட்டியார் - Chettiar</option>
-                                    <option>கவுண்டர் - Gounder</option>
-                                    <option>முதலியார் - Mudaliyar</option>
-                                    <option>நாடார் - Nadar</option> 
-                                    <option>பிள்ளை - Pillai</option> 
-                                    <option>தேவர் - Thevar</option> 
-                                    <option>வன்னியர் - Vanniyar</option> 
-                                    <option>Scheduled Castes (SC)</option> 
-                                    <option>Scheduled Tribes (ST)</option> 
+                                <select class="chosen-select" name="basicInfo.cast" id="castSelect" onchange="handleChange(event)">
+                                    <option value="">Cast</option>
+                                    <option value="Brahmin">பிராமணர் - Brahmin</option>
+                                    <option value="Chettiar">செட்டியார் - Chettiar</option>
+                                    <option value="Gounder">கவுண்டர் - Gounder</option>
+                                    <option value="Mudaliyar">முதலியார் - Mudaliyar</option>
+                                    <option value="Nadar">நாடார் - Nadar</option>
+                                    <option value="Pillai">பிள்ளை - Pillai</option>
+                                    <option value="Thevar">தேவர் - Thevar</option>
+                                    <option value="Vanniyar">வன்னியர் - Vanniyar</option>
+                                    <option value="SC">Scheduled Castes (SC)</option>
+                                    <option value="ST">Scheduled Tribes (ST)</option>
                                 </select>
                             </div>
                         </div>
@@ -425,111 +392,143 @@
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-moon-o" aria-hidden="true"></i>Select Zodiac</h4>
                             <div class="form-group">
-                                <select class="chosen-select" name="addjbmaincate">
-                                    <option>Zodiac (இராசி )</option>
-                                    <option>மேஷம் - Aries</option>
-                                    <option> ரிஷபம் - Taurus</option>
-                                    <option>மிதுனம் - Gemini</option>
-                                    <option>கடகம் - Cancer</option>
-                                    <option>கன்னி - Virgo</option>
-                                    <option>துலாம் - Libra</option>
-                                    <option>விருச்சிகம் - Scorpio</option>
-                                    <option>தனுசு - Sagittarius</option>
-                                    <option>மகரம் - Capricorn</option>
-                                    <option>கும்பம் - Aquarius</option>
-                                    <option>மீனம் - Pisces</option>
+                                <select class="chosen-select" id="zodiacSelect" name="basicInfo.zodiac" onchange="handleChange(event)">
+                                    <option value="">Zodiac (இராசி )</option>
+                                    <option value="Aries">மேஷம் - Aries</option>
+                                    <option value="Taurus">ரிஷபம் - Taurus</option>
+                                    <option value="Gemini">மிதுனம் - Gemini</option>
+                                    <option value="Cancer">கடகம் - Cancer</option>
+                                    <option value="Virgo">கன்னி - Virgo</option>
+                                    <option value="Libra">துலாம் - Libra</option>
+                                    <option value="Scorpio">விருச்சிகம் - Scorpio</option>
+                                    <option value="Sagittarius">தனுசு - Sagittarius</option>
+                                    <option value="Capricorn">மகரம் - Capricorn</option>
+                                    <option value="Aquarius">கும்பம் - Aquarius</option>
+                                    <option value="Pisces">மீனம் - Pisces</option>
                                 </select>
                             </div>
                         </div>
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-star" aria-hidden="true"></i>Select Natchathiram</h4>
                             <div class="form-group">
-                                <select class="chosen-select" name="addjbmaincate">
-                                    <option> Natchathiram (நட்சத்திரம்)</option>
-                                    <option>Ashwini (அசுவினி)</option>
-                                    <option>Bharani (பரணி)</option>
-                                    <option>Karthikai (கார்த்திகை)</option>
-                                    <option>Rohini (ரோகினி)</option>
-                                    <option>Mrigashirsha (மிருகசிரிசம்)</option>
-                                    <option>Arudra (திருவாதிரை)</option>
-                                    <option>Punarvasu (புனர்பூசம்)</option>
-                                    <option>Pushya (பூசம்)</option>
-                                    <option>Ashlesha (ஆயில்யம்)</option>
-                                    <option>Magha (மகா)</option>
-                                    <option>Purva Phalguni (பூரம்)</option>
-                                    <option>Uttara Phalguni (உத்திரம்)</option>
-                                    <option>Hasta (ஹஸ்தம்)</option>
-                                    <option>Chitra (சித்திரை)</option>
-                                    <option>Swati (சுவாதி)</option>
-                                    <option>Vishakha (விசாகம்)</option>
-                                    <option>Anuradha (அனுஷம்)</option>
-                                    <option>Jyeshtha (கேட்டை)</option>
-                                    <option>Mula (மூலம்)</option>
-                                    <option>Purvashada (பூராடம்)</option>
-                                    <option>Uttarashada (உத்திராடம்)</option>
-                                    <option>Shravan (திருவோணம்)</option>
-                                    <option>Purvabhadrapada (பூரட்டாதி)</option>
-                                    <option>Uttarabhadrapada (உத்திரட்டாதி)</option>
-                                    <option>Revati (ரேவதி)</option>
-                                    <option>Avittam (அவிதம்)</option>
-                                    <option>Punarvasu (பரிந்த)</option>
+                                <select class="chosen-select" name="basicInfo.natchathiram" id="basicInfo.natchathiramSelect" onchange="handleChange(event)">
+                                    <option value="">Natchathiram (நட்சத்திரம்)</option>
+                                    <option value="Ashwini">Ashwini (அசுவினி)</option>
+                                    <option value="Bharani">Bharani (பரணி)</option>
+                                    <option value="Karthikai">Karthikai (கார்த்திகை)</option>
+                                    <option value="Rohini">Rohini (ரோகினி)</option>
+                                    <option value="Mrigashirsha">Mrigashirsha (மிருகசிரிசம்)</option>
+                                    <option value="Arudra">Arudra (திருவாதிரை)</option>
+                                    <option value="Punarvasu">Punarvasu (புனர்பூசம்)</option>
+                                    <option value="Pushya">Pushya (பூசம்)</option>
+                                    <option value="Ashlesha">Ashlesha (ஆயில்யம்)</option>
+                                    <option value="Magha">Magha (மகா)</option>
+                                    <option value="Purva Phalguni">Purva Phalguni (பூரம்)</option>
+                                    <option value="Uttara Phalguni">Uttara Phalguni (உத்திரம்)</option>
+                                    <option value="Hasta">Hasta (ஹஸ்தம்)</option>
+                                    <option value="Chitra">Chitra (சித்திரை)</option>
+                                    <option value="Swati">Swati (சுவாதி)</option>
+                                    <option value="Vishakha">Vishakha (விசாகம்)</option>
+                                    <option value="Anuradha">Anuradha (அனுஷம்)</option>
+                                    <option value="Jyeshtha">Jyeshtha (கேட்டை)</option>
+                                    <option value="Mula">Mula (மூலம்)</option>
+                                    <option value="Purvashada">Purvashada (பூராடம்)</option>
+                                    <option value="Uttarashada">Uttarashada (உத்திராடம்)</option>
+                                    <option value="Shravan">Shravan (திருவோணம்)</option>
+                                    <option value="Purvabhadrapada">Purvabhadrapada (பூரட்டாதி)</option>
+                                    <option value="Uttarabhadrapada">Uttarabhadrapada (உத்திரட்டாதி)</option>
+                                    <option value="Revati">Revati (ரேவதி)</option>
+                                    <option value="Avittam">Avittam (அவிதம்)</option>
+                                    <option value="Punarvasu (பரிந்த)">Punarvasu (பரிந்த)</option>
                                 </select>
                             </div>
                         </div>
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-map-marker" aria-hidden="true"></i>Select Location</h4>
                             <div class="form-group">
-                                <select class="chosen-select" name="addjbmaincate">
-                                    <option>Select District</option>
-                                    <option>Ariyalur</option>
-                                    <option>Chennai</option>
-                                    <option>Coimbatore</option>
-                                    <option>Cuddalore</option>
-                                    <option>Dharmapuri</option>
-                                    <option>Dindigul</option>
-                                    <option>Erode</option>
-                                    <option>Kanchipuram</option>
-                                    <option>Karur</option>
-                                    <option>Krishnagiri</option>
-                                    <option>Madurai</option>
-                                    <option>Kanyakumari</option>
-                                    <option>Namakkal</option>
-                                    <option>Perambalur</option>
-                                    <option>Pudukottai</option>
-                                    <option>Ramanathapuram</option>
-                                    <option>Salem</option>
-                                    <option>Sivaganga</option>
-                                    <option>Thanjavur</option>
-                                    <option>Theni</option>
-                                    <option>Tirunelveli</option>
-                                    <option>Thiruvallur</option>
-                                    <option>Thiruvannamalai</option>
-                                    <option>Tiruvarur</option>
-                                    <option>Trichy</option>
-                                    <option>Thoothukudi</option>
-                                    <option>Tiruppur</option>
-                                    <option>Vellore</option>
-                                    <option>Villupuram</option>
-                                    <option>Virudhunagar</option>
+                                <select class="chosen-select" name="basicInfo.district" id="locationSelect" onchange="handleChange(event)">
+                                    <option value="">Select District</option>
+                                    <option value="Ariyalur">Ariyalur</option>
+                                    <option value="Chennai">Chennai</option>
+                                    <option value="Coimbatore">Coimbatore</option>
+                                    <option value="Cuddalore">Cuddalore</option>
+                                    <option value="Dharmapuri">Dharmapuri</option>
+                                    <option value="Dindigul">Dindigul</option>
+                                    <option value="Erode">Erode</option>
+                                    <option value="Kanchipuram">Kanchipuram</option>
+                                    <option value="Karur">Karur</option>
+                                    <option value="Krishnagiri">Krishnagiri</option>
+                                    <option value="Madurai">Madurai</option>
+                                    <option value="Kanyakumari">Kanyakumari</option>
+                                    <option value="Namakkal">Namakkal</option>
+                                    <option value="Perambalur">Perambalur</option>
+                                    <option value="Pudukottai">Pudukottai</option>
+                                    <option value="Ramanathapuram">Ramanathapuram</option>
+                                    <option value="Salem">Salem</option>
+                                    <option value="Sivaganga">Sivaganga</option>
+                                    <option value="Thanjavur">Thanjavur</option>
+                                    <option value="Theni">Theni</option>
+                                    <option value="Tirunelveli">Tirunelveli</option>
+                                    <option value="Thiruvallur">Thiruvallur</option>
+                                    <option value="Thiruvannamalai">Thiruvannamalai</option>
+                                    <option value="Tiruvarur">Tiruvarur</option>
+                                    <option value="Trichy">Trichy</option>
+                                    <option value="Thoothukudi">Thoothukudi</option>
+                                    <option value="Tiruppur">Tiruppur</option>
+                                    <option value="Vellore">Vellore</option>
+                                    <option value="Villupuram">Villupuram</option>
+                                    <option value="Virudhunagar">Virudhunagar</option>
                                 </select>
                             </div>
                         </div>
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-briefcase" aria-hidden="true"></i>Select Job Type</h4>
                             <div class="form-group">
-                                <select class="chosen-select" name="jobType">
-                                    <option>Select Job Type</option>
-                                    <option>Engineer</option>
-                                    <option>Doctor</option>
-                                    <option>Teacher</option>
-                                    <option>Software Developer</option>
-                                    <option>Government Employee</option>
-                                    <option>Business Owner</option>
-                                    <option>Architect</option>
-                                    <option>Accountant</option>
-                                    <option>Nurse</option>
-                                    <option>Marketing Professional</option>
-                                    <option>Others</option>
+                                <select class="chosen-select" id="jobType" name="jobDetails.jobType" onchange="handleChange(event)">
+                                    <option value="">Select Job Type</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Employee">Employee</option>
+                                    <option value="Government">Government</option>
+                                    <option value="Jobless">Jobless</option>
+                                    <option value="Others">Others</option>
+                                    <option value="Software Engineer/IT Professional">Software Engineer/IT Professional</option>
+                                    <option value="Business Analyst">Business Analyst</option>
+                                    <option value="Manager/HR Professional">Manager/HR Professional</option>
+                                    <option value="Marketing/Sales Executive">Marketing/Sales Executive</option>
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse/Medical Assistant">Nurse/Medical Assistant</option>
+                                    <option value="Pharmacist">Pharmacist</option>
+                                    <option value="Healthcare Administrator">Healthcare Administrator</option>
+                                    <option value="Teacher/Professor">Teacher/Professor</option>
+                                    <option value="Research Scholar">Research Scholar</option>
+                                    <option value="Lecturer">Lecturer</option>
+                                    <option value="Education Consultant">Education Consultant</option>
+                                    <option value="Entrepreneur">Entrepreneur</option>
+                                    <option value="Business Owner">Business Owner</option>
+                                    <option value="Freelancer">Freelancer</option>
+                                    <option value="Consultant">Consultant</option>
+                                    <option value="Lawyer/Advocate">Lawyer/Advocate</option>
+                                    <option value="Judge">Judge</option>
+                                    <option value="Legal Advisor">Legal Advisor</option>
+                                    <option value="Mechanical Engineer">Mechanical Engineer</option>
+                                    <option value="Civil Engineer">Civil Engineer</option>
+                                    <option value="Electrical Engineer">Electrical Engineer</option>
+                                    <option value="Architect">Architect</option>
+                                    <option value="Writer/Author">Writer/Author</option>
+                                    <option value="Journalist">Journalist</option>
+                                    <option value="Graphic Designer">Graphic Designer</option>
+                                    <option value="Film/TV Professional">Film/TV Professional</option>
+                                    <option value="Electrician">Electrician</option>
+                                    <option value="Plumber">Plumber</option>
+                                    <option value="Technician">Technician</option>
+                                    <option value="Carpenter">Carpenter</option>
+                                    <option value="Musician">Musician</option>
+                                    <option value="Dancer">Dancer</option>
+                                    <option value="Actor">Actor</option>
+                                    <option value="Photographer">Photographer</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Retired">Retired</option>
+                                    <option value="Homemaker">Homemaker</option>
                                 </select>
                             </div>
                         </div>
@@ -537,18 +536,18 @@
                         <div class="filt-com lhs-cate">
                             <h4><i class="fa fa-money" aria-hidden="true"></i>Annual Income</h4>
                             <div class="form-group">
-                                <select class="chosen-select" name="salaryRange">
-                                    <option>Select Salary Range</option>
-                                    <option>Below ₹50,000</option>
-                                    <option>₹50,000 - ₹1,00,000</option>
-                                    <option>₹1,00,000 - ₹2,00,000</option>
-                                    <option>₹2,00,000 - ₹3,00,000</option>
-                                    <option>₹3,00,000 - ₹4,00,000</option>
-                                    <option>₹4,00,000 - ₹5,00,000</option>
-                                    <option>₹5,00,000 - ₹6,00,000</option>
-                                    <option>₹6,00,000 - ₹8,00,000</option>
-                                    <option>₹8,00,000 - ₹10,00,000</option>
-                                    <option>Above ₹10,00,000</option>
+                                <select class="chosen-select" name="jobDetails.salary" id="salaryRangeSelect" onchange="handleChange(event)">
+                                    <option value="">Select Annual Salary</option>
+                                    <option value="10000-50000">Below ₹50,000</option>
+                                    <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                                    <option value="100,000-200000">₹1,00,000 - ₹2,00,000</option>
+                                    <option value="200,000-300000">₹2,00,000 - ₹3,00,000</option>
+                                    <option value="300,000-400000">₹3,00,000 - ₹4,00,000</option>
+                                    <option value="400,000-500000">₹4,00,000 - ₹5,00,000</option>
+                                    <option value="500,000-600000">₹5,00,000 - ₹6,00,000</option>
+                                    <option value="600,000-800000">₹6,00,000 - ₹8,00,000</option>
+                                    <option value="800,000-1000000">₹8,00,000 - ₹10,00,000</option>
+                                    <option value="1000000-10000000">Above ₹10,00,000</option>
                                 </select>
                             </div>
                         </div>
@@ -556,30 +555,35 @@
                         <!-- END -->
                         <!-- START -->
                         <!-- START Marital Status -->
+
+<!-- END Marital Status -->
+
+
+
 <div class="filt-com lhs-rati lhs-avail lhs-cate">
     <h4><i class="fa fa-heart" aria-hidden="true"></i> Marital Status</h4>
     <ul>
         <li>
             <div class="rbbox">
-                <input type="radio" value="" name="marital_status" class="rating_check" id="ms1" checked>
+                <input type="radio" value="" name="personalDetails.maritalStatus" class="rating_check" id="ms1" checked >
                 <label for="ms1">All</label>
             </div>
         </li>
         <li>
             <div class="rbbox">
-                <input type="radio" value="" name="marital_status" class="rating_check" id="ms2">
+                <input type="radio" value="single" name="personalDetails.maritalStatus" class="rating_check" id="ms2">
                 <label for="ms2">Single</label>
             </div>
         </li>
         <li>
             <div class="rbbox">
-                <input type="radio" value="" name="marital_status" class="rating_check" id="ms3">
+                <input type="radio" value="divorced" name="personalDetails.maritalStatus" class="rating_check" id="ms3" >
                 <label for="ms3">Divorced</label>
             </div>
         </li>
         <li>
             <div class="rbbox">
-                <input type="radio" value="" name="marital_status" class="rating_check" id="ms4">
+                <input type="radio" value="widowed" name="personalDetails.maritalStatus" class="rating_check" id="ms4" >
                 <label for="ms4">Widowed</label>
             </div>
         </li>
@@ -593,19 +597,19 @@
     <ul>
         <li>
             <div class="rbbox">
-                <input type="radio" value="" name="family_type" class="rating_check" id="ft1" checked>
+                <input type="radio" value="all" name="personalDetails.familyType" class="rating_check" id="ft1" checked >
                 <label for="ft1">All</label>
             </div>
         </li>
         <li>
             <div class="rbbox">
-                <input type="radio" value="" name="family_type" class="rating_check" id="ft2">
+                <input type="radio" value="nuclear" name="personalDetails.familyType" class="rating_check" id="ft2" >
                 <label for="ft2">Nuclear Family</label>
             </div>
         </li>
         <li>
             <div class="rbbox">
-                <input type="radio" value="" name="family_type" class="rating_check" id="ft3">
+                <input type="radio" value="joint" name="personalDetails.familyType" class="rating_check" id="ft3" >
                 <label for="ft3">Joint Family</label>
             </div>
         </li>
@@ -626,23 +630,11 @@
                     </div>
                     <div class="col-md-9">
                         <div class="short-all">
-                            <div class="short-lhs">
+                            <div class="short-lhs" id="profilesCount">
                                 Showing <b>32</b> profiles
                             </div>
                             <div class="short-rhs">
                                 <ul>
-                                    <li>
-                                        Sort by:
-                                    </li>
-                                    <li>
-                                        <div class="form-group">
-                                            <select class="chosen-select">
-                                                <option value="">Most relative</option>
-                                                <option value="Men">Date listed: Newest</option>
-                                                <option value="Men">Date listed: Oldest</option>
-                                            </select>
-                                        </div>
-                                    </li>
                                     <li>
                                         <div class="sort-grid sort-grid-1">
                                             <i class="fa fa-th-large" aria-hidden="true"></i>
@@ -657,203 +649,8 @@
                             </div>
                         </div>
                         <div class="all-list-sh">
-                            <ul>
-                                <li>
-                                    <div class="all-pro-box user-avil-onli" data-useravil="avilyes"
-                                        >
-                                        <!--PROFILE IMAGE-->
-                                        <div class="pro-img">
-                                            <a href="profile-details.html">
-                                                <img src="images/profiles/4.jpg" alt="">
-                                            </a>
-                                            <div class="pro-ave" title="User currently available">
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                        <!--END PROFILE IMAGE-->
-
-                                        <!--PROFILE NAME-->
-                                        <div class="pro-detail">
-                                            <h4><a href="profile-details.html">Ashley emyy</a></h4>
-                                            <div class="pro-bio">
-                                                <span>B.Sc</span>
-                                                <span>IT Profession</span>
-                                                <span>29 Yeard old</span>
-                                                <span>Hindhu</span>
-                                            </div>
-                                            <div class="links">
-                                                <!-- <span class="cta-chat">Chat now</span>
-                                                <a href="#!">WhatsApp</a>
-                                                <a href="#!" class="cta cta-sendint" data-bs-toggle="modal" data-bs-target="#sendInter">Send interest</a> -->
-                                                <a href="profile-details.html">More detaiils</a>
-                                            </div>
-                                        </div>
-                                        <!--END PROFILE NAME-->
-                                        <!--SAVE-->
-                                        
-                                        <!--END SAVE-->
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="all-pro-box" data-useravil="avilno" >
-                                        <!--PROFILE IMAGE-->
-                                        <div class="pro-img">
-                                            <a href="profile-details.html">
-                                                <img src="images/profiles/10.jpg" alt="">
-                                            </a>
-                                            <div class="pro-ave" title="User currently available">
-                                            
-                                            </div>
-    
-                                        </div>
-                                        <!--END PROFILE IMAGE-->
-
-                                        <!--PROFILE NAME-->
-                                        <div class="pro-detail">
-                                            <h4><a href="profile-details.html">Elizabeth Taylor</a></h4>
-                                            <div class="pro-bio">
-                                                <span>B.Sc</span>
-                                                <span>IT Profession</span>
-                                                <span>29 Yeard old</span>
-                                                <span>Hindhu</span>
-
-                                            </div>
-                                            <div class="links">
-                                                <!-- <span class="cta-chat">Chat now</span>
-                                                <a href="#!">WhatsApp</a>
-                                                <a href="#!" class="cta cta-sendint" data-bs-toggle="modal" data-bs-target="#sendInter">Send interest</a> -->
-                                                <a href="profile-details.html">More detaiils</a>
-                                            </div>
-                                        </div>
-                                        <!--END PROFILE NAME-->
-                                        <!--SAVE-->
-                                        <!-- <span class="enq-sav" data-toggle="tooltip"
-                                            title="Click to save this provile."><i class="fa fa-thumbs-o-up"
-                                                aria-hidden="true"></i></span> -->
-                                        <!--END SAVE-->
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="all-pro-box user-avil-onli" data-useravil="avilyes"
-                                        data-aviltxt="Available online">
-                                        <!--PROFILE IMAGE-->
-                                        <div class="pro-img">
-                                            <a href="profile-details.html">
-                                                <img src="images/profiles/11.jpg" alt="">
-                                            </a>
-                                            <div class="pro-ave" title="User currently available">
-                                                
-                                            </div>
-                                            
-                                        </div>
-                                        <!--END PROFILE IMAGE-->
-
-                                        <!--PROFILE NAME-->
-                                        <div class="pro-detail">
-                                            <h4><a href="profile-details.html">Angelina Jolie</a></h4>
-                                            <div class="pro-bio">
-                                                <span>B.Sc</span>
-                                                <span>IT Profession</span>
-                                                <span>29 Yeard old</span>
-                                                <span>Hindhu</span>
-
-                                            </div>
-                                            <div class="links">
-                                                <!-- <span class="cta-chat">Chat now</span> -->
-                                                <!-- <a href="#!">WhatsApp</a>
-                                                <a href="#!" class="cta cta-sendint" data-bs-toggle="modal" data-bs-target="#sendInter">Send interest</a> -->
-                                                <a href="profile-details.html">More detaiils</a>
-                                            </div>
-                                        </div>
-                                        <!--END PROFILE NAME-->
-
-                                        <!--END USER AND GET QUOTE-->
-                                        <!--SAVE-->
-                                        <!-- <span class="enq-sav" data-toggle="tooltip"
-                                            title="Click to save this provile."><i class="fa fa-thumbs-o-up"
-                                                aria-hidden="true"></i></span> -->
-                                        <!--END SAVE-->
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="all-pro-box" data-useravil="avilno" data-aviltxt="Offline">
-                                        <!--PROFILE IMAGE-->
-                                        <div class="pro-img">
-                                            <a href="profile-details.html">
-                                                <img src="images/profiles/12.jpg" alt="">
-                                            </a>
-                                            <div class="pro-ave" title="User currently available">
-                                               
-                                            </div>
-                                            
-                                        </div>
-                                        <!--END PROFILE IMAGE-->
-
-                                        <!--PROFILE NAME-->
-                                        <div class="pro-detail">
-                                            <h4><a href="profile-details.html">Olivia mia</a></h4>
-                                            <div class="pro-bio">
-                                                <span>B.Sc</span>
-                                                <span>IT Profession</span>
-                                                <span>29 Yeard old</span>
-                                                <span>Hindhu</span>
-
-                                            </div>
-                                            <div class="links">
-                                                <!-- <span class="cta-chat">Chat now</span>
-                                                <a href="#!">WhatsApp</a>
-                                                <a href="#!" class="cta cta-sendint" data-bs-toggle="modal" data-bs-target="#sendInter">Send interest</a> -->
-                                                <a href="profile-details.html">More detaiils</a>
-                                            </div>
-                                        </div>
-                                        <!--END PROFILE NAME-->
-                                        <!--SAVE-->
-                                        <!-- <span class="enq-sav" data-toggle="tooltip"
-                                            title="Click to save this provile."><i class="fa fa-thumbs-o-up"
-                                                aria-hidden="true"></i></span> -->
-                                        <!--END SAVE-->
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="all-pro-box" data-useravil="avilno" data-aviltxt="Offline">
-                                        <!--PROFILE IMAGE-->
-                                        <div class="pro-img">
-                                            <a href="profile-details.html">
-                                                <img src="images/profiles/13.jpg" alt="">
-                                            </a>
-                                            <div class="pro-ave" title="User currently available">
-                                               
-                                            </div>
-                                            
-                                        </div>
-                                        <!--END PROFILE IMAGE-->
-
-                                        <!--PROFILE NAME-->
-                                        <div class="pro-detail">
-                                            <h4><a href="profile-details.html">Jennifer</a></h4>
-                                            <div class="pro-bio">
-                                                <span>B.Sc</span>
-                                                <span>IT Profession</span>
-                                                <span>29 Yeard old</span>
-                                                <span>Height: 155Cms</span>
-                                            </div>
-                                            <div class="links">
-                                                <!-- <span class="cta-chat">Chat now</span>
-                                                <a href="#!">WhatsApp</a>
-                                                <a href="#!" class="cta cta-sendint" data-bs-toggle="modal" data-bs-target="#sendInter">Send interest</a> -->
-                                                <a href="profile-details.html">More detaiils</a>
-                                            </div>
-                                        </div>
-                                        <!--END PROFILE NAME-->
-                                        <!--SAVE-->
-                                        <!-- <span class="enq-sav" data-toggle="tooltip"
-                                            title="Click to save this provile."><i class="fa fa-thumbs-o-up"
-                                                aria-hidden="true"></i></span> -->
-                                        <!--END SAVE-->
-                                    </div>
-                                </li>
-
+                            <ul id="searchResult">
+                                <!-- list elements -->
                             </ul>
                         </div>
                     </div>
@@ -865,69 +662,7 @@
 
 
     <!-- INTEREST POPUP -->
-    <div class="modal fade" id="sendInter">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title seninter-tit">Send interest to <span class="intename2">Jolia</span></h4>
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body seninter">
-                    <div class="lhs">
-                        <img src="images/profiles/1.jpg" alt="" class="intephoto2">
-                    </div>
-                    <div class="rhs">
-                        <h4>Permissions: <span class="intename2">Jolia</span> Can able to view the below details</h4>
-                        <ul>
-                            <li>
-                                <div class="chbox">
-                                    <input type="checkbox" id="pro_about" checked="">
-                                    <label for="pro_about">About section</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="chbox">
-                                    <input type="checkbox" id="pro_photo">
-                                    <label for="pro_photo">Photo gallery</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="chbox">
-                                    <input type="checkbox" id="pro_contact">
-                                    <label for="pro_contact">Contact info</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="chbox">
-                                    <input type="checkbox" id="pro_person">
-                                    <label for="pro_person">Personal info</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="chbox">
-                                    <input type="checkbox" id="pro_hobbi">
-                                    <label for="pro_hobbi">Hobbies</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="chbox">
-                                    <input type="checkbox" id="pro_social">
-                                    <label for="pro_social">Social media</label>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="form-floating">
-                            <textarea class="form-control" id="comment" name="text"
-                                placeholder="Comment goes here"></textarea>
-                            <label for="comment">Write some message to <span class="intename"></span></label>
-                        </div>
-                    </div>
-                </div>
-
+    
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary">Send interest</button>
@@ -937,37 +672,7 @@
             </div>
         </div>
     </div>
-    <!-- END INTEREST POPUP -->
-
-    <!-- CHAT CONVERSATION BOX START -->
-    <div class="chatbox">
-        <span class="comm-msg-pop-clo"><i class="fa fa-times" aria-hidden="true"></i></span>
-
-        <div class="inn">
-            <form name="new_chat_form" method="post">
-                <div class="s1">
-                    <img src="images/user/2.jpg" class="intephoto2" alt="">
-                    <h4><b class="intename2">Julia</b>,</h4>
-                    <span class="avlsta avilyes">Available online</span>
-                </div>
-                <div class="s2 chat-box-messages">
-                    <span class="chat-wel">Start a new chat!!! now</span>
-                    <div class="chat-con">
-                        <div class="chat-lhs">Hi</div>
-                        <div class="chat-rhs">Hi</div>
-                    </div>
-                    <!--<span>Start A New Chat!!! Now</span>-->
-                </div>
-                <div class="s3">
-                    <input type="text" name="chat_message" placeholder="Type a message here.." required="">
-                    <button id="chat_send1" name="chat_send" type="submit">Send <i class="fa fa-paper-plane-o"
-                            aria-hidden="true"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- END -->
+   
     <div id="loader" class="loader-container" style="display: none;">
         <div class="loader-content">
           <div class="spinner"></div>
@@ -1038,7 +743,8 @@
         <!-- Script to verify and retrieve the user details -->
         <script src="js/main/user.js"></script> 
         <script src="js/main/websiteData.js"></script>
- 
+        <script src="js//main/allProfiles.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 
