@@ -18,12 +18,12 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
 
         const data = await response.json();
         if (data.success) {
-            alert(data.message); // OTP sent successfully
+            showSuccessToast(data.message); // OTP sent successfully
             document.getElementById("otpContainer").style.display = "block"; // Show OTP input field
             document.getElementById("actionBtn").textContent = "Verify"; // Change button to "Verify"
             currentStep = 'verifyOtp'; // Move to the next step
         } else {
-            alert(data.message); // Show error message
+            showErrorToast(data.message); // Show error message
         }
 
     } else if (currentStep === 'verifyOtp') {
@@ -37,20 +37,20 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
         const data = await response.json();
 
         if (data.success) {
-            alert(data.message); // OTP verified successfully
+            showSuccessToast(data.message); // OTP verified successfully
             document.getElementById("otpContainer").style.display = "none"; // Hide OTP input
             document.getElementById("passwordContainer").style.display = "block"; // Show New Password input
             document.getElementById("comfirmPasswordContainer").style.display = "block"; // Show Confirm Password input
             document.getElementById("actionBtn").textContent = "Submit"; // Change button to "Submit"
             currentStep = 'resetPassword'; // Move to the next step
         } else {
-            alert(data.message); // Show error message
+            showErrorToast(data.message); // Show error message
         }
 
     } else if (currentStep === 'resetPassword') {
         // Step 3: Reset Password
         if (newPassword!==comfirmPassword) {
-            alert("Passwords do not match!");
+            showErrorToast("Passwords do not match!");
             return;
         }
        showLoader()
@@ -63,18 +63,51 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
         const data = await response.json();
 
         if (data.success) {
-            alert(data.message); // Password reset successful
+            showSuccessToast(data.message); // Password reset successful
             window.location.href = `http://127.0.0.1:5500/matrimo-frontend/login.html`; // Redirect to login page
         } else {
-            alert(data.message); // Show error message
+            showErrorToast(data.message); // Show error message
         }
     }
 });
 
 function showLoader() {
-    document.getElementById("loader").style.display = "flex";
-}
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "flex";
+ }
+ 
+ function hideLoader() {
+     const loader = document.getElementById("loader");
+     if(!loader){
+      return;
+     };
+     loader.style.display = "none";
+ }
 
-function hideLoader() {
-    document.getElementById("loader").style.display = "none";
-}
+ function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  
+
+  

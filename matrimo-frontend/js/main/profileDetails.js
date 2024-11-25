@@ -51,6 +51,8 @@ function getAllElementsById() {
         'jobType1',
         'about',
         'gallery',
+        "familyType",
+        "martialStatus",
         'image-gallery',
         'phone',
         'email',
@@ -94,6 +96,8 @@ function getAllElementsById() {
         const element = document.getElementById(id);
         if (element) {
             elements[id] = element; // Store the element in the object
+        }else{
+            return;
         }
     });
 
@@ -102,8 +106,8 @@ function getAllElementsById() {
 
 
 
-function updateProfileData(elements, userData) {
-    console.log(userData);
+function updateProfileData(elements, userData,myData,subscriptionData) {
+    
 
     // Basic info updates
     elements.age.innerHTML = userData.personalDetails.age || '';
@@ -125,10 +129,24 @@ function updateProfileData(elements, userData) {
     elements.natchathiram.innerHTML = `<b>Natchathiram:</b> ${userData.basicInfo?.natchathiram || "N/A"}`;
     elements.zodiac.innerHTML = `<b>Zodiac:</b> ${userData.basicInfo?.zodiac || "N/A"}`;
     elements.district1.innerHTML = `<b>District:</b> ${userData.basicInfo?.district || "N/A"}`;
+    elements.familyType.innerHTML = `<b>Family Type:</b> ${userData.personalDetails?.familyType || "N/A"}`;
+    elements.martialStatus.innerHTML = `<b>Martial Status:</b> ${userData.personalDetails?.martialStatus || "N/A"}`;
     if (userData.basicInfo?.cast?.includes("other")) {
         elements.cast.innerHTML = `<b>Cast:</b> ${userData.basicInfo.cast.split("-")[1] || "N/A"}`;
     } else {
         elements.cast.innerHTML = `<b>Cast:</b> ${userData.basicInfo?.cast || "N/A"}`;
+    }
+
+    if(userData.verification_status === "Verified"){
+           const verifyImg = document.getElementById("verifyImg");
+           if(verifyImg){
+            verifyImg.src = "https://iconape.com/wp-content/png_logo_vector/google-verified.png";
+           }
+    }else{
+        const verifyImg = document.getElementById("verifyImg");
+           if(verifyImg){
+            verifyImg.src = "https://iconape.com/wp-content/png_logo_vector/google-unverified.png";
+           }
     }
 
     // About and hobbies
@@ -157,6 +175,7 @@ function updateProfileData(elements, userData) {
     // elements.school.innerHTML = `<b>School:</b> ${userData.education?.school || "N/A"}`;
 
     // Social Media Links
+   
     const isPremium = (userData.profileID === myData.profileID || subscriptionData.isActive);
     if(isPremium){
         elements.whatsapp.href = userData.socialMedia[0] || '#';
@@ -256,20 +275,49 @@ if(window.location.pathname.endsWith("profile-details.html")){
      getProfileData(profileID).then(userData=>{
         
          const elementsById = getAllElementsById();
-         updateProfileData(elementsById,userData)
+         updateProfileData(elementsById,userData,myData,subscriptionData)
      }).catch(e=>{
         console.log(e);
      })
-    console.log(profileID);
-  if(!subscriptionData.isActive){
-       alert("Get Premium to view this image and contact details")
-  }
+    
 }
 
 function showLoader() {
-    document.getElementById("loader").style.display = "flex";
-}
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "flex";
+ }
+ 
+ function hideLoader() {
+     const loader = document.getElementById("loader");
+     if(!loader){
+      return;
+     };
+     loader.style.display = "none";
+ }
 
-function hideLoader() {
-    document.getElementById("loader").style.display = "none";
-}
+ function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  
+  

@@ -21,6 +21,8 @@ export const editProfile = async (req, res) => {
     natchathiram,
     district,
     cast,
+    familyType,
+    martialStatus,
     fatherName,
     motherName,
     weight,
@@ -40,6 +42,7 @@ export const editProfile = async (req, res) => {
     college,
     degree,
     socialMedia,
+    profileCompletion
   } = req.body;
 
  
@@ -74,6 +77,8 @@ export const editProfile = async (req, res) => {
         age,
         about,
         hobbies,
+        martialStatus,
+        familyType
       },
       contactInfo: {
         phone,
@@ -94,6 +99,7 @@ export const editProfile = async (req, res) => {
         degree,
       },
       socialMedia:socialMedia,
+      profileCompletion:profileCompletion
     };
 
     
@@ -555,6 +561,23 @@ export const getLatestProfile = async(req,res)=>{
   try {
     
     const allProfiles = await profilesModel.find({}).limit(7);
+    const admin = await adminModel.findById("6728727049b63d85da15a516");
+    const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json({success:true,data:sortedProfiles,socialMedia:admin.socialMedia});
+
+
+  } catch (error) {
+    console.log(error);
+    return res.json({ success: false, message: "An error occurred", error: error.message });
+  }
+
+}
+export const getAllProfile = async(req,res)=>{
+
+  try {
+    
+    const allProfiles = await profilesModel.find({});
     const admin = await adminModel.findById("6728727049b63d85da15a516");
     const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
 

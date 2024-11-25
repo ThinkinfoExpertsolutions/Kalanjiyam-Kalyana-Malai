@@ -1,5 +1,5 @@
 import express from "express";
-import {  editProfile, editSettings, getLatestProfile, getProfileData, getRelatedProfile, getSearchResult, handleBookmark, handleViewCount, sendEnquiry, uploadImage, verifyAccount } from "../controller/profileController.js";
+import {  editProfile, editSettings, getAllProfile, getLatestProfile, getProfileData, getRelatedProfile, getSearchResult, handleBookmark, handleViewCount, sendEnquiry, uploadImage, verifyAccount } from "../controller/profileController.js";
 import authMiddleware from "../middleware/auth.js";
 import upload from "../config/multer.js";
 
@@ -15,6 +15,7 @@ profileRouter.get("/get-profile-data/:id",getProfileData);
 profileRouter.patch('/profile/:id/view',authMiddleware,handleViewCount);
 profileRouter.patch("/handle-bookmark",authMiddleware,handleBookmark);
 profileRouter.get("/get-latest-profile",getLatestProfile);
+profileRouter.get("/get-all-profile",getAllProfile);
 profileRouter.get("/get-search-result",getSearchResult);
 profileRouter.get("/get-related-profiles/:id",getRelatedProfile);
 profileRouter.post("/verify-account",authMiddleware,verifyAccount);

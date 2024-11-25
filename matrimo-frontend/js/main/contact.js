@@ -26,7 +26,7 @@ document.getElementById("sendEnquiry").addEventListener("click", async (e) => {
             subject,
             details,
         };
-
+        showLoader()
         // Make the fetch request
         const response = await fetch("http://localhost:5000/api/send-quiry", {
             method: "POST",
@@ -36,11 +36,11 @@ document.getElementById("sendEnquiry").addEventListener("click", async (e) => {
             },
             body: JSON.stringify(payload), // Convert payload to JSON string
         });
-
+     hideLoader()
         const data = await response.json();
 
         if (data.success) {
-            alert(data.message);
+            showSuccessToast(data.message);
 
             // Clear input fields
             document.getElementById("profileId").value = "";
@@ -50,10 +50,49 @@ document.getElementById("sendEnquiry").addEventListener("click", async (e) => {
             document.getElementById("subject").value = "";
             document.getElementById("details").value = "";
         } else {
-            alert(data.message);
+            showErrorToast(data.message);
         }
     } catch (error) {
         console.error("Error occurred:", error);
-        alert("An error occurred. Please try again later.");
+        showErrorToast("An error occurred. Please try again later.");
     }
 });
+
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "flex";
+ }
+ 
+ function hideLoader() {
+     const loader = document.getElementById("loader");
+     if(!loader){
+      return;
+     };
+     loader.style.display = "none";
+ }
+
+ function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  

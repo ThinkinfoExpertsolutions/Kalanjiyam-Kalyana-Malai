@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Validate the input
         if (!email || !password) {
-            alert("Please enter both email and password");
+            showErrorToast("Please enter both email and password");
             return;
         }
 
@@ -42,22 +42,54 @@ document.addEventListener("DOMContentLoaded", function() {
                     document.cookie = `token=${data.encryptedToken}; path=/; max-age=31536000`; // 1 year expiration
                 }
 
-                alert(data.message);
+                showSuccessToast(data.message);
                 // Redirect to the dashboard or any other page
-                window.location.href = "http://127.0.0.1:5500/matrimo-frontend/index.html";
+                window.location.href = "index.html";
             } else {
-                alert(data.message); // Show error message
+                showErrorToast(data.message); // Show error message
             }
         } catch (error) {
             console.error("Error during login:", error);
-            alert("Failed to sign in! Please try again.");
+            showErrorToast("Failed to sign in! Please try again.");
         }
     });
 });
 function showLoader() {
-    document.getElementById("loader").style.display = "flex";
-}
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "flex";
+ }
+ 
+ function hideLoader() {
+     const loader = document.getElementById("loader");
+     if(!loader){
+      return;
+     };
+     loader.style.display = "none";
+ }
 
-function hideLoader() {
-    document.getElementById("loader").style.display = "none";
-}
+ function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  
+  

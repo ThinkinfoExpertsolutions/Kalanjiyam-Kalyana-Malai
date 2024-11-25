@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -566,10 +566,12 @@
                                         <!--END CONTACT DETAILS-->
                                         <!--PROFILE BIO-->
                                         <div class="edit-pro-parti">
+
                                             <div class="form-tit">
-                                                <h4>Basic info</h4>
+                                                <h4>Basic Info</h4>
                                                 <h1>Personal Details</h1>
                                             </div>
+                                        
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Weight (kg):</label>
@@ -580,26 +582,51 @@
                                                     <input type="number" class="form-control" id="height" name="height" min="1" required>
                                                 </div>
                                             </div>
+                                        
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
                                                     <label class="lb">Age:</label>
                                                     <input type="number" class="form-control" id="age" name="age" min="0" required>
                                                 </div>
                                             </div>
+                                        
                                             <div class="row">
-                                                <class class="col-md-12 form-group">
+                                                <div class="col-md-12 form-group">
                                                     <label class="lb">About Yourself:</label>
                                                     <textarea class="form-control" id="about" name="about" maxlength="500" rows="4" placeholder="Tell us about yourself" required></textarea>
-                                                    
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12 form-group">
-                                                        <label class="lb">Hobbies:</label>
-                                                        <input type="text" class="form-control" id="hobbies" name="hobbies" placeholder="Enter your hobbies" required>
-                                                    </div>
                                                 </div>
                                             </div>
+                                        
+                                            <div class="row">
+                                                <div class="col-md-12 form-group">
+                                                    <label class="lb">Hobbies:</label>
+                                                    <input type="text" class="form-control" id="hobbies" name="hobbies" placeholder="Enter your hobbies" required>
+                                                </div>
+                                            </div>
+                                        
+                                            <!-- Added Marital Status -->
+                                            <div class="form-group">
+                                                <label class="lb">Martial Status:</label>
+                                                <select class="form-control" id="martialStatus" name="martialStatus">
+                                                    <option>Select Current Status:</option>
+                                                    <option>Single</option>
+                                                    <option>Married</option>
+                                                    <option>Divorced</option>
+                  
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="lb">Family Type:</label>
+                                                <select class="form-control" id="familyType" name="familyType">
+                                                    <option>Select Family Type:</option>
+                                                    <option>Nuclear</option>
+                                                    <option>Joint</option>
+                                                    <option>Extended</option>
+                                                </select>
+                                            </div>
+
                                         </div>
+                                        
                                         <!--END PERSONAL DETAILS-->
                                         <!--PROFILE BIO-->
                                         <div class="edit-pro-parti">
@@ -843,6 +870,7 @@
     <script src="js/main/user.js"></script> 
     <script src="js/main/websiteData.js"></script>
     <script src="js/main/editProfile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 

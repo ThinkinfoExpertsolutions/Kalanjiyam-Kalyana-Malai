@@ -101,6 +101,13 @@ const profilesSchema  =  mongoose.Schema({
       type: String, 
       
     },
+    familyType:{
+      type:String
+    },
+    martialStatus:{
+      type:String
+    }
+    
 //     interestList: {
 //       newRequest: {type: [String],default: []},
 //       acceptRequest: {type: [String],default: []},
@@ -246,7 +253,11 @@ const profilesSchema  =  mongoose.Schema({
       type: Boolean,
       default: false,
     },
-
+  
+  },
+  profileCompletion:{
+    type:Number,
+    default:0
   },
   verification_status: {
     type: String,

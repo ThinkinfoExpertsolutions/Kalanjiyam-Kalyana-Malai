@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -374,8 +374,11 @@
                     </div>
                     <div class="profi-pg profi-bio">
                         <div class="lhs">
-                            <div class="pro-pg-intro">
-                                <h1 id="name"></h1>
+                            <div class="pro-pg-intro" >
+                                <div class="h" style="display: flex; justify-content: space-between;align-items: center;">
+                                    <h1 id="name"></h1>
+                                    <img src="https://iconape.com/wp-content/png_logo_vector/google-unverified.png" style="width: 50px;height: 50px;" id="verifyImg" alt="Unverified" class="unverified-logo">
+                                </div>
                                 <div class="pro-info-status">
                                 </div>
                                 <ul>
@@ -471,6 +474,8 @@
                                     <li id="natchathiram"></li>
                                     <li id="zodiac"></li>
                                     <li id="district1"></li>
+                                    <li id="familyType"></li>
+                                    <li id="martialStatus"></li>
                                 </ul>
                             </div>
                             <div class="pr-bio-c pr-bio-info">
@@ -788,7 +793,7 @@
         <script src="js/main/user.js"></script> 
         <script src="js/main/websiteData.js"></script>
         <script src="js/main/profileDetails.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
 

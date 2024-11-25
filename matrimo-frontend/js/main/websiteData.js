@@ -1,4 +1,5 @@
 
+
 document.addEventListener("DOMContentLoaded",async()=>{
     showLoader()
     try {
@@ -17,17 +18,21 @@ document.addEventListener("DOMContentLoaded",async()=>{
               updateNewProfiles(data.data);
               sessionStorage.setItem("newProfiles",JSON.stringify(data.data));
         }else{
-            alert(data.message);
+            showErrorToast(data.message)
         }
 
     } catch (error) {
-        
+        console.error('Error:', error);
+        showErrorToast(error.message)
     }
 });
 
 function updateSocialMediaLinks(data) {
     // Get the socialMedia container element by its ID
     const socialMediaContainer = document.getElementById("socialMedia");
+    if(!socialMediaContainer){
+        return;
+    }
     // Social media icons mapped by platform
     const socialMediaIcons = {
       "facebook": "images/social/3.png",
@@ -45,7 +50,6 @@ function updateSocialMediaLinks(data) {
         const li = document.createElement("li");
         const a = document.createElement("a");
         a.href = link;
-        a.target = "_blank"; // Open the link in a new tab
         const img = document.createElement("img");
         img.src = socialMediaIcons[platform] || ""; // Get the corresponding image for the platform
         img.alt = platform;
@@ -62,11 +66,11 @@ function updateSocialMediaLinks(data) {
 
     // Check if the container exists
     if (!profilesContainer) {
-        // console.error("Profiles container with ID 'newProfiles1' not found.");
+        
         return;
     }
-
-    console.log("Profiles data received:", profiles);
+  
+    console.log("Profiles data received:");
 
     let count = 0;
     const myProfile = sessionStorage.getItem("userData");
@@ -88,7 +92,7 @@ function updateSocialMediaLinks(data) {
                 user.user_id !== parsedData?.user_id;
 
             if (!hasRequiredFields) {
-                console.warn("Skipping profile due to missing required fields:", user);
+                console.warn("Skipping profile due to missing required fields");
                 return;
             }
 
@@ -140,9 +144,9 @@ function updateSocialMediaLinks(data) {
             if (count < 4) {
                 profilesContainer.appendChild(listItem);
                 count++;
-                console.log(`Profile added: ${user.profileID}`);
+               
             } else {
-                console.log("Maximum profile count reached. Skipping:", user.profileID);
+                console.log("Maximum profile count reached. Skipping:");
             }
         } catch (error) {
             console.error("Error processing profile:", user, error);
@@ -207,22 +211,22 @@ function toggleBookmark(userId, element) {
           if (!data.success) {
               // Revert UI if the request fails
               toggleBookmarkUI(!isBookmarked);
-              alert(data.message || 'Failed to update bookmark. Please try again.');
+              showErrorToast(data.message || 'Failed to update bookmark. Please try again.');
           }
-          alert(data.message);
+          showSuccessToast(data.message);
       })
       .catch((error) => {
           console.error('Error:', error);
           // Revert UI if an error occurs
           toggleBookmarkUI(!isBookmarked);
-          alert('An error occurred. Please try again.');
+          showErrorToast('An error occurred. Please try again.');
       });
 }
 
 
 async function handleViewCount(userId,event,profileID){
     event.preventDefault();
-    console.log(userId)
+    
     if(!sessionStorage.getItem("token")){
         window.location.href=`login.html`;
         return;
@@ -247,7 +251,7 @@ async function handleViewCount(userId,event,profileID){
        }
     } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        showErrorToast('An error occurred. Please try again.');
     }
 }
 
@@ -258,10 +262,43 @@ async function handleViewCount(userId,event,profileID){
 
 
 function showLoader() {
-    document.getElementById("loader").style.display = "flex";
-}
+    const loader = document.getElementById("loader");
+    if(!loader){
+     return;
+    };
+    loader.style.display = "flex";
+ }
+ 
+ function hideLoader() {
+     const loader = document.getElementById("loader");
+     if(!loader){
+      return;
+     };
+     loader.style.display = "none";
+ }
 
-function hideLoader() {
-    document.getElementById("loader").style.display = "none";
-}
+ // notifications.js
 
+function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  
+  
