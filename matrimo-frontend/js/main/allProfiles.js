@@ -175,9 +175,9 @@ function populateProfileList(profiles) {
 
     // Loop through profiles and populate the list
     profiles.forEach((profile) => {
-
+       let mine=false;
         if(profile.profileID === myData.profileID){
-            return;
+          mine =true;
         }
 
         const {
@@ -224,13 +224,16 @@ function populateProfileList(profiles) {
                             <a href="${profileLink}">More details</a>
                         </div>
                     </div>
-                    <span 
-                        class="enq-sav" 
-                        data-toggle="tooltip" 
-                        onclick="toggleBookmark('${profile.profileID}', this)"
-                          >
+                    ${!mine ?
+                        `<span 
+                    class="enq-sav" 
+                    data-toggle="tooltip" 
+                    onclick="toggleBookmark('${profile.profileID}', this)"
+                      >
                      <i class="${isBookmarked ? 'fa fa-bookmark' : 'fa fa-bookmark-o'}" aria-hidden="true"></i>
-                   </span>
+                    </span>` :""
+                    }
+                    
                 </div>
             </li>
         `;

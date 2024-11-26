@@ -241,16 +241,15 @@
         <div class="mv-bus">
             <h4><i class="fa fa-globe" aria-hidden="true"></i> EXPLORE</h4>
             <ul>
-                <li><a href="all-profiles.html">Browse profiles</a></li>
+                <li><a href="login.html" class="explore-m" >Browse profiles</a></li>
                 <li><a href="plans.html">Join Now</a></li>
             </ul>
             <h4><i class="fa fa-align-center" aria-hidden="true"></i> All Pages</h4>
             <ul>
-                <li><a href="user-dashboard.html">Dashboard</a></li>
-                <li><a href="all-profiles.html">All profiles</a></li>
-                <li><a href="profile-details.html">My Profile</a></li>
+                <li><a href="login.html" id="dasshBoard-m">Dashboard</a></li>
+                <li><a href="login.html" id="myProfile-m">My Profile</a></li>
                 <li><a href="plans.html">Pricing plans</a></li>
-               
+                
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="about.html">About</a></li>
                
@@ -302,18 +301,23 @@
     <!-- MOBILE USER PROFILE MENU POPUP -->
     <div class="mob-me-all dashbord_menu">
         <div class="mob-me-clo"><img src="images/icon/close.svg" alt=""></div>
+
+        
         <div class="mv-bus" >
             <div class="head-pro">
-                <img src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" loading="lazy">
-                            <b>User</b><br>
-                            <h4>user007</h4>
+                <img id="userImg-m" src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png" alt="" loading="lazy">
+                <b id="profileID-m">User-#</b><br>
+                <h4 id="userName-n" >User007</h4>
             </div>
+            <div class="mv-bus2">
             <ul>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="sign-up.html">Sign-up</a></li>
+                <li><a href="login.html" class="auth-m">Login</a></li>
+                <li><a href="sign-up.html" class="auth-m">Sign-up</a></li>
                 <li><a href="plans.html">Pricing plans</a></li>
-                <li><a href="all-profiles.html">Browse profiles</a></li>
+                <li><a href="login.html" class="explore-m" >Browse profiles</a></li>
+                <li id="logout-link"></li>
             </ul>
+        </div>
         </div>
     </div>
     <!-- END USER PROFILE MENU POPUP -->
