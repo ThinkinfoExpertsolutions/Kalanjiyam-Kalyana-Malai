@@ -1,3 +1,10 @@
+const data = sessionStorage.getItem("userData");
+const myData = data ? JSON.parse(data) : null;
+
+// if(!myData){
+//     window.location.href="index.html";
+// }
+
 document.addEventListener("DOMContentLoaded", async () => {
     
     fetchData().then(profiles=>{
@@ -77,7 +84,7 @@ function filterData(users, condition) {
    
     
 
-
+console.log(condition)
     const result = users.filter((user) => {
         for (let key in condition) {
             if (condition[key]) {
@@ -168,6 +175,11 @@ function populateProfileList(profiles) {
 
     // Loop through profiles and populate the list
     profiles.forEach((profile) => {
+
+        if(profile.profileID === myData.profileID){
+            return;
+        }
+
         const {
             basicInfo,
             jobDetails,
@@ -188,7 +200,10 @@ function populateProfileList(profiles) {
             "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
 
         // Construct profile HTML
-    
+        const isBookmarked = myData.bookMarkedProfiles.some(
+            (user) => profile.userId === user.userId
+          );
+
         const profileHTML = `
             <li>
                 <div class="all-pro-box user-avil-onli">
@@ -209,6 +224,13 @@ function populateProfileList(profiles) {
                             <a href="${profileLink}">More details</a>
                         </div>
                     </div>
+                    <span 
+                        class="enq-sav" 
+                        data-toggle="tooltip" 
+                        onclick="toggleBookmark('${profile.profileID}', this)"
+                          >
+                     <i class="${isBookmarked ? 'fa fa-bookmark' : 'fa fa-bookmark-o'}" aria-hidden="true"></i>
+                   </span>
                 </div>
             </li>
         `;
@@ -217,6 +239,65 @@ function populateProfileList(profiles) {
         searchResult.insertAdjacentHTML("beforeend", profileHTML);
     });
 }
+
+
+function toggleBookmark(userId, element) {
+    // Redirect to login if the user is not authenticated
+    if (!sessionStorage.getItem("token")) {
+        window.location.href = "login.html";
+        return;
+    }
+  
+    // Helper function to toggle bookmark UI
+    const toggleBookmarkUI = (isBookmarked) => {
+        const icon = element.querySelector('i');
+        if (isBookmarked) {
+            icon.classList.remove('fa-bookmark');
+            icon.classList.add('fa-bookmark-o');
+        } else {
+            icon.classList.remove('fa-bookmark-o');
+            icon.classList.add('fa-bookmark');
+        }
+    };
+  
+    // Check current bookmark state
+    const isBookmarked = element.querySelector('i').classList.contains('fa-bookmark');
+  
+    // Update the UI optimistically
+    toggleBookmarkUI(isBookmarked);
+  
+    // Prepare the action for the backend
+    const action = isBookmarked ? 'remove' : 'add';
+     showLoader()
+    // Send request to backend
+    fetch(`http://localhost:5000/api/handle-bookmark`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'token': sessionStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+            bookmarkProfileId: userId,
+            action: action,
+        }),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+          hideLoader()
+            if (!data.success) {
+                // Revert UI if the request fails
+                toggleBookmarkUI(!isBookmarked);
+                showErrorToast(data.message || 'Failed to update bookmark. Please try again.');
+            }
+            showSuccessToast(data.message);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Revert UI if an error occurs
+            toggleBookmarkUI(!isBookmarked);
+            showErrorToast('An error occurred. Please try again.');
+        });
+  }
 
 
 // Show and hide loader

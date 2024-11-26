@@ -273,7 +273,16 @@ if(window.location.pathname.endsWith("profile-details.html")){
     const urlParams = new URLSearchParams(window.location.search);
     const profileID = urlParams.get("id");
      getProfileData(profileID).then(userData=>{
-        
+        if(userData.profileCompletion <= 75){
+            if(userData.profileID == myData.profileID){
+                window.location.href = `user-profile-edit.html?id=${userData.profileID}`
+                showInfoToast("Please Complete Your Profile")
+                
+            }else{
+                window.location.href = `all-profiles.html`
+
+            }
+        }
          const elementsById = getAllElementsById();
          updateProfileData(elementsById,userData,myData,subscriptionData)
      }).catch(e=>{
@@ -316,6 +325,16 @@ function showLoader() {
       gravity: "top",
       position: "right",
       backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
+  function showInfoToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: " #FFD400",
       close: true,
     }).showToast();
   }

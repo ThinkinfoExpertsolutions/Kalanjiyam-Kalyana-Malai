@@ -859,6 +859,7 @@ img{
 .chosen-container.chosen-with-drop .chosen-drop {
     left: 0px;
     right: 0px;
+  
 }
 
 .chosen-container .chosen-results {
@@ -1568,6 +1569,7 @@ img{
     width: 100%;
     padding: 50px 55px;
     /* margin-left: 40%; */
+    
 }
 
 .login .rhs .inn {

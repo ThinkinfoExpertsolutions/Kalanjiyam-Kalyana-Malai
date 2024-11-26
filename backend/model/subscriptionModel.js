@@ -7,12 +7,12 @@ const subscriptionPlanSchema =  mongoose.Schema({
   },
   price: {
     type: Number,
-    required: true,
+    // required: true,
     // default: 0,
   },
   durationInDays: {
     type: Number,
-    required: true,
+
     // default: 0,
   },
   isActive: {

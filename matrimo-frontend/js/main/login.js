@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Get the form data
         const email = document.getElementById("email").value;
         const password = document.getElementById("pwd").value;
-        const rememberMe = document.getElementById("rememberMe").checked;
 
         // Validate the input
         if (!email || !password) {
@@ -37,10 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 sessionStorage.setItem("token", data.encryptedToken);
 
                 // Optionally, handle "Remember me" functionality
-                if (rememberMe) {
-                    // If "Remember me" is checked, store the token in cookies for persistence
-                    document.cookie = `token=${data.encryptedToken}; path=/; max-age=31536000`; // 1 year expiration
-                }
+               
 
                 showSuccessToast(data.message);
                 // Redirect to the dashboard or any other page
