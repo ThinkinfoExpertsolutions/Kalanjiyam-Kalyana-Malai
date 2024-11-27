@@ -38,7 +38,8 @@ function updateSocialMediaLinks(data) {
       "facebook": "images/social/3.png",
       "whatsapp": "images/social/wh2.png",
       "youtube": "images/social/5.png",
-      "instagram":"images/social/I.png"
+      "instagram":"images/social/I.png",
+      "x":"images/social/twitter.jpg"
     };
   
     // Clear any existing social media list items

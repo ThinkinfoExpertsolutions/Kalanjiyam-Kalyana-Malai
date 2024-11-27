@@ -373,7 +373,22 @@
         </ul>
     </div>
 
-    <!-- Popup Overlay -->
+                                            </td>
+                                          </tr>
+                                          
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END -->
     <div class="popup-overlay" id="popup" style="
     position: fixed; 
     top: 0; 
@@ -502,9 +517,9 @@
             gap: 15px; 
             align-items: center; 
             margin-right: 115px;">
-            <input type="radio" id="disabled" name="status" value="disabled" style="
+            <input type="radio"  name="status" value="disabled" style="
                 display: none;">
-            <label for="disabled" style="
+            <label for="disabled" id="disabled" style="
                 display: inline-block; 
                 padding: 10px 20px; 
                 border-radius: 20px; 
@@ -512,25 +527,23 @@
                 font-weight: bold; 
                 cursor: pointer; 
                 text-align: center; 
-                background: linear-gradient(135deg, #f76a6a, #f54b4b); 
-                color: white; 
-                box-shadow: 0 4px 8px rgba(247, 106, 106, 0.3); 
+                color: rgb(2, 1, 1); 
+                box-shadow:(2, 2, 2)0 4px 8px rgba(247, 106, 106, 0.3); 
                 transition: all 0.3s ease;">
                 Disabled
             </label>
-            <input type="radio" id="enabled" name="status" value="enabled" style="
+            <input type="radio"  name="status" value="enabled" style="
                 display: none;">
-            <label for="enabled" style="
+            <label for="enabled" id="enabled" style="
                 display: inline-block; 
                 padding: 10px 20px; 
                 border-radius: 20px; 
                 font-size: 14px; 
                 font-weight: bold; 
                 cursor: pointer; 
-                text-align: center; 
-                background: linear-gradient(135deg, #6ac36a, #4bc54b); 
-                color: white; 
-                box-shadow: 0 4px 8px rgba(106, 195, 106, 0.3); 
+                text-align: center;  
+                color: rgb(2, 1, 1); 
+                box-shadow:(0, 0, 0)0 4px 8px rgba(106, 195, 106, 0.3); 
                 transition: all 0.3s ease;">
                 Enabled
             </label>
@@ -591,7 +604,8 @@
             cursor: pointer; 
             transition: transform 0.2s;
             margin-left:190px;
-            ">
+            "
+            >
             Save
         </button>
     </div>
@@ -601,224 +615,200 @@
         
     </div>
 </div>
+    <!-- user verification -->
+    <div class="popup-overlay" id="popup01" style="
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.6); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000;
+    display: none;">
+    <div class="popup-content" style="
+        background-color: #fff; 
+        width: 80%; 
+        max-width: 500px; 
+        border-radius: 15px; 
+        padding: 20px 10px; 
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+        position: relative; 
+        overflow: hidden; 
+        animation: fadeIn 0.5s forwards;">
+        
+        <!-- Close Button -->
+        <button class="close-btn" onclick="closePopupProfile()" style="
+        position: absolute; 
+        top: 15px; 
+        right: 15px; 
+        font-size: 20px; 
+        color: white; 
+        background: #d9534f; 
+        border: none; 
+        border-radius: 50%; 
+        width: 35px; 
+        height: 35px; 
+        cursor: pointer; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        transition: background 0.3s;">
+        &times;
+    </button>
+    
 
+        <!-- Title Section -->
+        <div class="header" style="
+        text-align: center; 
+        margin-bottom: 20px;">
+        <h2 style="
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #f7083c;">
+            Verification Details
+        </h2>
+        <p class="subtext" style="
+            color: #666; 
+            font-size: 14px; 
+            margin-top: 5px;">
+            Manage profile verification status
+        </p>
+    </div>
+    
+    <!-- User Image Section -->
+    <div class="profile-section" style="
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 20px;
+    margin-left: 40px;
+    margin-right:40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow here */
+    padding: 10px; /* Optional: adds some padding for better spacing */
+    border-radius: 10px; /* Optional: adds rounded corners */
+">
+<img id="profilePicture2" src="./images/images.jpg" alt="Profile Picture" style="
+    width: 100px; 
+    height: 100px; 
+    border-radius: 5%; 
+    margin-right: 55px; 
+    object-fit: cover;">
+<div class="profile-info" style="
+    flex: 1;">
+    <h3 id="profileName2" style="
+        color: #333; 
+        margin-bottom: 5px; 
+        font-size: 18px;">
+        John Doe
+    </h3>
+    <p id="profileId2" style="
+        font-size: 14px; 
+        color: #555; 
+        margin: 3px 0;">
+        ID: 12345
+    </p>
+    <p id="profileContact2" style="
+        font-size: 14px; 
+        color: #555; 
+        margin: 3px 0;">
+        Contact: +123456789
+    </p>
+    <p id="profileLocation2" style="
+        font-size: 14px; 
+        color: #555; 
+        margin: 3px 0;">
+        Location: Germany
+    </p>
+</div>
+</div>
 
-  <!-- Trigger Button -->
-  <!-- <button onclick="openPopup()">View Subscription Details</button> -->
-                                            </td>
-                                          </tr>
-                                          
-                                        </tbody>
-                                      </table>
-                                </div>
-                            </div>
-
-                            <!-- user verification -->
-                            <div class="popup-overlay" id="popup01" style="
-                            position: fixed; 
-                            top: 0; 
-                            left: 0; 
-                            width: 100%; 
-                            height: 100%; 
-                            background: rgba(0, 0, 0, 0.6); 
-                            display: flex; 
-                            justify-content: center; 
-                            align-items: center; 
-                            z-index: 1000;
-                            display: none;">
-                            <div class="popup-content" style="
-                                background-color: #fff; 
-                                width: 80%; 
-                                max-width: 500px; 
-                                border-radius: 15px; 
-                                padding: 20px 10px; 
-                                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
-                                position: relative; 
-                                overflow: hidden; 
-                                animation: fadeIn 0.5s forwards;">
-                                
-                                <!-- Close Button -->
-                                <button class="close-btn" onclick="closePopupProfile()" style="
-                                position: absolute; 
-                                top: 15px; 
-                                right: 15px; 
-                                font-size: 20px; 
-                                color: white; 
-                                background: #d9534f; 
-                                border: none; 
-                                border-radius: 50%; 
-                                width: 35px; 
-                                height: 35px; 
-                                cursor: pointer; 
-                                display: flex; 
-                                justify-content: center; 
-                                align-items: center; 
-                                transition: background 0.3s;">
-                                &times;
-                            </button>
-                            
-                        
-                                <!-- Title Section -->
-                                <div class="header" style="
-                                text-align: center; 
-                                margin-bottom: 20px;">
-                                <h2 style="
-                                    font-size: 24px; 
-                                    font-weight: bold; 
-                                    color: #f7083c;">
-                                    Subscription Details
-                                </h2>
-                                <p class="subtext" style="
-                                    color: #666; 
-                                    font-size: 14px; 
-                                    margin-top: 5px;">
-                                    Manage your subscription seamlessly
-                                </p>
-                            </div>
-                            
-                            <!-- User Image Section -->
-                            <div class="profile-section" style="
-                            display: flex; 
-                            align-items: center; 
-                            margin-bottom: 20px;
-                            margin-left: 40px;
-                            margin-right:40px;
-                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow here */
-                            padding: 10px; /* Optional: adds some padding for better spacing */
-                            border-radius: 10px; /* Optional: adds rounded corners */
-                        ">
-                        <img id="profilePicture" src="./images/images.jpg" alt="Profile Picture" style="
-                            width: 100px; 
-                            height: 100px; 
-                            border-radius: 5%; 
-                            margin-right: 55px; 
-                            object-fit: cover;">
-                        <div class="profile-info" style="
-                            flex: 1;">
-                            <h3 id="profileName" style="
-                                color: #333; 
-                                margin-bottom: 5px; 
-                                font-size: 18px;">
-                                John Doe
-                            </h3>
-                            <p id="profileId" style="
-                                font-size: 14px; 
-                                color: #555; 
-                                margin: 3px 0;">
-                                ID: 12345
-                            </p>
-                            <p id="profileContact" style="
-                                font-size: 14px; 
-                                color: #555; 
-                                margin: 3px 0;">
-                                Contact: +123456789
-                            </p>
-                            <p id="profileLocation" style="
-                                font-size: 14px; 
-                                color: #555; 
-                                margin: 3px 0;">
-                                Location: Germany
-                            </p>
-                        </div>
-                        </div>
-                        
-                            
-                            <!-- Subscription Section -->
-                            <div class="subscription-section" style="
-                                margin-bottom: 20px;
-                                margin-left:40px">
-                                <div class="status-section" style="
-                                    display: flex; 
-                                    justify-content: space-between; 
-                                    align-items: center; 
-                                    margin-bottom: 15px;">
-                                    <span style="
-                                        font-size: 14px; 
-                                        color: #333;">
-                                        Status:
-                                    </span>
-                                    <div class="toggle-container" style="
-                                    display: flex; 
-                                    gap: 15px; 
-                                    align-items: center; 
-                                    margin-right: 115px;">
-                                    <input type="radio" id="UnVerified" name="status" value="UnVerified" style="
-                                        display: none;">
-                                    <label for="disabled" style="
-                                        display: inline-block; 
-                                        padding: 10px 20px; 
-                                        border-radius: 20px; 
-                                        font-size: 14px; 
-                                        font-weight: bold; 
-                                        cursor: pointer; 
-                                        text-align: center; 
-                                        background: linear-gradient(135deg, #707070, #b4b4b4); 
-                                        color: white; 
-                                        box-shadow: 0 4px 8px rgba(197, 194, 194, 0.3); 
-                                        transition: all 0.3s ease;">
-                                        UnVerified                                    </label>
-                                    <input type="radio" id="Verified" name="status" value="Verified" style="
-                                        display: none;">
-                                    <label for="enabled" style="
-                                        display: inline-block; 
-                                        padding: 10px 20px; 
-                                        border-radius: 20px; 
-                                        font-size: 14px; 
-                                        font-weight: bold; 
-                                        cursor: pointer; 
-                                        text-align: center; 
-                                        background: linear-gradient(135deg, #069ced, #13b2fb); 
-                                        color: white; 
-                                        box-shadow: 0 4px 8px rgba(106, 195, 106, 0.3); 
-                                        transition: all 0.3s ease;">
-                                         Verified
-                                    </label>
-                                </div>
-                                
-                                </div>
-                            
-                                
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div class="actions" style="
-                                display: flex; 
-                                justify-content: space-between;">
-                                <button id="saveButton" style="
-                                     align-items: center; 
-                                    width: 98%; 
-                                    padding: 10px; 
-                                    border: none; 
-                                    border-radius: 8px; 
-                                    font-size: 14px; 
-                                    color: white; 
-                                   background: linear-gradient(135deg, #f0076c, #f26cbc); 
-                                    cursor: pointer; 
-                                    transition: transform 0.2s;
-                                   
-                                    ">
-                                    Save
-                                </button>
-                            </div>
-                            
-
-
-                        </td>
-                      </tr>
-                      
-                    </tbody>
-                  </table>
-            </div>
+    
+    <!-- Subscription Section -->
+    <div class="subscription-section" style="
+        margin-bottom: 20px;
+        margin-left:40px">
+        <div class="status-section" style="
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 15px;">
+            <span style="
+                font-size: 14px; 
+                color: #333;">
+                Status:
+            </span>
+            <div class="toggle-container" style="
+            display: flex; 
+            gap: 15px; 
+            align-items: center; 
+            margin-right: 115px;">
+            <input type="radio"  name="status" value="UnVerified" style="
+                display: none;">
+            <label for="disabled" id="disabled2" style="
+                display: inline-block; 
+                padding: 10px 20px; 
+                border-radius: 20px; 
+                font-size: 14px; 
+                font-weight: bold; 
+                cursor: pointer; 
+                text-align: center; 
+                color: rgb(7, 1, 1); 
+                box-shadow: 0 4px 8px rgba(87, 87, 87, 0.3); 
+                transition: all 0.3s ease;">
+                UnVerified                                    </label>
+            <input type="radio"  name="status" value="Verified" style="
+                display: none;">
+            <label for="enabled" id="enabled2" style="
+                display: inline-block; 
+                padding: 10px 20px; 
+                border-radius: 20px; 
+                font-size: 14px; 
+                font-weight: bold; 
+                cursor: pointer; 
+                text-align: center; 
+                color: rgb(4, 3, 3); 
+                box-shadow: 0 4px 8px rgba(104, 104, 104, 0.3); 
+                transition: all 0.3s ease;">
+                 Verified
+            </label>
         </div>
-                             <!-- end of user verification -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
         </div>
-    </section>
-    <!-- END -->
+    
+        
+    </div>
+    
+    <!-- Actions -->
+    <div class="actions" style="
+        display: flex; 
+        justify-content: space-between;">
+        <button id="saveButton" style="
+             align-items: center; 
+            width: 98%; 
+            padding: 10px; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            color: white; 
+           background: linear-gradient(135deg, #f0076c, #f26cbc); 
+            cursor: pointer; 
+            transition: transform 0.2s;
+           
+            ">
+            Save
+        </button>
+    </div>
+    
 
+
+
+
+
+</div>
+</div>
+     <!-- end of user verification -->
         <!-- COPYRIGHTS -->
         <section>
             <div class="cr">
@@ -849,10 +839,7 @@
     };*/
 
       // Open Popup
-      function openPopup() {
-          var popup = document.getElementById('popup');
-          popup.style.display = 'flex'; // Use flex to center the popup
-      }
+      
 
       // Close Popup
       function closePopup() {
@@ -861,10 +848,7 @@
       }
         
             // Open Popup
-            function openPopupProfile() {
-              var popup = document.getElementById('popup01');
-              popup.style.display = 'flex'; // Use flex to center the popup
-          }
+           
       
           // Close Popup
           function closePopupProfile() {
@@ -882,10 +866,11 @@
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/select-opt.js"></script>
-    <script src="js/chart.js"></script>
+    <!-- <script src="js/chart.js"></script> -->
     <script src="js/admin-custom.js"></script>
+    <script src="js/main/common.js"></script>
    
-    <script>
+    <!-- <script>
 //ARNING CHART
 var earningCanvas = document.getElementById("Chart_earni");
 Chart.defaults.global.defaultFontSize = 14;
@@ -953,7 +938,7 @@ var barChart = new Chart(ctx, {
   }
 });
  
-    </script>
+    </script> -->
 </body>
 
 
