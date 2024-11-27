@@ -19,8 +19,6 @@ if(window.location.pathname.endsWith("user-profile-edit.html")){
         document.getElementById('gender').value = userData.basicInfo.gender ? userData.basicInfo.gender : '';
         document.getElementById('religion').value = userData.basicInfo.religion ? userData.basicInfo.religion : '';
         document.getElementById('zodiac').value = userData.basicInfo.zodiac ? userData.basicInfo.zodiac : '';
-        document.getElementById('familyType').value = userData.personalDetails.familyType ? userData.personalDetails.familyType : '';
-        document.getElementById('martialStatus').value = userData.personalDetails.martialStatus ? userData.personalDetails.martialStatus : '';
         document.getElementById('zodiac').value = userData.basicInfo.zodiac ? userData.basicInfo.zodiac : '';
         document.getElementById('natchathiram').value = userData.basicInfo.natchathiram ? userData.basicInfo.natchathiram : '';
         document.getElementById('district').value = userData.basicInfo.district ? userData.basicInfo.district : '';
@@ -33,6 +31,8 @@ if(window.location.pathname.endsWith("user-profile-edit.html")){
         document.getElementById('age').value = userData.personalDetails?.age ? userData.personalDetails.age : '';
         document.getElementById('about').value = userData.personalDetails?.about ? userData.personalDetails.about : '';
         document.getElementById('hobbies').value = userData.personalDetails?.hobbies ? userData.personalDetails.hobbies : '';
+        document.getElementById('familyType').value = userData.personalDetails?.familyType ? userData.personalDetails.familyType : '';
+        document.getElementById('martialStatus').value = userData.personalDetails?.martialStatus ? userData.personalDetails.martialStatus : '';
         
         document.getElementById('jobType').value = userData.jobDetails?.jobType ? userData.jobDetails.jobType : '';
         document.getElementById('companyName').value = userData.jobDetails?.companyName ? userData.jobDetails.companyName : '';
@@ -77,12 +77,12 @@ calculatePercentage(element);
 
 function updateImage(elementId, imageUrl) {
     const imageElement = document.getElementById(elementId);
-   
-    if(imageUrl != undefined){
+    if(imageUrl === undefined || imageUrl===''){
+        imageElement.src = defaultImageUrl;
+    }else{
         imageElement.src = imageUrl;
         imageElement.style.width = "100%"; 
-    }else{
-        imageElement.src = defaultImageUrl;
+
     }
 }
 
@@ -108,7 +108,8 @@ function handleImageChange(event, imageId) {
 let userInfoData;
 document.getElementById('profileForm').addEventListener('submit',async function(event) {
     event.preventDefault(); // Prevent the form from submitting
-
+    const element = getAllElementsById();
+    calculatePercentage(element);
     // Retrieve values from the form
     userInfoData = {
        

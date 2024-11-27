@@ -12352,6 +12352,12 @@ h2.db-tit{
     opacity: 1;
     position: static;
 }
+.hidden2 {
+    display: none;
+}
+.visible2 {
+    display: inline-block;
+}
 
 .logout-link{
     cursor: pointer;

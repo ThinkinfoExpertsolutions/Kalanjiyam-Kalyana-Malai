@@ -17,14 +17,17 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   if (profileImageElement) {
       profileImageElement.src = 
-          userData?.media?.profileImage ?? defaultProfileImage;
+          !!userData.media.profileImage? userData.media.profileImage:defaultProfileImage;
   }
   const largeProfileImageElement = document.getElementById("profileImageLarge");
 
   if (largeProfileImageElement) {
     largeProfileImageElement.src = 
-          userData?.media?.profileImage ?? defaultProfileImage;
+    !!userData.media.profileImage? userData.media.profileImage:defaultProfileImage;
+
+    largeProfileImageElement.style.objectFit='cover';
   }
+
     updateNewProfiles(userData,leatestProfiles);
     UpdateProfileCompletion(userData);
     updateActivities(userData);
@@ -47,7 +50,7 @@ function updateNewProfiles(userData, leatestProfiles) {
       return;
   }
 
-  
+  let count = 0;
 
   leatestProfiles.forEach(profile => {
       if (profile.user_id === userData.user_id) {
@@ -55,6 +58,7 @@ function updateNewProfiles(userData, leatestProfiles) {
       }
 
       if (profile.media.profileImage || profile.basicInfo.name || profile.personalDetails.age || profile.basicInfo.district || profile.profileID) {
+        if(count<6){
           const li = document.createElement("li");
 
           li.innerHTML = `
@@ -72,6 +76,8 @@ function updateNewProfiles(userData, leatestProfiles) {
           `;
 
           dashboardNewProfiles.appendChild(li);
+          count++;
+        }
       }
   });
 }
@@ -107,8 +113,31 @@ bookmarkCountElement.innerHTML = `<i class="fa fa-handshake-o inte" aria-hidden=
 function updateActivities(userData){
     const activityContainer1 = document.getElementById("activities1");
     const activityContainer2 = document.getElementById("activities2");
+
+
     if(activityContainer1){
       let count=0;
+
+      if( userData.activitys.length <= 0){
+        activityContainer1.innerHTML = `
+        <p style="
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #555;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        ">
+            No activities found.
+        </p>
+    `;
+    
+    return;
+      }
+
       userData.activitys.forEach(acivity=>{
           const name = acivity.name.split(" ")[0];
        if(count<4){
@@ -126,6 +155,28 @@ function updateActivities(userData){
       })
     }else if(activityContainer2){
       let count=0;
+
+      
+      if( userData.activitys.length <= 0){
+        activityContainer2.innerHTML = `
+        <p style="
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #555;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        ">
+            No activities found.
+        </p>
+    `;
+    
+    return;
+      }
+
       userData.activitys.forEach(acivity=>{
           const name = acivity.name.split(" ")[0];
        if(count<4){
@@ -168,7 +219,27 @@ function updateBookmarkList(userData) {
       return;
     }
     bookmarksList.innerHTML = ''; // Clear the existing list before updating
-  
+    
+    if(userData.bookMarkedProfiles.length <= 0){
+      bookmarksList.innerHTML = `
+      <p style="
+          text-align: center;
+          font-size: 1.2em;
+          font-weight: bold;
+          color: #555;
+          margin-top: 20px;
+          padding: 20px;
+          border: 1px dashed #ccc;
+          border-radius: 5px;
+          background-color: #f9f9f9;
+      ">
+          No Profiles Bookmarked.
+      </p>
+  `;
+  return;
+    }
+
+
     userData.bookMarkedProfiles.forEach((user) => {
       const isBookmarked = userData.bookMarkedProfiles.some(
         (profile) => profile.userId === user.userId
@@ -265,7 +336,7 @@ function updateBookmarkList(userData) {
     const durationElement = document.getElementById("duration");
     const validTillElement = document.getElementById("validTill");
     const updgradeBtn = document.getElementById("updgradeBtn");
-  if(!planNameElement || !planStatus || !durationElement || !validTillElement || !updgradeBtn){return;}
+  if(!planNameElement || !planStatus || !durationElement || !validTillElement || !updgradeBtn){return;};
     // Check if subscriptionData is valid and active
     if (subscriptionData && subscriptionData.isActive) {
         // Use a default plan name as "Standard Plan"
@@ -362,7 +433,26 @@ function updatePlanTable(planHistory) {
     return;
   }
   tbody.innerHTML = ""; // Clear existing rows
+ if(planHistory.length <=0){
+  const row = `
+  <tr>
+    <td>N/A</td>
+    <td>N/A</td>
 
+    <td>N/A</td>
+
+    <td>N/A</td>
+
+    <td>N/A</td>
+
+  </tr>
+`;
+// Insert the row into the table body
+tbody.insertAdjacentHTML("beforeend", row);
+
+return;
+  }
+ 
   // Iterate over the planHistory data to create table rows
   planHistory.forEach((plan) => {
     const { startDate, endDate, price, durationInDays, _id } = plan;

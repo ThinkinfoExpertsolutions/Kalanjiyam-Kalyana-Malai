@@ -29,9 +29,12 @@ if(token){
 
             updateNavbar(true,data);
             updateEditProfilePath(data);
-            submiTAndShowMorePath="http://127.0.0.1:5500/matrimo-frontend/all-profiles.html";
+            updateMobileNavbar(true,data)
+            submiTAndShowMorePath="all-profiles.html";
         } else {
             updateNavbar(false);
+            updateMobileNavbar(false);
+
         }
     } catch (error) {
         console.error("Error fetching user data:", error);
@@ -39,6 +42,70 @@ if(token){
     }
 }
 }
+function updateMobileNavbar(isUserLoggedIn, data) {
+    const registerAndSigninLinks = document.querySelectorAll(".auth-m");
+    const exploreLink = document.querySelectorAll(".explore-m");
+    const myProfile = document.getElementById("myProfile-m");
+    const dashboardLink = document.getElementById("dasshBoard-m");
+    let logoutLink = document.getElementById("logout-link");
+    console.log(logoutLink)
+    const userImg = document.getElementById("userImg-m");
+    const userName = document.getElementById("userName-n");
+    const profileID = document.getElementById("profileID-m");
+
+    // Check if required elements exist
+    if (!registerAndSigninLinks  || !exploreLink || !dashboardLink || !userImg || !userName || !profileID) {
+        console.error("One or more required elements are missing.");
+        return;
+    }
+
+    
+    if (isUserLoggedIn) {
+        
+        Array.from(registerAndSigninLinks).forEach(link => {
+            link.classList.add('hidden2');
+            link.classList.remove('visible2');
+            link.style.display = "none"; 
+        });
+        const userData = data?.userData;
+        // Update links
+        if (exploreLink) {
+            for(let link of exploreLink){
+                link.href="all-profiles.html";
+            }
+        }
+        
+        if (dashboardLink) dashboardLink.href = "user-dashboard.html";
+        if(myProfile) myProfile.href = `profile-details.html?id=${userData.profileID}`
+        // Show logout link
+        logoutLink.innerHTML=`<a onClick="logout(event)">Log Out<a/>`
+
+        // Update user details
+        if (userData) {
+            userImg.src = userData.media?.profileImage || "https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png";
+            userName.innerText = userData.basicInfo?.name || "User";
+            profileID.innerText = userData.profileID || "ID Not Available";
+        } else {
+            console.warn("User data is not available.");
+        }
+    } else {
+        // Show login/signup links
+        Array.from(registerAndSigninLinks).forEach(link => {
+            link.classList.remove('hidden2');
+            link.classList.add('visible2');
+            link.style.display = "inline"; // Make it visible
+        });
+
+        // Update links for unauthenticated state
+        if (exploreLink) exploreLink.href = "login.html";
+        if (dashboardLink) dashboardLink.href = "login.html";
+
+        // Hide logout link
+        logoutLink.style.display = "none";
+    }
+}
+
+
 
 function updateNavbar(isUserLoggedIn, data) {
     const registerAndSigninLinks = document.getElementsByClassName("auth");
@@ -152,7 +219,9 @@ function logout(e) {
     window.location.href = "index.html"; // Redirect to login page
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("userData");
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+    sessionStorage.removeItem("subscriptionData");
+    sessionStorage.removeItem("viewCount");
+    sessionStorage.removeItem("latestProfiles");
 }
 
 document.addEventListener("DOMContentLoaded", fetchUserData);
