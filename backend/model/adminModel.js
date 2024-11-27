@@ -22,6 +22,7 @@ const adminSchema =  mongoose.Schema({
     facebook: { type: String, trim: true },
     instagram: { type: String, trim: true },
     youtube: { type: String, trim: true },
+    x: { type: String, trim: true },
   },
   enquirys: [
     {

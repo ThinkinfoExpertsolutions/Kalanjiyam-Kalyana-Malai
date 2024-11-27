@@ -55,6 +55,7 @@ export const changeAdminCredential = async(req,res)=>{
     const user_id =  req.id;
 
     const {userName,password,email} = req.body;
+    
 try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password,salt);
@@ -93,7 +94,7 @@ try {
 
 
 export const updateSocialMediaLinks = async (req, res) => {
-  const { instagram, facebook, youtube, whatsapp } = req.body;
+  const { instagram, facebook, youtube, whatsapp, x } = req.body;
   const user_id = req.id;
 
   // Dynamically construct the update object
@@ -102,6 +103,7 @@ export const updateSocialMediaLinks = async (req, res) => {
   if (youtube) update["socialMedia.youtube"] = youtube;
   if (whatsapp) update["socialMedia.whatsapp"] = whatsapp;
   if (instagram) update["socialMedia.instagram"] = instagram;
+  if (x) update["socialMedia.x"] = x;
 
   try {
       // Only update if there are fields to update
@@ -260,7 +262,7 @@ export const getWebsiteData = async(req,res)=>{
     const id = req.id;
 
     try {
-        console.log(id);
+        
         const adminData = await adminModel.findById(id);
         const allProfiles = await profilesModel.find({});
         const subscriptionData = await SubscriptionModel.find({});

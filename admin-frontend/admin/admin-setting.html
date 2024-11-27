@@ -337,24 +337,19 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="lb">Admin user name:</label>
-                                                    <input type="text" class="form-control" placeholder="User name" value="admin">
+                                                    <input type="text" id="name" class="form-control" placeholder="User name" value="">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="lb">Admin password:</label>
-                                                    <input type="password" class="form-control" placeholder="Enter password" value="password@123">
+                                                    <label class="lb">Admin password [Encrypted]:</label>
+                                                    <input type="password" id="password" class="form-control" placeholder="Enter password" value="">
                                                     <span class="pass-view"><i class="fa fa-eye" aria-hidden="true"></i></span>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="lb">Admin Email [Mailing]:</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        placeholder="Enter email" value="rn53themes@gmail.com" name="email">
+                                                    <label class="lb">Admin Email:</label>
+                                                    <input type="email" id="email" class="form-control" id="email"
+                                                        placeholder="Enter email" value="" name="email">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="lb">Recovery Email [For Password reset]:</label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        placeholder="Enter email" value="support@rn53themes.net" name="email">
-                                                </div>
-                                            </div>
+                                    
                                             <!--END PROFILE BIO-->
                                             <!--PROFILE BIO-->
                                   
@@ -368,34 +363,34 @@
                                                 <div class="row">
                                                     <div class="col-md-6 form-group">
                                                         <label class="lb">WhatsApp:</label>
-                                                        <input type="text" class="form-control">
+                                                        <input id="whatsApp" type="text" class="form-control">
                                                     </div>
                                                     <div class="col-md-6 form-group">
-                                                        <label class="lb">Facebook:</label>
-                                                        <input type="text" class="form-control" >
+                                                        <label  class="lb">Facebook:</label>
+                                                        <input id="faceBook" type="text" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 form-group">
                                                         <label class="lb">Instagram:</label>
-                                                        <input type="text" class="form-control">
+                                                        <input id="instagram" type="text" class="form-control">
                                                     </div>
                                                     <div class="col-md-6 form-group">
                                                         <label class="lb">X:</label>
-                                                        <input type="text" class="form-control" >
+                                                        <input id="x" type="text" class="form-control" >
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 form-group">
                                                         <label class="lb">Youtube:</label>
-                                                        <input type="text" class="form-control">
+                                                        <input id="youTube"  type="text" class="form-control">
                                                     </div>
                                                 
                                                 </div>
                                             </div>
                                             <!--END PROFILE BIO-->
                                             
-                                            <button type="submit" class="cta-full cta-colr">Submit</button>
+                                            <button type="button" id="submitBtn" class="cta-full cta-colr">Submit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -427,6 +422,8 @@
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/select-opt.js"></script>
     <script src="js/admin-custom.js"></script>
+    <script src="js/main/setting.js"></script>
+    <script src="js/main/common.js"></script>
     <script>
     $(".pass-view").click(function(){
         $(this).siblings("input").attr("type","text");
