@@ -1,0 +1,240 @@
+/* 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Popup Background */
+
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+
+.popup-content {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    max-width: 90%;
+    animation: fadeIn 0.5s ease;
+    overflow: hidden;
+    padding: 20px;
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #333;
+} */
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    color: #f7083c;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header .subtext {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5%;
+    /* border: 4px solid #8f94fb; */
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.profile-info h3 {
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Subscription Section */
+.subscription-section {
+    margin-bottom: 20px;
+}
+
+.subscription-section label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.subscription-section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Status Section */
+.status-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.status {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.status.disabled {
+    color: red;
+}
+
+.status.enabled {
+    color: green;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pay-btn,
+.save-btn {
+    width: 48%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.pay-btn {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.pay-btn:hover,
+.save-btn:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Toggle Container */
+.toggle-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-left: 10px;
+}
+
+/* Hide the default radio buttons */
+.toggle-input {
+    display: none;
+}
+
+/* Style the labels as buttons */
+.toggle-label {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+/* Disabled Style */
+#disabled + .toggle-label {
+    background: linear-gradient(135deg, #f76a6a, #f54b4b);
+    color: white;
+    box-shadow: 0 4px 8px rgba(247, 106, 106, 0.3);
+}
+
+/* Enabled Style */
+#enabled + .toggle-label {
+    background: linear-gradient(135deg, #6ac36a, #4bc54b);
+    color: white;
+    box-shadow: 0 4px 8px rgba(106, 195, 106, 0.3);
+}
+
+/* Add active state when the radio button is selected */
+.toggle-input:checked + .toggle-label {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid white;
+}
+
+/* Hover effect */
+.toggle-label:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

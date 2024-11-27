@@ -322,3 +322,26 @@ if(userPages.some(page => window.location.pathname.endsWith(page))){
         
 //     }
 // });
+
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+    document.getElementById("loader").style.display = "none";
+}
+
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    const closeButton = document.querySelector(".close-btn");
+    closeButton.classList.add("rotate"); // Add rotation class
+
+    // Wait for the animation to finish before hiding the popup
+    setTimeout(() => {
+        closeButton.classList.remove("rotate"); // Remove rotation class after animation
+        document.getElementById("popup").style.display = "none";
+    }, 600); // Match the animation duration (0.6s)
+}
