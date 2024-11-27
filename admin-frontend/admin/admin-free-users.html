@@ -328,7 +328,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="box-com box-qui box-lig box-tab">
-                                    <div class="tit">
+                                    <!-- <div class="tit">
                                         <h3>All users</h3>
                                         <p>All user profiles</p>
                                         <div class="dropdown">
@@ -342,17 +342,15 @@
                                               <li><a class="dropdown-item" href="admin-settings.html#plan">User plan</a></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <table class="table">
                                         <thead>
                                           <tr>
                                             <th>No</th>
                                             <th>Profile</th>
+                                            <th>Profile Id</th>
                                             <th>Phone</th>
                                             <th>City</th>
-                                            <th>Plan start</th>
-                                            <th>Expairy date</th>
-                                            <th>Payment</th>
                                             <th>Plan type</th>
                                             <th>More</th>
                                           </tr>
@@ -371,26 +369,277 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            <td>@132232324</td>
                                             <td>01 321-998-91</td>
                                             <td>New York</td>
-                                            <td>22, Feb 2024</td>
-                                            <td><span class="hig-red">22, Feb 2025</span></td>
-                                            <td><span class="hig-blu">Paid</span></td>
                                             <td><span class="hig-grn">Premium</span></td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                                                      <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 32px;">
+                                                      <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
 
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                       <li><a class="dropdown-item" href="#">Edit</a></li>
                                                       <li><a class="dropdown-item" href="#">Delete</a></li>
-                                                      <li><a class="dropdown-item" href="#">Billing info</a></li>
-                                                      <li><a class="dropdown-item" href="#">View more details</a></li>
+                                                      <li><a class="dropdown-item" href="#" onclick="openPopup()">Subscription Details</a></li>
+                                                      <li><a class="dropdown-item" href="#" onclick="openPopupProfile()">Profile Verification</a></li>
                                                       <li><a class="dropdown-item" href="#">View profile</a></li>
                                                     </ul>
                                                 </div>
+                                                     <script>
+      function toggleDropdown() {
+        var dropdown = document.querySelector('.dropdown');
+        dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    /* window.onclick = function(event) {
+        var dropdown = document.querySelector('.dropdown');
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    };*/
+
+      // Open Popup
+      function openPopup() {
+          var popup = document.getElementById('popup');
+          popup.style.display = 'flex'; // Use flex to center the popup
+      }
+
+      // Close Popup
+      function closePopup() {
+          var popup = document.getElementById('popup');
+          popup.style.display = 'none';
+      }
+
+  
+
+      // Close Dropdown and Popup when clicking outside
+  
+  </script> <div class="popup-overlay" id="popup" style="
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: rgba(0, 0, 0, 0.6); 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  z-index: 1000;
+  display: none;">
+  <div class="popup-content" style="
+      background-color: #fff; 
+      width: 80%; 
+      max-width: 500px; 
+      border-radius: 15px; 
+      padding: 20px 10px; 
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+      position: relative; 
+      overflow: hidden; 
+      animation: fadeIn 0.5s forwards;">
+      
+      <!-- Close Button -->
+      <button class="close-btn" onclick="closePopup()" style="
+      position: absolute; 
+      top: 15px; 
+      right: 15px; 
+      font-size: 20px; 
+      color: white; 
+      background: #d9534f; 
+      border: none; 
+      border-radius: 50%; 
+      width: 35px; 
+      height: 35px; 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      transition: background 0.3s;">
+      &times;
+  </button>
+  
+
+      <!-- Title Section -->
+      <div class="header" style="
+      text-align: center; 
+      margin-bottom: 20px;">
+      <h2 style="
+          font-size: 24px; 
+          font-weight: bold; 
+          color: #f7083c;">
+          Subscription Details
+      </h2>
+      <p class="subtext" style="
+          color: #666; 
+          font-size: 14px; 
+          margin-top: 5px;">
+          Manage your subscription seamlessly
+      </p>
+  </div>
+  
+  <!-- User Image Section -->
+  <div class="profile-section" style="
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 20px;
+  margin-left: 40px;
+  margin-right:40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow here */
+  padding: 10px; /* Optional: adds some padding for better spacing */
+  border-radius: 10px; /* Optional: adds rounded corners */
+">
+<img id="profilePicture" src="./images/images.jpg" alt="Profile Picture" style="
+  width: 100px; 
+  height: 100px; 
+  border-radius: 5%; 
+  margin-right: 55px; 
+  object-fit: cover;">
+<div class="profile-info" style="
+  flex: 1;">
+  <h3 id="profileName" style="
+      color: #333; 
+      margin-bottom: 5px; 
+      font-size: 18px;">
+      John Doe
+  </h3>
+  <p id="profileId" style="
+      font-size: 14px; 
+      color: #555; 
+      margin: 3px 0;">
+      ID: 12345
+  </p>
+  <p id="profileContact" style="
+      font-size: 14px; 
+      color: #555; 
+      margin: 3px 0;">
+      Contact: +123456789
+  </p>
+  <p id="profileLocation" style="
+      font-size: 14px; 
+      color: #555; 
+      margin: 3px 0;">
+      Location: Germany
+  </p>
+</div>
+</div>
+
+  
+  <!-- Subscription Section -->
+  <div class="subscription-section" style="
+      margin-bottom: 20px;
+      margin-left:40px">
+      <div class="status-section" style="
+          display: flex; 
+          justify-content: space-between; 
+          align-items: center; 
+          margin-bottom: 15px;">
+          <span style="
+              font-size: 14px; 
+              color: #333;">
+              Status:
+          </span>
+          <div class="toggle-container" style="
+          display: flex; 
+          gap: 15px; 
+          align-items: center; 
+          margin-right: 115px;">
+          <input type="radio" id="disabled" name="status" value="disabled" style="
+              display: none;">
+          <label for="disabled" style="
+              display: inline-block; 
+              padding: 10px 20px; 
+              border-radius: 20px; 
+              font-size: 14px; 
+              font-weight: bold; 
+              cursor: pointer; 
+              text-align: center; 
+              background: linear-gradient(135deg, #f76a6a, #f54b4b); 
+              color: white; 
+              box-shadow: 0 4px 8px rgba(247, 106, 106, 0.3); 
+              transition: all 0.3s ease;">
+              Disabled
+          </label>
+          <input type="radio" id="enabled" name="status" value="enabled" style="
+              display: none;">
+          <label for="enabled" style="
+              display: inline-block; 
+              padding: 10px 20px; 
+              border-radius: 20px; 
+              font-size: 14px; 
+              font-weight: bold; 
+              cursor: pointer; 
+              text-align: center; 
+              background: linear-gradient(135deg, #6ac36a, #4bc54b); 
+              color: white; 
+              box-shadow: 0 4px 8px rgba(106, 195, 106, 0.3); 
+              transition: all 0.3s ease;">
+              Enabled
+          </label>
+      </div>
+      
+      </div>
+  
+      <label for="duration" style="
+          font-size: 14px; 
+          color: #333; 
+          margin-bottom: 5px; 
+          display: block;
+           margin-right:40px;">
+          Subscription Days
+      </label>
+      <input id="duration" type="number" min="1" max="31" placeholder="1" style="
+          width: 90%; 
+          padding: 10px; 
+          border: 1px solid #ccc; 
+          border-radius: 8px; 
+          margin-bottom: 15px; 
+          font-size: 14px; 
+          color: #333;
+           margin-right:40px;">
+  
+      <label for="price" style="
+          font-size: 14px; 
+          color: #333; 
+          margin-bottom: 5px; 
+          display: block;
+           margin-right:40px;">
+          Price
+      </label>
+      <input id="price" type="number" min="0" placeholder="Enter Price" style="
+          width: 90%; 
+          padding: 10px; 
+          border: 1px solid #ccc; 
+          border-radius: 8px; 
+          margin-bottom: 15px; 
+          font-size: 14px; 
+          color: #333;
+           margin-right:40px;">
+  </div>
+  
+  <!-- Actions -->
+  <div class="actions" style="
+      display: flex; 
+      justify-content: space-between;">
+      <button id="saveButton" style="
+           align-items: center; 
+          width: 18%; 
+          padding: 10px; 
+          border: none; 
+          border-radius: 8px; 
+          font-size: 14px; 
+          color: white; 
+         background: linear-gradient(135deg, #4e27ec, #0219cb); 
+          cursor: pointer; 
+          transition: transform 0.2s;
+          margin-left:190px;
+          ">
+          Save
+      </button>
+  </div>
+  
+
                                             </td>
                                           </tr>
                                           
@@ -398,6 +647,204 @@
                                       </table>
                                 </div>
                             </div>
+                            <!-- user verification -->
+                            <div class="popup-overlay" id="popup01" style="
+                            position: fixed; 
+                            top: 0; 
+                            left: 0; 
+                            width: 100%; 
+                            height: 100%; 
+                            background: rgba(0, 0, 0, 0.6); 
+                            display: flex; 
+                            justify-content: center; 
+                            align-items: center; 
+                            z-index: 1000;
+                            display: none;">
+                            <div class="popup-content" style="
+                                background-color: #fff; 
+                                width: 80%; 
+                                max-width: 500px; 
+                                border-radius: 15px; 
+                                padding: 20px 10px; 
+                                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+                                position: relative; 
+                                overflow: hidden; 
+                                animation: fadeIn 0.5s forwards;">
+                                
+                                <!-- Close Button -->
+                                <button class="close-btn" onclick="closePopupProfile()" style="
+                                position: absolute; 
+                                top: 15px; 
+                                right: 15px; 
+                                font-size: 20px; 
+                                color: white; 
+                                background: #d9534f; 
+                                border: none; 
+                                border-radius: 50%; 
+                                width: 35px; 
+                                height: 35px; 
+                                cursor: pointer; 
+                                display: flex; 
+                                justify-content: center; 
+                                align-items: center; 
+                                transition: background 0.3s;">
+                                &times;
+                            </button>
+                            
+                        
+                                <!-- Title Section -->
+                                <div class="header" style="
+                                text-align: center; 
+                                margin-bottom: 20px;">
+                                <h2 style="
+                                    font-size: 24px; 
+                                    font-weight: bold; 
+                                    color: #f7083c;">
+                                    Subscription Details
+                                </h2>
+                                <p class="subtext" style="
+                                    color: #666; 
+                                    font-size: 14px; 
+                                    margin-top: 5px;">
+                                    Manage your subscription seamlessly
+                                </p>
+                            </div>
+                            
+                            <!-- User Image Section -->
+                            <div class="profile-section" style="
+                            display: flex; 
+                            align-items: center; 
+                            margin-bottom: 20px;
+                            margin-left: 40px;
+                            margin-right:40px;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow here */
+                            padding: 10px; /* Optional: adds some padding for better spacing */
+                            border-radius: 10px; /* Optional: adds rounded corners */
+                        ">
+                        <img id="profilePicture" src="./images/images.jpg" alt="Profile Picture" style="
+                            width: 100px; 
+                            height: 100px; 
+                            border-radius: 5%; 
+                            margin-right: 55px; 
+                            object-fit: cover;">
+                        <div class="profile-info" style="
+                            flex: 1;">
+                            <h3 id="profileName" style="
+                                color: #333; 
+                                margin-bottom: 5px; 
+                                font-size: 18px;">
+                                John Doe
+                            </h3>
+                            <p id="profileId" style="
+                                font-size: 14px; 
+                                color: #555; 
+                                margin: 3px 0;">
+                                ID: 12345
+                            </p>
+                            <p id="profileContact" style="
+                                font-size: 14px; 
+                                color: #555; 
+                                margin: 3px 0;">
+                                Contact: +123456789
+                            </p>
+                            <p id="profileLocation" style="
+                                font-size: 14px; 
+                                color: #555; 
+                                margin: 3px 0;">
+                                Location: Germany
+                            </p>
+                        </div>
+                        </div>
+                        
+                            
+                            <!-- Subscription Section -->
+                            <div class="subscription-section" style="
+                                margin-bottom: 20px;
+                                margin-left:40px">
+                                <div class="status-section" style="
+                                    display: flex; 
+                                    justify-content: space-between; 
+                                    align-items: center; 
+                                    margin-bottom: 15px;">
+                                    <span style="
+                                        font-size: 14px; 
+                                        color: #333;">
+                                        Status:
+                                    </span>
+                                    <div class="toggle-container" style="
+                                    display: flex; 
+                                    gap: 15px; 
+                                    align-items: center; 
+                                    margin-right: 115px;">
+                                    <input type="radio" id="UnVerified" name="status" value="UnVerified" style="
+                                        display: none;">
+                                    <label for="disabled" style="
+                                        display: inline-block; 
+                                        padding: 10px 20px; 
+                                        border-radius: 20px; 
+                                        font-size: 14px; 
+                                        font-weight: bold; 
+                                        cursor: pointer; 
+                                        text-align: center; 
+                                        background: linear-gradient(135deg, #707070, #b4b4b4); 
+                                        color: white; 
+                                        box-shadow: 0 4px 8px rgba(197, 194, 194, 0.3); 
+                                        transition: all 0.3s ease;">
+                                        UnVerified                                    </label>
+                                    <input type="radio" id="Verified" name="status" value="Verified" style="
+                                        display: none;">
+                                    <label for="enabled" style="
+                                        display: inline-block; 
+                                        padding: 10px 20px; 
+                                        border-radius: 20px; 
+                                        font-size: 14px; 
+                                        font-weight: bold; 
+                                        cursor: pointer; 
+                                        text-align: center; 
+                                        background: linear-gradient(135deg, #069ced, #13b2fb); 
+                                        color: white; 
+                                        box-shadow: 0 4px 8px rgba(106, 195, 106, 0.3); 
+                                        transition: all 0.3s ease;">
+                                         Verified
+                                    </label>
+                                </div>
+                                
+                                </div>
+                            
+                                
+                            </div>
+                            
+                            <!-- Actions -->
+                            <div class="actions" style="
+                                display: flex; 
+                                justify-content: space-between;">
+                                <button id="saveButton" style="
+                                     align-items: center; 
+                                    width: 98%; 
+                                    padding: 10px; 
+                                    border: none; 
+                                    border-radius: 8px; 
+                                    font-size: 14px; 
+                                    color: white; 
+                                   background: linear-gradient(135deg, #f0076c, #f26cbc); 
+                                    cursor: pointer; 
+                                    transition: transform 0.2s;
+                                   
+                                    ">
+                                    Save
+                                </button>
+                            </div>
+                            
+
+
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+                             <!-- end of user verification -->
                         </div>
                     </div>
                 </div>
@@ -419,6 +866,47 @@
         </section>
         <!-- END -->
     <!-- Optional JavaScript -->
+    <script>
+      function toggleDropdown() {
+        var dropdown = document.querySelector('.dropdown');
+        dropdown.classList.toggle('active');
+    }
+
+    // Close dropdown when clicking outside
+    /* window.onclick = function(event) {
+        var dropdown = document.querySelector('.dropdown');
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('active');
+        }
+    };*/
+
+      // Open Popup
+      function openPopup() {
+          var popup = document.getElementById('popup');
+          popup.style.display = 'flex'; // Use flex to center the popup
+      }
+
+      // Close Popup
+      function closePopup() {
+          var popup = document.getElementById('popup');
+          popup.style.display = 'none';
+      }
+
+            // Open Popup
+            function openPopupProfile() {
+              var popup = document.getElementById('popup01');
+              popup.style.display = 'flex'; // Use flex to center the popup
+          }
+      
+          // Close Popup
+          function closePopupProfile() {
+              var popup = document.getElementById('popup01');
+              popup.style.display = 'none';
+          }
+
+      // Close Dropdown and Popup when clicking outside
+  
+  </script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../js/jquery.min.js"></script>
     <script src="../js/popper.min.js"></script>

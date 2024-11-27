@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Subscription Popup</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Popup Card -->
+    <div id="popupCard" class="popup">
+        <div class="popup-content">
+            <span id="closePopup" class="close">&times;</span>
+            <div class="header">
+                <h2>Subscription Details</h2>
+                <p class="subtext">Manage your subscription seamlessly</p>
+            </div>
+            <div class="profile-section">
+                <img id="profilePicture" src="./images/images.jpg" alt="Profile Picture" class="profile-img">
+                <div class="profile-info">
+                    <h3 id="profileName">John Doe</h3>
+                    <p id="profileId">ID: 12345</p>
+                    <p id="profileContact">Contact: +123456789</p>
+                    <p id="profileLocation">Location: Germany</p>
+                </div>
+            </div>
+            <div class="subscription-section">
+                <div class="status-section">
+                    <span>Status:</span>
+                    <div class="toggle-container">
+                        <input type="radio" id="disabled" name="status" value="disabled" class="toggle-input" checked>
+                        <label for="disabled" class="toggle-label">Disabled</label>
+                        <input type="radio" id="enabled" name="status" value="enabled" class="toggle-input">
+                        <label for="enabled" class="toggle-label">Enabled</label>
+                    </div>
+                </div>
+                
+                <label for="duration">Subscription Days</label>
+                <input id="duration" type="number" min="1" max="31" placeholder="1">
+                <label for="price">Price</label>
+                <input id="price" type="number" min="0" placeholder="Enter Price">
+            </div>
+            <div class="actions">
+                <button id="payButton" class="pay-btn" onclick="closePopup()">Close</button>
+               
+                <button id="saveButton" class="save-btn">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
