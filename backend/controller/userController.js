@@ -262,7 +262,7 @@ export const verifyOTP = async(req,res,next)=>{
 export const resetPassword = async(req,res)=>{
 
     const{newPassword,comfirmPassword,email} = req.body;
-    console.log(newPassword+" "+comfirmPassword+" "+email)
+  
     const isAdmin = req.params.type;
     let user;
 

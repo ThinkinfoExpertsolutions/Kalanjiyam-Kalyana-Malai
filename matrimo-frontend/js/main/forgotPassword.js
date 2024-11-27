@@ -64,7 +64,7 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
 
         if (data.success) {
             showSuccessToast(data.message); // Password reset successful
-            window.location.href = `http://127.0.0.1:5500/matrimo-frontend/login.html`; // Redirect to login page
+            window.location.href = `login.html`; // Redirect to login page
         } else {
             showErrorToast(data.message); // Show error message
         }
