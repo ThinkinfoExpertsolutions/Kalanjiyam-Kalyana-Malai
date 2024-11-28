@@ -66,15 +66,32 @@ function updateProfiles(profiles) {
     console.log(profiles)
     const tableBody = document.querySelector("table tbody"); // Get the tbody of the table
 
+    if (profiles.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="8" style="text-align: center; padding: 20px;">
+                    <strong>No profiles available to display.</strong>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
     // Clear any existing rows in the table body
     tableBody.innerHTML = '';
 
     // Loop through each profile in the profiles array
     profiles.forEach((profile, index) => {
         // Create a new row for each profile
-        let verifyIcon="";
+
+
+
         const row = document.createElement("tr");
 
+
+        
+        
+        let verifyIcon="";
         if(profile.verification_status === "Verified"){
             verifyIcon = "https://iconape.com/wp-content/png_logo_vector/google-verified.png"
         }else{
@@ -319,7 +336,7 @@ async function changeSubscription(index){
         const data = await response.json();
         if(data.success){
             alert(data.message);
-            window.location.reload()
+            location.reload();
         }
       } catch (error) {
         console.log(error);
@@ -357,7 +374,7 @@ async function changeVerification(index){
         const data = await response.json();
         if(data.success){
             alert(data.message);
-            window.location.href="admin-all-users.html";
+            location.reload();
         }
       } catch (error) {
         console.log(error);

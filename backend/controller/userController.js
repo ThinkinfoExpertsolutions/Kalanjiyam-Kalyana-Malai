@@ -313,9 +313,9 @@ export const resetPassword = async(req,res)=>{
 let count=0;
 export const createUniqueUserId = (mongoObjectId) => {
     const base64Id = Buffer.from(mongoObjectId.toString()).toString('base64');
-    const last6Chars = base64Id.slice(-6); // Extract the last 6 characters
+    const last4Chars = base64Id.slice(-4); // Extract the last 6 characters
     count++;
-    return `USER-${last6Chars}${count}`;
+    return `USER-${last4Chars}${count}`;
   };
   
 

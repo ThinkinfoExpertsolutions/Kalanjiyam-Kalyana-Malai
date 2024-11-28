@@ -426,12 +426,44 @@ img{
     border-bottom: 1px solid #e4e4e4;
     padding-bottom: 15px;margin-bottom: 40px;
 }
-.tit{}
-.tit h1{
-    font-size: clamp(16px, 2vw, 32px);
-    font-weight: 700;
-    color: #000;
+/* Style for the anchor tag */
+.tit a {
+    text-decoration: none; /* Remove underline */
 }
+
+/* Style for all h1 elements inside tit */
+.tit h1 {
+    display: inline-block;
+    font-size: 24px;
+    margin: 0 20px;
+    padding: 10px 15px;
+    color: #333;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Active header style */
+.tit h1.active {
+    border-bottom: 3px solid #1286ad; /* Green border for the active page */
+    font-weight: bold;
+    color: #4c95af;
+}
+
+/* Hover effect for non-active headers */
+.tit h1:not(.active):hover {
+    border-bottom: 3px solid #ccc;
+    color: #666;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .tit h1 {
+        font-size: 18px;
+        margin: 10px;
+    }
+}
+
 .main-head .breadcrumb{float: right;}
 .main-head .breadcrumb a{
     color: #007ec4;
@@ -763,7 +795,10 @@ img{
 .pan-rhs .cta-grn{
     background-color: #008b03;
 }
+.pan-rhs .cta-red{
+    background-color: #bd0303;
 
+}
 .tit + .form-inp{
     margin-top: 40px;
 }
