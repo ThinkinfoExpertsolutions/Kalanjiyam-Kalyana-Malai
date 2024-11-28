@@ -1,21 +1,36 @@
 const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
 
 let allProfiles;
+let filteredProfiles=[];
+let isFreeUsersPage = window.location.pathname.endsWith("admin-free-users.html");
+let isPlatinumUsersPage = window.location.pathname.endsWith("admin-platinum-users.html");
 document.addEventListener("DOMContentLoaded", async () => {
 
 
     try {
-        const data = await fetchData();
+        const data = await fetchData();  // Fetch data from the API
         if (data) {
             console.log(data);
-            allProfiles = data.allProfilesData;
-            updateSettings(data.adminData);
-            updateProfiles(data.allProfilesData)
+            allProfiles = data.allProfilesData;  // Store all profiles
+            updateSettings(data.adminData);  // Update admin settings
+            
+            // Determine the page and filter profiles accordingly
+             filteredProfiles = data.allProfilesData;
+
+            if (isFreeUsersPage) {
+                filteredProfiles = filteredProfiles.filter(profile => !profile.subscription_status);
+            } else if (isPlatinumUsersPage) {
+                filteredProfiles = filteredProfiles.filter(profile => profile.subscription_status);
+            }
+
+            // Update profiles based on the filtered data
+            updateProfiles(filteredProfiles);
         }
     } catch (error) {
         console.error("Failed to fetch or update data:", error);
     }
 });
+
 
 
 
@@ -57,8 +72,22 @@ function updateProfiles(profiles) {
     // Loop through each profile in the profiles array
     profiles.forEach((profile, index) => {
         // Create a new row for each profile
+        let verifyIcon="";
         const row = document.createElement("tr");
-        
+
+        if(profile.verification_status === "Verified"){
+            verifyIcon = "https://iconape.com/wp-content/png_logo_vector/google-verified.png"
+        }else{
+            verifyIcon = "https://iconape.com/wp-content/png_logo_vector/google-unverified.png"
+        }
+       let planType;
+
+        if(profile.subscription_status){
+            planType = "Platinum"
+        }else{
+            planType = "Stantard"
+        }
+
         // Create each cell and append the data
         row.innerHTML = `
             <td>${index + 1}</td>
@@ -70,13 +99,14 @@ function updateProfiles(profiles) {
                     <div class="pro-info">
                         <h5>${profile.basicInfo.name}</h5>
                         <p>${profile.contactInfo.email}</p>
+                        <img src="${verifyIcon}" alt="" class="verified-logo">
                     </div>
                 </div>
             </td>
             <td>${profile.profileID}</td>
             <td>${profile.contactInfo.phone}</td>
             <td>${profile.basicInfo.district}</td>
-            <td><span class="hig-grn">${profile.subscription_status?"Platinum":"Stantard"}</span></td>
+            <td><span class="${profile.subscription_status?"hig-grn":"hig-red"}">${planType}</span></td>
             <td>
                 <div class="dropdown">
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
@@ -100,7 +130,7 @@ function updateProfiles(profiles) {
 
 function openPopup(index){
     console.log(index);
-    const profile = allProfiles[index];
+    const profile = filteredProfiles[index];
     const profileName = document.getElementById("profileName");
     const profileId = document.getElementById("profileId");
     const profileContact = document.getElementById("profileContact");
@@ -147,7 +177,7 @@ function openPopup(index){
 function openPopupProfile(index){
 
     console.log(index);
-    const profile = allProfiles[index];
+    const profile = filteredProfiles[index];
     const profileName = document.getElementById("profileName2");
     const profileId = document.getElementById("profileId2");
     const profileContact = document.getElementById("profileContact2");
@@ -257,7 +287,7 @@ const headers = {
 
 async function changeSubscription(index){
    
-    const profile = allProfiles[index];
+    const profile = filteredProfiles[index];
     const userId = profile.user_id;
      const durationInDays = document.getElementById("duration").value;
     const price = document.getElementById("price").value;
@@ -289,7 +319,7 @@ async function changeSubscription(index){
         const data = await response.json();
         if(data.success){
             alert(data.message);
-            window.location.href="admin-all-users.html";
+            window.location.reload()
         }
       } catch (error) {
         console.log(error);
@@ -306,7 +336,7 @@ async function changeVerification(index){
 
   let verification_status;
 
-    const profile = allProfiles[index];
+    const profile = filteredProfiles[index];
     const userId = profile.user_id;
 
     if( verifiedRadio && verifiedRadio.checked){

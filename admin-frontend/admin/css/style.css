@@ -238,3 +238,13 @@ body {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+.verified-logo, .unverified-logo {
+    width: 24px;
+    height: 24px;
+}
+.pro-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 13px;
+}
