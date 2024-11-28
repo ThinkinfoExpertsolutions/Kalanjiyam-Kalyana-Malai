@@ -259,12 +259,12 @@
     object-fit: cover;">
 <div class="profile-info" style="
     flex: 1;">
-    <h3 id="profileName" style="
+    <p id="profileName" style="
         color: #333; 
         margin-bottom: 5px; 
-        font-size: 18px;">
+        font-size: 14px;">
         John Doe
-    </h3>
+    </p>
     <p id="profileId" style="
         font-size: 14px; 
         color: #555; 
@@ -306,9 +306,8 @@
             gap: 15px; 
             align-items: center; 
             margin-right: 115px;">
-            <input type="radio"  name="status" value="disabled" style="
-                display: none;">
-            <label for="disabled" id="disabled" style="
+            <input type="radio" id="disabled" name="status" value="disabled" style="display: none;">
+            <label for="disabled" id="disabled-label" style="
                 display: inline-block; 
                 padding: 10px 20px; 
                 border-radius: 20px; 
@@ -317,13 +316,14 @@
                 cursor: pointer; 
                 text-align: center; 
                 color: rgb(2, 1, 1); 
-                box-shadow:(2, 2, 2)0 4px 8px rgba(247, 106, 106, 0.3); 
-                transition: all 0.3s ease;">
+                box-shadow: 0 4px 8px rgba(247, 106, 106, 0.3); 
+                transition: all 0.3s ease;
+                background-color: #fce4e4;">
                 Disabled
             </label>
-            <input type="radio"  name="status" value="enabled" style="
-                display: none;">
-            <label for="enabled" id="enabled" style="
+            
+            <input type="radio" id="enabled" name="status" value="enabled" style="display: none;">
+            <label for="enabled" id="enabled-label" style="
                 display: inline-block; 
                 padding: 10px 20px; 
                 border-radius: 20px; 
@@ -332,14 +332,16 @@
                 cursor: pointer; 
                 text-align: center;  
                 color: rgb(2, 1, 1); 
-                box-shadow:(0, 0, 0)0 4px 8px rgba(106, 195, 106, 0.3); 
-                transition: all 0.3s ease;">
+                box-shadow: 0 4px 8px rgba(106, 195, 106, 0.3); 
+                transition: all 0.3s ease;
+                background-color: #e4fce4;">
                 Enabled
             </label>
+            
         </div>
         
         </div>
-    
+    <div id="details">
         <label for="duration" style="
             font-size: 14px; 
             color: #333; 
@@ -375,13 +377,13 @@
             font-size: 14px; 
             color: #333;
              margin-right:40px;">
+  </div>
     </div>
-    
     <!-- Actions -->
     <div class="actions" style="
         display: flex; 
         justify-content: space-between;">
-        <button id="saveButton" style="
+        <button id="subscription-saveBtn" style="
              align-items: center; 
             width: 18%; 
             padding: 10px; 
@@ -533,9 +535,8 @@
             gap: 15px; 
             align-items: center; 
             margin-right: 115px;">
-            <input type="radio"  name="status" value="UnVerified" style="
-                display: none;">
-            <label for="disabled" id="disabled2" style="
+            <input type="radio" id="unverified" name="status" value="UnVerified" style="display: none;">
+            <label for="unverified" id="unverified-label" style="
                 display: inline-block; 
                 padding: 10px 20px; 
                 border-radius: 20px; 
@@ -545,11 +546,13 @@
                 text-align: center; 
                 color: rgb(7, 1, 1); 
                 box-shadow: 0 4px 8px rgba(87, 87, 87, 0.3); 
-                transition: all 0.3s ease;">
-                UnVerified                                    </label>
-            <input type="radio"  name="status" value="Verified" style="
-                display: none;">
-            <label for="enabled" id="enabled2" style="
+                transition: all 0.3s ease;
+                background-color: #f4f4f4;">
+                UnVerified
+            </label>
+            
+            <input type="radio" id="verified" name="status" value="Verified" style="display: none;">
+            <label for="verified" id="verified-label" style="
                 display: inline-block; 
                 padding: 10px 20px; 
                 border-radius: 20px; 
@@ -559,9 +562,11 @@
                 text-align: center; 
                 color: rgb(4, 3, 3); 
                 box-shadow: 0 4px 8px rgba(104, 104, 104, 0.3); 
-                transition: all 0.3s ease;">
-                 Verified
+                transition: all 0.3s ease;
+                background-color: #f4f4f4;">
+                Verified
             </label>
+            
         </div>
         
         </div>
@@ -573,7 +578,7 @@
     <div class="actions" style="
         display: flex; 
         justify-content: space-between;">
-        <button id="saveButton" style="
+        <button id="verification-saveBtn" style="
              align-items: center; 
             width: 98%; 
             padding: 10px; 

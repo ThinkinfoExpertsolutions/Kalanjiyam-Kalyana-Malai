@@ -106,26 +106,30 @@ function openPopup(index){
     const profileContact = document.getElementById("profileContact");
     const profileLocation = document.getElementById("profileLocation");
     const profilePicture = document.getElementById("profilePicture");
-    const disabled = document.getElementById("disabled");
-    const enabled = document.getElementById("enabled");
-    console.log(enabled)
-    // const duration = document.getElementById("duration");
-    // const price = document.getElementById("price");
-    // const saveButton = document.getElementById("saveButton");
+    const disabled = document.getElementById("disabled-label");
+    const enabled = document.getElementById("enabled-label");
+    
+   
 
     if(!profileContact||!profileId||!profileName||!profileLocation){
         return;
     }
-    console.log(profile.subscription_status)
+    
         var popup = document.getElementById('popup');
         if(popup) popup.style.display = 'flex'; 
         
-   profileName.textContent = profile.basicInfo.name;
-   profileId.textContent = profile.profileID;
-   profileContact.textContent = profile.contactInfo.phone;
-   profileLocation.textContent = profile.basicInfo.district;
+        profileName.innerHTML = `<strong style="display: inline-block; width: 100px;">Name:</strong> ${profile.basicInfo.name}`;
+        profileId.innerHTML = `<strong style="display: inline-block; width: 100px;">ProfileID:</strong> ${profile.profileID}`;
+        profileContact.innerHTML = `<strong style="display: inline-block; width: 100px;">Phone:</strong> ${profile.contactInfo.phone}`;
+        profileLocation.innerHTML = `<strong style="display: inline-block; width: 100px;">District:</strong> ${profile.basicInfo.district}`;
+        
+        
   profilePicture.src = profile.media.profileImage;
 
+  const saveBtn = document.getElementById("subscription-saveBtn");
+//   saveBtn.replaceWith(saveBtn.cloneNode(true)); // Remove previous listeners
+  saveBtn.addEventListener("click", () => changeSubscription(index));
+  
   if(profile.subscription_status){
     enabled.style.backgroundColor="green";
     enabled.style.color="white";
@@ -136,6 +140,7 @@ function openPopup(index){
     disabled.style.color="white";
     enabled.style.backgroundColor="white";
     enabled.style.color="black";
+    document.getElementById("details").style.display = "none";
   }
 }
 
@@ -148,11 +153,9 @@ function openPopupProfile(index){
     const profileContact = document.getElementById("profileContact2");
     const profileLocation = document.getElementById("profileLocation2");
     const profilePicture = document.getElementById("profilePicture2");
-    const disabled = document.getElementById("disabled2");
-    const enabled = document.getElementById("enabled2");
-    // const duration = document.getElementById("duration");
-    // const price = document.getElementById("price");
-    // const saveButton = document.getElementById("saveButton");
+    const disabled = document.getElementById("unverified-label");
+    const enabled = document.getElementById("verified-label");
+    
 
     if(!profileContact||!profileId||!profileName||!profileLocation){
         return;
@@ -161,19 +164,24 @@ function openPopupProfile(index){
         var popup = document.getElementById('popup01');
         if(popup) popup.style.display = 'flex'; 
         
-   profileName.textContent = profile.basicInfo.name;
-   profileId.textContent = profile.profileID;
-   profileContact.textContent = profile.contactInfo.phone;
-   profileLocation.textContent = profile.basicInfo.district;
-  profilePicture.src = profile.media.profileImage;
+        profileName.innerHTML = `<strong style="display: inline-block; width: 100px;">Name:</strong> ${profile.basicInfo.name}`;
+        profileId.innerHTML = `<strong style="display: inline-block; width: 100px;">ProfileID:</strong> ${profile.profileID}`;
+        profileContact.innerHTML = `<strong style="display: inline-block; width: 100px;">Phone:</strong> ${profile.contactInfo.phone}`;
+        profileLocation.innerHTML = `<strong style="display: inline-block; width: 100px;">District:</strong> ${profile.basicInfo.district}`;
+        profilePicture.src = profile.media.profileImage;
+  
+  const saveBtn = document.getElementById("verification-saveBtn");
 
-  if(profile.subscription_status){
-    enabled.style.backgroundColor="blue";
+  saveBtn.addEventListener("click", () => changeVerification(index));
+
+console.log(profile.verification_status)
+  if(profile.verification_status === "Verified"){
+    enabled.style.backgroundColor="#00CCFF";
     enabled.style.color="white";
     disabled.style.backgroundColor ="white";
     disabled.style.color="black";
   }else{
-    disabled.style.backgroundColor ="grey";
+    disabled.style.backgroundColor ="#B2BEB5";
     disabled.style.color="white";
     enabled.style.backgroundColor="white";
     enabled.style.color="black";
@@ -183,6 +191,151 @@ function openPopupProfile(index){
 
 
 
+
+
+
+const unverifiedRadio = document.getElementById('unverified');
+const verifiedRadio = document.getElementById('verified');
+const unverifiedLabel = document.getElementById('unverified-label');
+const verifiedLabel = document.getElementById('verified-label');
+
+unverifiedRadio.addEventListener('change', () => {
+    if (unverifiedRadio.checked) {
+        unverifiedLabel.style.backgroundColor = '#B2BEB5'; 
+        unverifiedLabel.style.color = '#fff';
+        verifiedLabel.style.backgroundColor = 'white'; 
+        verifiedLabel.style.color = 'rgb(4, 3, 3)';
+    }
+});
+
+verifiedRadio.addEventListener('change', () => {
+    if (verifiedRadio.checked) {
+        verifiedLabel.style.backgroundColor = '#00CCFF'; 
+        verifiedLabel.style.color = '#fff';
+        unverifiedLabel.style.backgroundColor = 'white'; // Inactive color (gray)
+        unverifiedLabel.style.color = 'rgb(7, 1, 1)';
+    }
+});
+
+
+
+
+let verification_status;
+
+const disabledRadio = document.getElementById('disabled');
+const enabledRadio = document.getElementById('enabled');
+const disabledLabel = document.getElementById('disabled-label');
+const enabledLabel = document.getElementById('enabled-label');
+
+disabledRadio.addEventListener('change', () => {
+    if (disabledRadio.checked) {
+        disabledLabel.style.backgroundColor = '#f74a4a'; // Active color
+        disabledLabel.style.color = '#fff';
+        enabledLabel.style.backgroundColor = 'white'; // Inactive color
+        enabledLabel.style.color = 'rgb(2, 1, 1)';
+        document.getElementById("details").style.display = "none";
+        verification_status=false;
+    }
+});
+
+enabledRadio.addEventListener('change', () => {
+    if (enabledRadio.checked) {
+        enabledLabel.style.backgroundColor = '#6ac36a'; // Active color
+        enabledLabel.style.color = '#fff';
+        disabledLabel.style.backgroundColor = 'white'; // Inactive color
+        disabledLabel.style.color = 'rgb(2, 1, 1)';
+        document.getElementById("details").style.display = "block";
+        verification_status=true;
+    }
+});
+
+
+const headers = {
+    "Content-Type": "application/json",
+    token: sessionStorage.getItem("token"),
+  };
+
+async function changeSubscription(index){
+   
+    const profile = allProfiles[index];
+    const userId = profile.user_id;
+     const durationInDays = document.getElementById("duration").value;
+    const price = document.getElementById("price").value;
+    let isActive=false;
+
+    
+      
+     const enabledRadio = document.getElementById('enabled');
+
+     if(enabledRadio.checked){
+             if (!durationInDays || !price) {
+        alert("Please enter valid duration and price.");
+        return;
+      }
+     }
+
+      enabledRadio.checked? isActive=true : isActive =false;
+      
+     
+    console.log({ userId, durationInDays, price, isActive})
+      try {
+        const response = await fetch("http://localhost:5000/api/admin/change-subscription-status",{
+            method:"POST",
+           headers,
+           body:JSON.stringify({
+            userId, durationInDays, price, isActive
+           })
+        });
+        const data = await response.json();
+        if(data.success){
+            alert(data.message);
+            window.location.href="admin-all-users.html";
+        }
+      } catch (error) {
+        console.log(error);
+        alert("please try again later")
+      }
+
+}
+
+async function changeVerification(index){
+
+    
+
+   const verifiedRadio = document.getElementById('verified');
+
+  let verification_status;
+
+    const profile = allProfiles[index];
+    const userId = profile.user_id;
+
+    if( verifiedRadio && verifiedRadio.checked){
+        verification_status = "Verified"
+    }else{
+        verification_status = "UnVerified";
+    }
+
+ console.log(verification_status)
+    try {
+        const response = await fetch("http://localhost:5000/api/admin/change-verification-status",{
+            method:"POST",
+           headers,
+           body:JSON.stringify({
+            userId,verification_status
+           })
+        });
+        const data = await response.json();
+        if(data.success){
+            alert(data.message);
+            window.location.href="admin-all-users.html";
+        }
+      } catch (error) {
+        console.log(error);
+        alert("please try again later")
+      }
+    
+
+}
 
 
 

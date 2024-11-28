@@ -223,10 +223,18 @@ export const addNewProfile = async(req,res)=>{
         socialMedia:socialMedia,
     });
 
-    
+    const newSubscriptionDataSave = async(id,userName)=>{
+      const newDocument = SubscriptionModel({
+          user_id:id,
+          name:userName
+      });
+
+      await newDocument.save();
+  }
 
     const newProfile = await newProfileData.save();
     newProfile.user_id = newProfile._id;
+    newSubscriptionDataSave(newProfile._id,user.basicInfo.name);
     newProfile.profileID = createUniqueUserId(newProfile._id);
     newProfile.save();
   
@@ -376,7 +384,7 @@ export const adminChangeVerificationStatus = async(req,res)=>{
 
 export const adminChangeSubscriptionStatus = async (req, res) => {
   const { userId, durationInDays, price, isActive } = req.body;
-
+  
   try {
     // Find the existing subscription profile
     const profile = await SubscriptionModel.findOne({ user_id: userId });
