@@ -1,5 +1,5 @@
 import express from "express";
-import { addNewProfile, adminChangeSubscriptionStatus, adminChangeVerificationStatus, adminLogin, changeAdminCredential, getWebsiteData, handleVerifyRequest, removeProfile, updateSocialMediaLinks } from "../controller/adminController.js";
+import { addNewProfile, adminChangeSubscriptionStatus, adminChangeVerificationStatus, adminLogin, changeAdminCredential, changeEnqueryStatus, getWebsiteData, handleVerifyRequest, removeProfile, updateSocialMediaLinks } from "../controller/adminController.js";
 import authMiddleware from "../middleware/auth.js";
 
 
@@ -16,6 +16,6 @@ adminRouter.post("/handle-verify-request",authMiddleware,handleVerifyRequest);
 adminRouter.post("/change-subscription-status",authMiddleware,adminChangeSubscriptionStatus);
 adminRouter.post("/change-verification-status",authMiddleware,adminChangeVerificationStatus);
 adminRouter.delete("/remove-profile",authMiddleware,removeProfile);
-
+adminRouter.post("/change-enquery-status",authMiddleware,changeEnqueryStatus);
 
 export default adminRouter;

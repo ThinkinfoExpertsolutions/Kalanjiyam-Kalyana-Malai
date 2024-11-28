@@ -33,7 +33,8 @@ const adminSchema =  mongoose.Schema({
       phone:String,
       subject:String,
       details:String,
-      time: Date 
+      time: Date ,
+      isSolved:String
     }
   ],
   requestList: {

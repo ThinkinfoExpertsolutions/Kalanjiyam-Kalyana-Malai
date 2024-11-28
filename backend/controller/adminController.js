@@ -502,3 +502,50 @@ export const removeProfile = async(req,res)=>{
 
 
 }
+
+
+export const changeEnqueryStatus = async (req, res) => {
+  const userId = req.id; // Assuming this is coming from authenticated user data
+  const { isSolved } = req.body;
+
+  // Validate if the request body has the expected data
+  if (typeof isSolved !== 'boolean') {
+      return res.json({ success: false, message: "Invalid 'isSolved' status. It should be a boolean." });
+  }
+
+  try {
+      // Fetch the user profile
+      const user = await profilesModel.findOne({ user_id: userId });
+
+      // Check if the user exists
+      if (!user) {
+          return res.json({ success: false, message: "User does not exist" });
+      }
+
+      // Fetch the admin record (this can be dynamic, based on the logged-in admin)
+      const admin = await adminModel.findById("6728727049b63d85da15a516");
+
+      // Ensure that the admin exists
+      if (!admin) {
+          return res.json({ success: false, message: "Admin not found" });
+      }
+
+      // Update the admin's inquiry status
+      
+      admin.isSolved = isSolved ? 'Solved' : 'Pending'; // Example of how you might want to handle this
+
+      // Save the admin status
+      await admin.save();
+
+
+      // Send success response
+      return res.json({ success: true, message: "Inquiry marked as " + (isSolved ? "Solved" : "Pending") });
+
+  } catch (error) {
+      console.log(error.message);
+      return res.json({ success: false, message: "An error occurred", error: error.message });
+  }
+};
+
+
+
