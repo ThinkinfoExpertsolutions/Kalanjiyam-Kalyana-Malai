@@ -1,116 +1,43 @@
+const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
+
+
+let = enquirys=[];
+const issolvedPage = window.location.pathname.endsWith("admin-solved-enquiry.html");
+const isPendingPage = window.location.pathname.endsWith("admin-pending-enquiry.html");
 document.addEventListener("DOMContentLoaded", async () => {
     const data = await fetchData();
 
     if (data) {
         console.log(data);
-        enquirys = data.adminData.enquirys;
-        updateEnquiryTable(data.adminData.enquirys);
+        let Allenquirys = data.adminData.enquirys;
+
+        if (issolvedPage) {
+            enquirys = Allenquirys.filter(enquiry=>{
+                return enquiry.isSolved==="Solved";
+            });
+            document.getElementById("accepted-header").classList.add("active");
+
+        } else if (isPendingPage) {
+            enquirys = Allenquirys.filter(enquiry=>{
+                return enquiry.isSolved==="Pending";
+            });
+            document.getElementById("denied-header").classList.add("active");
+
+        } else {
+            enquirys = Allenquirys
+            document.getElementById("verification-header").classList.add("active");
+
+
+        }
+
+
+        updateEnquiryTable(enquirys);
     }
 });
 
-function openPopupProfile(index) {
-    const enqueryProfile = enquirys[index];
-
-    if (!enqueryProfile) {
-        console.error("Profile not found");
-        return;
-    }
-
-    const popup = document.getElementById('popup');
-    
-    if (!popup) {
-        console.error("Popup element not found in the DOM.");
-        return;
-    }
-
-    popup.style.display = 'flex'; // Show the popup
-
-    // Select DOM elements for profile data
-    const profileName = document.getElementById("profileName");
-    const profileId = document.getElementById("profileId");
-    const profileEmail = document.getElementById("profileEmail");
-    const profileContact = document.getElementById("profileContact");
-    const profileLocation = document.getElementById("profileLocation");
-    const enquirySubject = document.getElementById("profileSubject");
-    const enquiryDetails = document.getElementById("profileDetails");
-    const profileImage = document.getElementById("profilePicture");
-
-    if (
-        !profileName ||
-        !profileId ||
-        !profileEmail ||
-        !profileContact ||
-        !profileLocation ||
-        !enquirySubject ||
-        !enquiryDetails ||
-        !profileImage
-    ) {
-        console.error("One or more profile elements are missing in the DOM.");
-        return;
-    }
-   console.log({
-    profileName ,
-        profileId ,
-        profileEmail ,
-        profileContact ,
-        profileLocation ,
-        enquirySubject ,
-        enquiryDetails ,
-        profileImage
-   })
-    // Update profile data in the popup
-    profileName.textContent = enqueryProfile.name || "N/A";
-    profileId.textContent = `ID: ${enqueryProfile.profileID || "N/A"}`;
-    profileEmail.textContent = `Email: ${enqueryProfile.email || "N/A"}`;
-    profileContact.textContent = `Contact: ${enqueryProfile.phone || "N/A"}`;
-    profileLocation.textContent = `Location: ${enqueryProfile.location || "N/A"}`;
-    enquirySubject.textContent = `Subject: ${enqueryProfile.subject || "N/A"}`;
-    enquiryDetails.textContent = enqueryProfile.details || "No details provided";
-    profileImage.src = enqueryProfile.image || defaultProfileImage;
-}
-
-function closePopupProfile() {
-    const popup = document.getElementById('popup');
-    
-    if (!popup) {
-        console.error("Popup element not found in the DOM.");
-        return;
-    }
-
-    popup.style.display = 'none'; // Hide the popup
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function updateEnquiryTable(profileDetails) {
     const tableBody = document.querySelector(".table tbody"); // Select the table body
-    
+
     if (profileDetails.length === 0) {
         tableBody.innerHTML = `
             <tr>
@@ -124,12 +51,6 @@ function updateEnquiryTable(profileDetails) {
 
     // Clear the existing rows in the table
     tableBody.innerHTML = '';
-
-    // Check if there are any profiles
-    if (profileDetails.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="9" style="text-align: center;">No enquiries available</td></tr>`;
-        return;
-    }
 
     // Loop through each profile and create table rows
     profileDetails.forEach((profile, index) => {
@@ -156,12 +77,20 @@ function updateEnquiryTable(profileDetails) {
             <td>${profile.subject || 'No subject provided'}</td>
             <td>
                 <div class="dropdown">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown"">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
                         <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#" onclick="deleteEnquiry(${index})">Delete</a>
-                        <a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">View</a>
+                    ${issolvedPage ?`
+                        <a class="dropdown-item" href="#" onclick="handleEnquiryStatus(${index},false)">Mark as Pending</a>
+                        `:isPendingPage?`
+                        <a class="dropdown-item" href="#" onclick="handleEnquiryStatus(${index},true)">Mark as Solved</a>
+                        `:
+                       ` <a class="dropdown-item" href="#" onclick="handleEnquiryStatus(${index},false)">Mark as Pending</a>
+                        <a class="dropdown-item" href="#" onclick="handleEnquiryStatus(${index},true)">Mark as Solved</a>`
+                    }
+                    <a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">View</a>
+                       
                     </div>
                 </div>
             </td>
@@ -173,6 +102,118 @@ function updateEnquiryTable(profileDetails) {
 }
 
 
+async function handleEnquiryStatus(index,isSolved){
+        
+    const enqueryProfile = enquirys[index];
+
+    const token = sessionStorage.getItem("token");
+
+   const userId = enqueryProfile.userId;
+   const enqueryID = enqueryProfile._id;
+
+    if (!enqueryProfile) {
+        console.error("Profile not found.");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:5000/api/admin/change-enquery-status", {
+            method: "POST",
+            headers: { token ,
+                 "Content-Type": "application/json"
+            },
+            body:JSON.stringify({
+                isSolved,userId,enqueryID
+            })
+        });
+
+        const data= await response.json();
+
+        if(data.success){
+            alert(data.message);
+            location.reload();
+        }else{
+            alert(data.message);
+        }
+
+    } catch (error) {
+        console.error("Network or server error:", error);
+        alert("An error occurred, please try again later.");
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function openPopupProfile(index) {
+    const popup = document.getElementById('popup');
+    console.log(popup);
+
+    if (!popup || !(popup instanceof HTMLElement)) {
+        console.error("Popup element is not valid.");
+        return;
+    }
+
+    const enqueryProfile = enquirys[index];
+    if (!enqueryProfile) {
+        console.error("Profile not found.");
+        return;
+    }
+
+    popup.style.display = "flex"; // Show the popup
+
+    // Select and update the DOM elements
+    const profileName = document.getElementById("profileName");
+    const profileId = document.getElementById("profileId");
+    const profileEmail = document.getElementById("profileEmail");
+    const profileContact = document.getElementById("profileContact");
+    const profileLocation = document.getElementById("profileLocation");
+    const enquirySubject = document.getElementById("profileSubject");
+    const enquiryDetails = document.getElementById("profileDetails");
+    const profileImage = document.getElementById("profilePicture");
+
+    if (
+        !profileName ||
+        !profileId ||
+        !profileEmail ||
+        !profileContact ||
+        !profileLocation ||
+        !enquirySubject ||
+        !enquiryDetails ||
+        !profileImage
+    ) {
+        console.error({
+            profileName ,
+        profileId,
+        profileEmail ,
+        profileContact ,
+        profileLocation ,
+        enquirySubject ,
+        enquiryDetails ,
+        profileImage
+        });
+        return;
+    }
+
+    // Update profile data
+    profileName.textContent = enqueryProfile.name || "N/A";
+    profileId.textContent = `ID: ${enqueryProfile.profileID || "N/A"}`;
+    profileEmail.textContent = `Email: ${enqueryProfile.email || "N/A"}`;
+    profileContact.textContent = `Contact: ${enqueryProfile.phone || "N/A"}`;
+    profileLocation.textContent = `Location: ${enqueryProfile.location || "N/A"}`;
+    enquirySubject.textContent = `Subject: ${enqueryProfile.subject || "N/A"}`;
+    enquiryDetails.textContent = enqueryProfile.details || "No details provided";
+    profileImage.src = enqueryProfile.image || defaultProfileImage;
+}
 
 
 async function fetchData() {
@@ -204,3 +245,6 @@ async function fetchData() {
         alert("An error occurred, please try again later.");
     }
 }
+
+
+

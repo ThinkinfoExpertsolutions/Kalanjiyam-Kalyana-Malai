@@ -713,7 +713,7 @@ export const verifyAccount = async (req, res) => {
 export const sendEnquiry = async (req, res) => {
 
   const userId = req.id;
-  const { name, email, phone, subject, details, profileID } = req.body;
+  const { name, email, phone, subject, details, profileId } = req.body;
 
   try {
     const user = await profilesModel.findOne({ user_id: userId });
@@ -733,14 +733,15 @@ export const sendEnquiry = async (req, res) => {
     admin.enquirys.push({
       userId: userId,
       name:name,
-      profileID:profileID,
+      profileID:profileId,
       email:email,
       phone:phone,
       location:user.basicInfo.district,
       image:user.media.profileImage,
       subject:subject,
       details:details,
-      time:new Date()
+      time:new Date(),
+      isSolved:""
     })
 
     const data = await admin.save();

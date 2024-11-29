@@ -504,48 +504,59 @@ export const removeProfile = async(req,res)=>{
 }
 
 
+import mongoose from 'mongoose'; // Import to handle ObjectId
+
 export const changeEnqueryStatus = async (req, res) => {
-  const userId = req.id; // Assuming this is coming from authenticated user data
-  const { isSolved } = req.body;
+    const { isSolved, userId, enqueryID } = req.body;
 
-  // Validate if the request body has the expected data
-  if (typeof isSolved !== 'boolean') {
-      return res.json({ success: false, message: "Invalid 'isSolved' status. It should be a boolean." });
-  }
+    console.log({ isSolved, userId, enqueryID });
 
-  try {
-      // Fetch the user profile
-      const user = await profilesModel.findOne({ user_id: userId });
+    // Parse and validate `isSolved`
+    const parsedIsSolved = isSolved === 'true' || isSolved === true;
 
-      // Check if the user exists
-      if (!user) {
-          return res.json({ success: false, message: "User does not exist" });
-      }
+    if (typeof parsedIsSolved !== 'boolean') {
+        return res.json({ success: false, message: "Invalid 'isSolved' status. It should be a boolean." });
+    }
 
-      // Fetch the admin record (this can be dynamic, based on the logged-in admin)
-      const admin = await adminModel.findById("6728727049b63d85da15a516");
+    try {
+        // Fetch the user profile
+        const user = await profilesModel.findOne({ user_id: userId });
 
-      // Ensure that the admin exists
-      if (!admin) {
-          return res.json({ success: false, message: "Admin not found" });
-      }
+        if (!user) {
+            return res.json({ success: false, message: "User does not exist" });
+        }
 
-      // Update the admin's inquiry status
-      
-      admin.isSolved = isSolved ? 'Solved' : 'Pending'; // Example of how you might want to handle this
+        // Fetch the admin record (static admin ID for now, replace with dynamic if needed)
+        const admin = await adminModel.findById("6728727049b63d85da15a516");
 
-      // Save the admin status
-      await admin.save();
+        if (!admin) {
+            return res.json({ success: false, message: "Admin not found" });
+        }
 
+        // Find the enquiry by its ID in the admin's enquirys array
+        const enqueryToUpdate = admin.enquirys.id(enqueryID);
 
-      // Send success response
-      return res.json({ success: true, message: "Inquiry marked as " + (isSolved ? "Solved" : "Pending") });
+        if (!enqueryToUpdate) {
+            return res.json({ success: false, message: "Enquiry not found" });
+        }
 
-  } catch (error) {
-      console.log(error.message);
-      return res.json({ success: false, message: "An error occurred", error: error.message });
-  }
+        // Update the isSolved status
+        enqueryToUpdate.isSolved = parsedIsSolved ? 'Solved' : 'Pending';
+
+        // Save the admin's updated record
+        await admin.save();
+
+        return res.json({
+            success: true,
+            message: `Inquiry marked as ${parsedIsSolved ? "Solved" : "Pending"}`
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.json({ success: false, message: "An error occurred", error: error.message });
+    }
 };
+
 
 
 
