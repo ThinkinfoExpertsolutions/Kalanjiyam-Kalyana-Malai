@@ -736,6 +736,8 @@ export const sendEnquiry = async (req, res) => {
       profileID:profileID,
       email:email,
       phone:phone,
+      location:user.basicInfo.district,
+      image:user.media.profileImage,
       subject:subject,
       details:details,
       time:new Date()

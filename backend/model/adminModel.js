@@ -34,7 +34,9 @@ const adminSchema =  mongoose.Schema({
       subject:String,
       details:String,
       time: Date ,
-      isSolved:String
+      isSolved:String,
+      location:String,
+      image:String
     }
   ],
   requestList: {
