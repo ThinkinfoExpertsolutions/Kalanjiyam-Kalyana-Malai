@@ -1,79 +1,104 @@
 let percentage;
 
-const Data = sessionStorage.getItem("userData");
-const userData = JSON.parse(Data);
+
 
 const token = sessionStorage.getItem("token");
 
 const defaultImageUrl = "https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg";
 
 
-if(window.location.pathname.endsWith("user-profile-edit.html")){
-    
-        // Retrieve values from the form
-        document.getElementById('name').value = userData.basicInfo.name ? userData.basicInfo.name : '';
-        document.getElementById('fatherName').value = userData.basicInfo.fatherName ? userData.basicInfo.fatherName : '';
-        document.getElementById('motherName').value = userData.basicInfo.motherName ? userData.basicInfo.motherName : '';
-        document.getElementById('familyName').value = userData.basicInfo.familyName ? userData.basicInfo.familyName : '';
-        document.getElementById('dateOfBirth').value = userData.basicInfo.dateOfBirth ? userData.basicInfo.dateOfBirth.split("T")[0] : '';
-        document.getElementById('gender').value = userData.basicInfo.gender ? userData.basicInfo.gender : '';
-        document.getElementById('religion').value = userData.basicInfo.religion ? userData.basicInfo.religion : '';
-        document.getElementById('zodiac').value = userData.basicInfo.zodiac ? userData.basicInfo.zodiac : '';
-        document.getElementById('zodiac').value = userData.basicInfo.zodiac ? userData.basicInfo.zodiac : '';
-        document.getElementById('natchathiram').value = userData.basicInfo.natchathiram ? userData.basicInfo.natchathiram : '';
-        document.getElementById('district').value = userData.basicInfo.district ? userData.basicInfo.district : '';
-        document.getElementById('phone').value = userData.contactInfo.phone ? userData.contactInfo.phone : '';
-        document.getElementById('email').value = userData.contactInfo.email ? userData.contactInfo.email : '';
-        document.getElementById('address').value = userData.contactInfo.address ? userData.contactInfo.address : '';
-        
-        document.getElementById('weight').value = userData.personalDetails?.weight ? userData.personalDetails.weight : '';
-        document.getElementById('height').value = userData.personalDetails?.height ? userData.personalDetails.height : '';
-        document.getElementById('age').value = userData.personalDetails?.age ? userData.personalDetails.age : '';
-        document.getElementById('about').value = userData.personalDetails?.about ? userData.personalDetails.about : '';
-        document.getElementById('hobbies').value = userData.personalDetails?.hobbies ? userData.personalDetails.hobbies : '';
-        document.getElementById('familyType').value = userData.personalDetails?.familyType ? userData.personalDetails.familyType : '';
-        document.getElementById('martialStatus').value = userData.personalDetails?.martialStatus ? userData.personalDetails.martialStatus : '';
-        
-        document.getElementById('jobType').value = userData.jobDetails?.jobType ? userData.jobDetails.jobType : '';
-        document.getElementById('companyName').value = userData.jobDetails?.companyName ? userData.jobDetails.companyName : '';
-        document.getElementById('salary').value = userData.jobDetails?.salary ? userData.jobDetails.salary : '';
-        document.getElementById('position').value = userData.jobDetails?.position ? userData.jobDetails.position : '';
-        document.getElementById('workExperience').value = userData.jobDetails?.workExperience ? userData.jobDetails.workExperience : '';
-        document.getElementById('workingLocation').value = userData.jobDetails?.workingLocation ? userData.jobDetails.workingLocation : '';
-        
-        document.getElementById('degree').value = userData.education?.degree ? userData.education.degree : '';
-        document.getElementById('school').value = userData.education?.school ? userData.education.school : '';
-        document.getElementById('college').value = userData.education?.college ? userData.education.college : '';
-        if(userData.socialMedia){
+document.addEventListener("DOMContentLoaded",async()=>{
 
-            document.getElementById('whatsapp').value = userData.socialMedia[0] ? userData.socialMedia[0] : '';
-            document.getElementById('facebook').value = userData.socialMedia[1] ? userData.socialMedia[1] : '';
-            document.getElementById('instagram').value = userData.socialMedia[2] ? userData.socialMedia[2] : '';
-            document.getElementById('x').value = userData.socialMedia[3] ? userData.socialMedia[3] : '';
-        }
-        
-        document.getElementById('cast').value = userData.basicInfo.cast ? (userData.basicInfo.cast.includes("other") ? "other" : userData.basicInfo.cast) : '';
-        if (userData.basicInfo.cast && userData.basicInfo.cast.includes("other")) {
-            const otherCastInput = document.getElementById('otherCast');
-            otherCastInput.style.display = "block";
-            otherCastInput.value = userData.basicInfo.cast.split("-")[1] ? userData.basicInfo.cast.split("-")[1] : '';
-        }
-        
-// Update profile image
-updateImage("profilePhoto", userData.media.profileImage);
 
-// Update horoscope image
-updateImage("horoscopePhoto", userData.media.horoscopeImage);
 
-// Update gallery images
-updateImage("image1", userData.media.galleryImages[0]);
-updateImage("image2", userData.media.galleryImages[1]);
-updateImage("image3", userData.media.galleryImages[2]);
+if (window.location.pathname.endsWith("admin-add-new-user.html")) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const profileID = urlParams.get("id");
+    if (!profileID) return;
 
-const element = getAllElementsById();
-calculatePercentage(element);
+    const userData = await getProfileData(profileID);
+    if (!userData || !userData.basicInfo) {
+        showErrorToast("Invalid user data. Unable to populate the form.");
+        return;
+    }
 
+    // Populate basic information
+    const basicInfo = userData.basicInfo || {};
+    document.getElementById('name').value = basicInfo.name || '';
+    document.getElementById('fatherName').value = basicInfo.fatherName || '';
+    document.getElementById('motherName').value = basicInfo.motherName || '';
+    document.getElementById('familyName').value = basicInfo.familyName || '';
+    document.getElementById('dateOfBirth').value = basicInfo.dateOfBirth?.split("T")[0] || '';
+    document.getElementById('gender').value = basicInfo.gender || '';
+    document.getElementById('religion').value = basicInfo.religion || '';
+    document.getElementById('zodiac').value = basicInfo.zodiac || '';
+    document.getElementById('natchathiram').value = basicInfo.natchathiram || '';
+    document.getElementById('district').value = basicInfo.district || '';
+
+    // Populate contact information
+    const contactInfo = userData.contactInfo || {};
+    document.getElementById('phone').value = contactInfo.phone || '';
+    document.getElementById('email').value = contactInfo.email || '';
+    document.getElementById('address').value = contactInfo.address || '';
+
+    // Populate personal details
+    const personalDetails = userData.personalDetails || {};
+    document.getElementById('weight').value = personalDetails.weight || '';
+    document.getElementById('height').value = personalDetails.height || '';
+    document.getElementById('age').value = personalDetails.age || '';
+    document.getElementById('about').value = personalDetails.about || '';
+    document.getElementById('hobbies').value = personalDetails.hobbies || '';
+    document.getElementById('familyType').value = personalDetails.familyType || '';
+    document.getElementById('martialStatus').value = personalDetails.martialStatus || '';
+
+    // Populate job details
+    const jobDetails = userData.jobDetails || {};
+    document.getElementById('jobType').value = jobDetails.jobType || '';
+    document.getElementById('companyName').value = jobDetails.companyName || '';
+    document.getElementById('salary').value = jobDetails.salary || '';
+    document.getElementById('position').value = jobDetails.position || '';
+    document.getElementById('workExperience').value = jobDetails.workExperience || '';
+    document.getElementById('workingLocation').value = jobDetails.workingLocation || '';
+
+    // Populate education details
+    const education = userData.education || {};
+    document.getElementById('degree').value = education.degree || '';
+    document.getElementById('school').value = education.school || '';
+    document.getElementById('college').value = education.college || '';
+
+    // Populate social media
+    const socialMedia = userData.socialMedia || [];
+    document.getElementById('whatsapp').value = socialMedia[0] || '';
+    document.getElementById('facebook').value = socialMedia[1] || '';
+    document.getElementById('instagram').value = socialMedia[2] || '';
+    document.getElementById('x').value = socialMedia[3] || '';
+
+    // Handle cast and other cast field
+    const cast = basicInfo.cast || '';
+    const otherCastInput = document.getElementById('otherCast');
+    document.getElementById('cast').value = cast.includes("other") ? "other" : cast;
+    if (cast.includes("other")) {
+        otherCastInput.style.display = "block";
+        otherCastInput.value = cast.split("-")[1] || '';
+    } else {
+        otherCastInput.style.display = "none";
+        otherCastInput.value = '';
+    }
+
+    // Update images
+    const media = userData.media || {};
+    updateImage("profilePhoto", media.profileImage || '');
+    updateImage("horoscopePhoto", media.horoscopeImage || '');
+    const galleryImages = media.galleryImages || [];
+    updateImage("image1", galleryImages[0] || '');
+    updateImage("image2", galleryImages[1] || '');
+    updateImage("image3", galleryImages[2] || '');
+
+    // Update completion percentage
+    const element = getAllElementsById();
+    calculatePercentage(element);
 }
+});
 
 function updateImage(elementId, imageUrl) {
     const imageElement = document.getElementById(elementId);
@@ -171,12 +196,13 @@ document.getElementById('profileForm').addEventListener('submit',async function(
     let response1=false;
     let response2=false;
 
+    
     try {
-        showLoader()
+        
        
 
-        const dataResponse = await fetch("http://localhost:5000/api/edit-profile", {
-            method: "PATCH",
+        const dataResponse = await fetch("http://localhost:5000/api/admin/add-new-profile", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 token: token, // Token header for authentication
@@ -186,13 +212,16 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         const data = await dataResponse.json();
         if(data.success){
             response1=true;
+            formData.append("userId",data.userId);
+        }else{
+            return;
         }
         
      // Check if any images were added to formData
 
      
 if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.has("galleryImages")) {
-    const imageResponse = await fetch("http://localhost:5000/api/user/upload-images", {
+    const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
         method: "POST",
         headers: {
             token: token, // Token header for authentication
@@ -205,7 +234,7 @@ if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.h
         response2 = true;
     }
 }
-        hideLoader()
+       
 
         if( response1 && response2){
             showSuccessToast("Profile Information And Image Updated Successfully!");
@@ -326,42 +355,33 @@ function calculatePercentage(elements) {
 }
 
 
+async function getProfileData (profileID){
+    try {
+        
+        const response = await fetch(`http://localhost:5000/api/get-profile-data/${profileID}`, {
+            method: "GET",
+            headers: {
+                token: token, // Token header for authentication
+            },
+            
+        });
+       
+        const data = await response.json();
+        if(data.success){
+            const userData = data.data;
+            return userData;
+        }else{
+            console.error("Error occurred:",data.error );
+           
+        }
 
-function showLoader() {
-    const loader = document.getElementById("loader");
-    if(!loader){
-     return;
-    };
-    loader.style.display = "flex";
- }
- 
- function hideLoader() {
-     const loader = document.getElementById("loader");
-     if(!loader){
-      return;
-     };
-     loader.style.display = "none";
- }
+    } catch (error) {
+        console.error("Error occurred:", error);
+        
+    }
+}
 
- function showSuccessToast(msg) {
-    Toastify({
-      text: msg,
-      duration: 3000,
-      gravity: "top",
-      position: "right",
-      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-      close: true,
-    }).showToast();
-  }
-  
-  function showErrorToast(msg) {
-    Toastify({
-      text: msg,
-      duration: 3000,
-      gravity: "top",
-      position: "right",
-      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
-      close: true,
-    }).showToast();
-  }
-  
+
+
+
+

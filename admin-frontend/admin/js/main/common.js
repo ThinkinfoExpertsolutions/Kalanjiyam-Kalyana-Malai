@@ -130,7 +130,7 @@ function updateProfiles(profiles) {
                         <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item" href="admin-add-new-user.html?id=${profile.profileID}">Edit</a></li>
                         <li><a class="dropdown-item" href="#">Delete</a></li>
                         <li><a class="dropdown-item" href="#" onclick="openPopup(${index})">Subscription Details</a></li>
                         <li><a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">Profile Verification</a></li>

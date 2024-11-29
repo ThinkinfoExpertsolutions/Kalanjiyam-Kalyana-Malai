@@ -828,15 +828,21 @@ const checkUserFound = async (id, model) => {
 
 export const uploadImage = async (req, res) => {
   const { files } = req;
-  const userId = req.id;
+  const {userId} = req.body;
   
   try {
+    
+    if (!userId) {
+      return res.status(400).json({ success: false, message: "User ID is required" });
+    }
+
     const profile = await profilesModel.findOne({ user_id: userId });
 
     if (!profile) {
       return res.status(400).json({ success: false, message: 'Profile/User Not Found' });
     }
 
+  
     if (!files || Object.keys(files).length === 0) {
       return res.status(400).json({ success: false, message: 'No file uploaded' });
     }

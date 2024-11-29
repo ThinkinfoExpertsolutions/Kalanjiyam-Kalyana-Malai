@@ -139,88 +139,87 @@ export const updateSocialMediaLinks = async (req, res) => {
 
 export const addNewProfile = async(req,res)=>{
 
-    const {
-        name,
-        familyName,
-        dateOfBirth,
-        gender,
-        age,
-        zodiac,
-        natchathiram,
-        district,
-        workExperience,
-        HoroscopeImage,
-        religion,
-        cast,
-        fatherName,
-        motherName,
-        weight,
-        height,
-        about,
-        email,
-        hobbies,
-        phone,
-        address,
-        profileImage,
-        galleryImages,
-        companyName,
-        position,
-        salary,
-        workLocation,
-        jobType,
-        school,
-        college,
-        degree,
-        socialMedia,
-      } = req.body;
+  const {
+    name,
+    familyName,
+    dateOfBirth,
+    gender,
+    age,
+    zodiac,
+    religion,
+    natchathiram,
+    district,
+    cast,
+    familyType,
+    martialStatus,
+    fatherName,
+    motherName,
+    weight,
+    height,
+    about,
+    email,
+    hobbies,
+    phone,
+    address,
+    companyName,
+    position,
+    salary,
+    workingLocation,
+    workExperience,
+    jobType,
+    school,
+    college,
+    degree,
+    socialMedia,
+    profileCompletion
+  } = req.body;
+
 
       try {
         
           const newProfileData = profilesModel({
-              basicInfo: {
-                  name,
-                  familyName,
-                  dateOfBirth,
-                  gender,
-                  religion,
-          cast,
-          zodiac,
-          natchathiram,
-          district,
-          fatherName,
-          motherName,
-        },
-        personalDetails: {
-          weight,
-          height,
-          age,
-          about,
-          hobbies,
-        },
-        contactInfo: {
-            phone,
-          email,
-          address,
-        },
-        media: {
-            profileImage,
-            galleryImages,
-            HoroscopeImage,
-        },
-        jobDetails: {
-          companyName,
-          position,
-          salary,
-          workingLocation: workLocation, 
-          workExperience,
-          jobType,
-        },
-        education: {
-            school,
-            college,
-            degree,
-        },
-        socialMedia:socialMedia,
+            basicInfo: {
+              name,
+              familyName,
+              dateOfBirth,
+              gender,
+              religion,
+              cast,
+              natchathiram,
+              district,
+              zodiac,
+              fatherName,
+              motherName,
+            },
+            personalDetails: {
+              weight,
+              height,
+              age,
+              about,
+              hobbies,
+              martialStatus,
+              familyType
+            },
+            contactInfo: {
+              phone,
+              email,
+              address,
+            },
+            jobDetails: {
+              companyName,
+              position,
+              salary,
+              workingLocation,
+              workExperience,
+              jobType,
+            },
+            education: {
+              school,
+              college,
+              degree,
+            },
+            socialMedia:socialMedia,
+            profileCompletion:profileCompletion
     });
 
     const newSubscriptionDataSave = async(id,userName)=>{
@@ -234,12 +233,12 @@ export const addNewProfile = async(req,res)=>{
 
     const newProfile = await newProfileData.save();
     newProfile.user_id = newProfile._id;
-    newSubscriptionDataSave(newProfile._id,user.basicInfo.name);
+    newSubscriptionDataSave(newProfile._id,newProfile.basicInfo.name);
     newProfile.profileID = createUniqueUserId(newProfile._id);
     newProfile.save();
   
     if(newProfile){
-        return res.json({success:true,message:"Profile Added !",id:{p:newProfile.profileID,i:newProfile.user_id}});
+        return res.json({success:true,message:"Profile Added !",userId:newProfile.user_id});
     }
     
     return res.json({success:false,message:"Profile could't add !"});
