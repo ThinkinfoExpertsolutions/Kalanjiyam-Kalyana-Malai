@@ -111,16 +111,16 @@
               <div class="col-md-3">
                 <div class="box-com box-qui box-drk grn-box">
                   <h4>New Users</h4>
-                  <h2>User requests</h2>
-                  <span class="bnum">69</span>
-                  <p>This count for today how many users can register.</p>
+                  <h2>User Verify requests</h2>
+                  <span class="bnum" id="requestCount">69</span>
+                  <p>This count for  how many users can send verify request.</p>
                   <a href="admin-new-user-requests.html" class="fclick"></a>
                 </div>
                 <div class="box-com box-qui box-lig ali-cen">
                   <h3>
                     <span>All</span> Members
                   </h3>
-                  <span class="bnum">6900</span>
+                  <span class="bnum" id="membersCount">6900</span>
                   <canvas id="Chart_users"></canvas>
                   
                 </div>
@@ -128,9 +128,10 @@
               </div>
               <div class="col-md-3">
                 <div class="box-com box-qui box-lig box-new-user">
-                  <h2>New Registrants</h2>
-                  <span class="bnum">38</span>
-                  <div class="users-cir-thum-hori">
+                  <h2>Total Profiles</h2>
+                  <a href="admin-all-users.html" class="fclick"></a>
+                  <span class="bnum" id="profileCount"></span>
+                  <div class="users-cir-thum-hori" id="profileIcons">
                     <span>
                       <img src="../images/profiles/1.jpg" data-bs-toggle="tooltip" title="Hooray!">
                     </span>
@@ -161,8 +162,8 @@
                   <h3>
                     <span>Total</span> Earnings
                   </h3>
-                  <span class="bnum">
-                    <sub>$</sub>10,069 </span>
+                  <span class="bnum" id="totalEarnings">
+                    <sub>₹</sub> </span>
                   <canvas id="Chart_earni"></canvas>
                 </div>
                 
@@ -172,7 +173,7 @@
                   <h3>
                     <span>Monthly</span> Earnings
                   </h3>
-                  <span class="bnum">
+                  <span class="bnum" id="MonthlyEarnings">
                     <sub>$</sub>10,069 </span>
                   <canvas id="Chart_earni_rece"></canvas>
                 </div>
@@ -181,324 +182,16 @@
             </div>
             <div class="row">
               <div class="col-md-6 " >
-                <div class="box-com box-qui box-lig box-tab" style="max-height:100%;">
-                  <div class="tit">
-                    <h3>Recent members</h3>
-                    <p>Recently joined members</p>
-                  </div>
+                <div class="tit">
+                  <h3>Recent members</h3>
+                  <p>Recently joined members</p>
+                </div>
+                <div class="box-com box-qui box-lig box-tab" style="max-height:100%;padding: 0;" id="membersContainer">
 
                         <!-- ------------------------- -->
                          <!-- card -1  -->
-                        <section>
-                          <div style="display:flex; flex-direction:column; align-items:center; max-width:600px; width:100%; padding:16px; border-radius:12px; background:#fff; box-shadow:0 4px 12px rgba(0, 0, 0, 0.1);">
-                            <!-- Card Header -->
                          
-                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                              <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                  <img src="../images/profiles/3.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                </div>
-                                <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                  <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                  <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                  <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                </div>
-                              </div>
-                            
-                              <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                <span style="font-size: 16px;">📅</span> 
-                                <span style="font-weight: 600; color: rgb(0, 2, 3); background-color: #ffffff; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                  22, Feb 2024
-                                </span>
-                                
-                              </div>
-                            </div>
-                            
-                            
-                            
-                            <!-- Card Footer -->
-                            <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-
-                               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📞</span> Phone: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">✉️</span> Email: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                </p>
-                              </div>
-                              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📍</span> Location: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                  <span style="margin-right: 10px;">💼</span> Job: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                </p>
-                              </div>
-            
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                            </div>
-                          </div>
-                        </section>
                         <!-- --------------- -->
-
-                          <!-- card -2  -->
-                          <section style="margin-top:20px">
-                            <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                              <!-- Card Header -->
-                              <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                                <div style="display: flex; align-items: center; gap: 12px;">
-                                  <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                    <img src="../images/profiles/4.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                  </div>
-                                  <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                    <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                    <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                    <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                  </div>
-                                </div>
-                              
-                                <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                  <span style="font-size: 16px;">📅</span> 
-                                  <span style="font-weight: 600; color: rgb(0, 2, 3); background-color: #ffffff; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                    22, Feb 2024
-                                  </span>
-                                  
-                                </div>
-                              </div>
-                              
-                              
-                              
-                              <!-- Card Footer -->
-                              <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-  
-                                 <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                  <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                    <span style="margin-right: 8px;">📞</span> Phone: 
-                                    <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                  </p>
-                                  <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                    <span style="margin-right: 8px;">✉️</span> Email: 
-                                    <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                  </p>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                  <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                    <span style="margin-right: 8px;">📍</span> Location: 
-                                    <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                  </p>
-                                  <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                    <span style="margin-right: 10px;">💼</span> Job: 
-                                    <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                  </p>
-                                </div>
-              
-                              </div>
-                              
-                              <!-- Actions -->
-                              <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                                <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                                <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                              </div>
-                            </div>
-                          </section>
-                       <!-- end of card 2  -->
-
-                       <!-- start profile card -3 -->
-                       <section style="margin-top:20px">
-                        <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                          <!-- Card Header -->
-                          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                              <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                <img src="../images/profiles/14.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                              </div>
-                              <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                              </div>
-                            </div>
-                          
-                            <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                              <span style="font-size: 16px;">📅</span> 
-                              <span style="font-weight: 600; color: rgb(0, 2, 3); background-color: #ffffff; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                22, Feb 2024
-                              </span>
-                              
-                            </div>
-                          </div>
-                          
-                          
-                          
-                          <!-- Card Footer -->
-                          <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-
-                             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                              <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                <span style="margin-right: 8px;">📞</span> Phone: 
-                                <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                              </p>
-                              <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                <span style="margin-right: 8px;">✉️</span> Email: 
-                                <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                              </p>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                              <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                <span style="margin-right: 8px;">📍</span> Location: 
-                                <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                              </p>
-                              <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                <span style="margin-right: 10px;">💼</span> Job: 
-                                <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                              </p>
-                            </div>
-          
-                          </div>
-                          
-                          <!-- Actions -->
-                          <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                            <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                            <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                          </div>
-                        </div>
-                      </section>
-                         <!-- ----------------------end of card profile 3 -->
-
-                         <!-- start of card profile -4  -->
-                         <section style="margin-top:20px">
-                          <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                            <!-- Card Header -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                              <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                  <img src="../images/profiles/13.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                </div>
-                                <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                  <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                  <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                  <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                </div>
-                              </div>
-                            
-                              <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                <span style="font-size: 16px;">📅</span> 
-                                <span style="font-weight: 600; color: rgb(0, 2, 3); background-color: #ffffff; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                  22, Feb 2024
-                                </span>
-                                
-                              </div>
-                            </div>
-                            
-                            
-                            
-                            <!-- Card Footer -->
-                            <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-
-                               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📞</span> Phone: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">✉️</span> Email: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                </p>
-                              </div>
-                              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📍</span> Location: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                  <span style="margin-right: 10px;">💼</span> Job: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                </p>
-                              </div>
-            
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                            </div>
-                          </div>
-                        </section>
-
-                        <!-- end of profile card -4-->
-                      
-                        <!-- start of profile card -5 -->
-                        <section style="margin-top:20px">
-                          <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                            <!-- Card Header -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                              <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                  <img src="../images/profiles/15.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                </div>
-                                <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                  <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                  <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                  <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                </div>
-                              </div>
-                            
-                              <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                <span style="font-size: 16px;">📅</span> 
-                                <span style="font-weight: 600; color: rgb(0, 2, 3); background-color: #ffffff; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                  22, Feb 2024
-                                </span>
-                                
-                              </div>
-                            </div>
-                            
-                            
-                            
-                            <!-- Card Footer -->
-                            <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :1px">
-
-                               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📞</span> Phone: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">✉️</span> Email: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                </p>
-                              </div>
-                              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📍</span> Location: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                  <span style="margin-right: 10px;">💼</span> Job: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                </p>
-                              </div>
-            
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                            </div>
-                          </div>
-                        </section>
-                        <!-- end of profile card -5 -->
 
                 </div>
               </div>
@@ -507,10 +200,11 @@
 
 
               <div class="col-md-6">
-                <div class="box-com box-qui box-lig box-tab" style="max-height:98%;">
-                  <div class="tit">
-                    <h3>Renewal Reminder</h3>
-                    <p>Below listed profils going to expairy soon.</p>
+                <div class="tit">
+                  <h3>Renewal Reminder</h3>
+                  <p>Below listed profils going to expairy soon.</p>
+                </div>
+                <div class="box-com box-qui box-lig box-tab" style="max-height:98%;" id="renewMembersContainer">
 
                        <!-- profile card 1 in renewal reminder -->
                        <section style="margin-top:15px">
@@ -574,256 +268,9 @@
                       </section>
                        <!-- end of profile card 1 in renewal reminder -->
                         
-                        <!-- profile card 2 in renewal reminder  -->
-                        <section style="margin-top:20px">
-                          <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                            <!-- Card Header -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                              <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                  <img src="../images/profiles/men1.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                </div>
-                                <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                  <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                  <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                  <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                </div>
-                              </div>
-                            
-                              <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                <span style="font-size: 16px;">📅</span> 
-                                <span style="font-weight: 600; color: red; background-color: #fff3f3; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                  22, Feb 2024
-                                </span>
-                                
-                              </div>
-                            </div>
-                            
-                            
-                            
-                            <!-- Card Footer -->
-                            <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-  
-                               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📞</span> Phone: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">✉️</span> Email: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                </p>
-                              </div>
-                              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📍</span> Location: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                  <span style="margin-right: 10px;">💼</span> Job: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                </p>
-                              </div>
-            
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                            </div>
-                          </div>
-                        </section>
-                        
-                        <!-- end of profile card 2 in  renewal reminder -->
+                    
+                       
 
-                        <!-- profile card 3 in renewal reminder -->
-                        <section style="margin-top:20px">
-                          <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                            <!-- Card Header -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                              <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                  <img src="../images/profiles/men2.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                </div>
-                                <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                  <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                  <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                  <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                </div>
-                              </div>
-                            
-                              <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                <span style="font-size: 16px;">📅</span> 
-                                <span style="font-weight: 600; color: red; background-color: #fff3f3; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                  22, Feb 2024
-                                </span>
-                                
-                              </div>
-                            </div>
-                            
-                            
-                            
-                            <!-- Card Footer -->
-                            <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-  
-                               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📞</span> Phone: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">✉️</span> Email: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                </p>
-                              </div>
-                              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📍</span> Location: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                  <span style="margin-right: 10px;">💼</span> Job: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                </p>
-                              </div>
-            
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                            </div>
-                          </div>
-                        </section>
-                        <!-- end of profile card 3 in renewal reminder -->
-
-                        <!-- profile card 4 in renewal reminder -->
-                        <section style="margin-top:20px">
-                          <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                            <!-- Card Header -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                              <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                  <img src="../images/profiles/men3.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                </div>
-                                <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                  <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                  <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                  <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                </div>
-                              </div>
-                            
-                              <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                <span style="font-size: 16px;">📅</span> 
-                                <span style="font-weight: 600; color: red; background-color: #fff3f3; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                  22, Feb 2024
-                                </span>
-                                
-                              </div>
-                            </div>
-                            
-                            
-                            
-                            <!-- Card Footer -->
-                            <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-  
-                               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📞</span> Phone: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">✉️</span> Email: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                </p>
-                              </div>
-                              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📍</span> Location: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                  <span style="margin-right: 10px;">💼</span> Job: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                </p>
-                              </div>
-            
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                            </div>
-                          </div>
-                        </section>
-                        <!-- endo of profile card 4 in renewal reminder -->
-
-                        <!-- profile card 5 in renewal reminder -->
-                        <section style="margin-top:20px">
-                          <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                            <!-- Card Header -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-                              <div style="display: flex; align-items: center; gap: 12px;">
-                                <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                                  <img src="../images/profiles/13.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-                                </div>
-                                <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                                  <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">John Doe</h3>
-                                  <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: 12345</p>
-                                  <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">30</span></p>
-                                </div>
-                              </div>
-                            
-                              <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                                <span style="font-size: 16px;">📅</span> 
-                                <span style="font-weight: 600; color: red; background-color: #fff3f3; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                                  22, Feb 2024
-                                </span>
-                                
-                              </div>
-                            </div>
-                            
-                            
-                            
-                            <!-- Card Footer -->
-                            <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px;margin-top :2px">
-  
-                               <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📞</span> Phone: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">01 321-998-91</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">✉️</span> Email: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">john.doe@example.com</span>
-                                </p>
-                              </div>
-                              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                                  <span style="margin-right: 8px;">📍</span> Location: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">New York</span>
-                                </p>
-                                <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                                  <span style="margin-right: 10px;">💼</span> Job: 
-                                  <span style="font-weight: 550; color: #222; margin-left: 4px;">Software Developer</span>
-                                </p>
-                              </div>
-            
-                            </div>
-                            
-                            <!-- Actions -->
-                            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #6617a7); border: none; border-radius: 20px; cursor: pointer;">More Details</button>
-                              <button style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</button>
-                            </div>
-                          </div>
-                        </section>
-                        <!-- end of profile card -5 in renewal reminder-->
-
-                </div>
               </div>
             </div>
           </div>
@@ -855,54 +302,17 @@
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/select-opt.js"></script>
-    <!-- <script src="js/chart.js"></script> -->
+    <script src="js/chart.js"></script>
     <script src="js/admin-custom.js"></script>
-    <script src="js/main/common.js"></script>
+    
+    <script src="js/main/dashBoard.js"></script>
     <script>
-      //ARNING CHART
-      var earningCanvas = document.getElementById("Chart_earni");
-      Chart.defaults.global.defaultFontSize = 14;
-      var earningsData = {
-        labels: ["Premium Plus", "Premium"],
-        datasets: [{
-          data: [50, 60],
-          backgroundColor: ["#8463FF", "#6384FF"]
-        }]
-      };
-      var pieChart = new Chart(earningCanvas, {
-        type: 'pie',
-        data: earningsData
-      });
+      //EARNING CHART
+    
       //USER CHART
-      var usersCanvas = document.getElementById("Chart_users");
-      var usersData = {
-        labels: ["Premium Plus", "Premium", "Free"],
-        datasets: [{
-          data: [40, 30, 30],
-          backgroundColor: ["#198754", "#ffc107", "#6c757d"]
-        }]
-      };
-      var pieChart = new Chart(usersCanvas, {
-        type: 'pie',
-        data: usersData
-      });
+      
       //USER CHART
-      var ctx = document.getElementById("Chart_earni_rece").getContext('2d');
-      var barChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-          datasets: [{
-            label: 'data-1',
-            data: [4000, 5000, 4550, 6005, 8550, 9008, 3220, 4880, 6550, 2500],
-            backgroundColor: "rgba(255,99,132,0.2)",
-            borderColor: "rgba(255,99,132,1)",
-            borderWidth: 2,
-            hoverBackgroundColor: "rgba(255,99,132,0.4)",
-            hoverBorderColor: "rgba(255,99,132,1)",
-          }]
-        }
-      });
+      
     </script>
   </body>
 
