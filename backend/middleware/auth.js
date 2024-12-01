@@ -25,6 +25,7 @@ const authMiddleware = async (req, res, next) => {
                             return res.status(403).json({ success: false, message: "Invalid token." });
                         }
                         req.id = adminUser.id;
+                        req.isAdmin = true;
                         return next();
                     });
                 } else {
@@ -33,6 +34,7 @@ const authMiddleware = async (req, res, next) => {
                 }
             }
             req.id = user.id;
+            req.isAdmin = false;
             next();
         });
     } catch (error) {

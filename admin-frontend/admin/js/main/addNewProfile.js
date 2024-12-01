@@ -135,9 +135,16 @@ document.getElementById('profileForm').addEventListener('submit',async function(
     event.preventDefault(); // Prevent the form from submitting
     const element = getAllElementsById();
     calculatePercentage(element);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let profileID = urlParams.get("id");
+ if(!profileID){
+    profileID = null;
+ }
     // Retrieve values from the form
     userInfoData = {
        
+        profileID:profileID,
         name: document.getElementById('name').value,
         fatherName: document.getElementById('fatherName').value,
         motherName: document.getElementById('motherName').value,
@@ -237,19 +244,19 @@ if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.h
        
 
         if( response1 && response2){
-            showSuccessToast("Profile Information And Image Updated Successfully!");
+            alert("Profile Information And Image Updated Successfully!");
         }else if(response1){
-            showSuccessToast("Profile Information Updated Successfully!");
+            alert("Profile Information Updated Successfully!");
         }else if(response2){
-            showSuccessToast("Profile Image Updated Successfully!");
+            alert("Profile Image Updated Successfully!");
         }else{
-            showErrorToast("error");
+            alert("error");
         }
 
 
     } catch (error) {
          console.error("Error occurred:", error);
-        showErrorToast("An error occurred. Please try again later.");
+        alert("An error occurred. Please try again later.");
     }
 });
 

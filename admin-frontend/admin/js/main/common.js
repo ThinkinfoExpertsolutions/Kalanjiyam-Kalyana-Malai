@@ -88,7 +88,7 @@ function updateProfiles(profiles) {
 
         const row = document.createElement("tr");
 
-
+         const isEditable = profile.user_id === profile._id;
         
         
         let verifyIcon="";
@@ -130,11 +130,11 @@ function updateProfiles(profiles) {
                         <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="admin-add-new-user.html?id=${profile.profileID}">Edit</a></li>
+                        ${isEditable?`<li><a class="dropdown-item" href="admin-add-new-user.html?id=${profile.profileID}">Edit</a></li>` :""}
                         <li><a class="dropdown-item" href="#">Delete</a></li>
                         <li><a class="dropdown-item" href="#" onclick="openPopup(${index})">Subscription Details</a></li>
                         <li><a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">Profile Verification</a></li>
-                        <li><a class="dropdown-item" href="#">View profile</a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${profile.profileID}">View profile</a></li>
                     </ul>
                 </div>
             </td>

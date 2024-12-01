@@ -8,31 +8,36 @@ const myData = data ? JSON.parse(data) : null;
 const data2 = sessionStorage.getItem("subscriptionData");
 const subscriptionData = data2 ? JSON.parse(data2) : null;
 
-async function getProfileData (profileID){
+async function getProfileData(profileID) {
     try {
-        showLoader()
+        showLoader();
         const response = await fetch(`http://localhost:5000/api/get-profile-data/${profileID}`, {
             method: "GET",
             headers: {
                 token: token, // Token header for authentication
             },
-            
         });
-       hideLoader()
-        const data = await response.json();
-        if(data.success){
-            const userData = data.data;
-            return userData;
-        }else{
-            console.error("Error occurred:",data.error );
-           
+        hideLoader();
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        const data = await response.json();
+        if (data.success) {
+           
+            return { userData: data.data, isAdmin: data.isAdmin };
+        } else {
+            console.error("Error occurred:", data.error);
+            throw new Error(data.error || "Failed to fetch profile data.");
+        }
     } catch (error) {
+        hideLoader();
         console.error("Error occurred:", error);
-        
+        throw error; // Propagate the error to the caller.
     }
 }
+
 
 
 // Function to get all elements by their ID
@@ -106,8 +111,8 @@ function getAllElementsById() {
 
 
 
-function updateProfileData(elements, userData,myData,subscriptionData) {
-    
+function updateProfileData(elements, userData,myData,isAdmin) {
+    console.log(isAdmin)
 
     // Basic info updates
     elements.age.innerHTML = userData.personalDetails.age || '';
@@ -176,7 +181,16 @@ function updateProfileData(elements, userData,myData,subscriptionData) {
 
     // Social Media Links
    
-    const isPremium = (userData.profileID === myData.profileID || subscriptionData.isActive);
+    let isPremium;
+
+if (isAdmin) {
+    isPremium = true;
+} else if (userData && userData.profileID === myData?.profileID) {
+    isPremium = true;
+} else {
+    isPremium = subscriptionData?.isActive || false;
+}
+
     if(isPremium){
         elements.whatsapp.href = userData.socialMedia[0] || '#';
         elements.facebook.href = userData.socialMedia[1] || '#';
@@ -269,27 +283,33 @@ function updateProfileImage(imageElement, imageUrl) {
 
 
 
-if(window.location.pathname.endsWith("profile-details.html")){
+if (window.location.pathname.endsWith("profile-details.html")) {
     const urlParams = new URLSearchParams(window.location.search);
     const profileID = urlParams.get("id");
-     getProfileData(profileID).then(userData=>{
-        if(userData.profileCompletion <= 75){
-            if(userData.profileID == myData.profileID){
-                window.location.href = `user-profile-edit.html?id=${userData.profileID}`
-                showInfoToast("Please Complete Your Profile")
-                
-            }else{
-                window.location.href = `all-profiles.html`
 
+    getProfileData(profileID)
+        .then(({ userData, isAdmin }) => {
+            if (userData.profileCompletion <= 75) {
+                if(userData && myData){
+                    if (userData.profileID === myData.profileID) {
+                        window.location.href = `user-profile-edit.html?id=${userData.profileID}`;
+                        showInfoToast("Please Complete Your Profile");
+                    }
+                }
+                else {
+                    window.location.href = `all-profiles.html`;
+                }
+            } else {
+                const elementsById = getAllElementsById();
+                console.log(isAdmin)
+                updateProfileData(elementsById, userData, myData, isAdmin);
             }
-        }
-         const elementsById = getAllElementsById();
-         updateProfileData(elementsById,userData,myData,subscriptionData)
-     }).catch(e=>{
-        console.log(e);
-     })
-    
+        })
+        .catch((e) => {
+            console.error("Error occurred while fetching profile data:", e);
+        });
 }
+
 
 function showLoader() {
     const loader = document.getElementById("loader");

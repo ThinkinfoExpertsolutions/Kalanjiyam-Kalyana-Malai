@@ -137,8 +137,7 @@ export const updateSocialMediaLinks = async (req, res) => {
 
 
 
-export const addNewProfile = async(req,res)=>{
-
+export const addNewProfile = async (req, res) => {
   const {
     name,
     familyName,
@@ -171,92 +170,96 @@ export const addNewProfile = async(req,res)=>{
     college,
     degree,
     socialMedia,
-    profileCompletion
+    profileCompletion,
+    profileID,
   } = req.body;
 
+  const newSubscriptionDataSave = async (id, userName) => {
+    const newDocument = new SubscriptionModel({ user_id: id, name: userName });
+    await newDocument.save();
+  };
 
-      try {
-        
-          const newProfileData = profilesModel({
-            basicInfo: {
-              name,
-              familyName,
-              dateOfBirth,
-              gender,
-              religion,
-              cast,
-              natchathiram,
-              district,
-              zodiac,
-              fatherName,
-              motherName,
-            },
-            personalDetails: {
-              weight,
-              height,
-              age,
-              about,
-              hobbies,
-              martialStatus,
-              familyType
-            },
-            contactInfo: {
-              phone,
-              email,
-              address,
-            },
-            jobDetails: {
-              companyName,
-              position,
-              salary,
-              workingLocation,
-              workExperience,
-              jobType,
-            },
-            education: {
-              school,
-              college,
-              degree,
-            },
-            socialMedia:socialMedia,
-            profileCompletion:profileCompletion
-    });
+  try {
+    const newProfileData = {
+      basicInfo: {
+        name,
+        familyName,
+        dateOfBirth,
+        gender,
+        religion,
+        cast,
+        natchathiram,
+        district,
+        zodiac,
+        fatherName,
+        motherName,
+      },
+      personalDetails: {
+        weight,
+        height,
+        age,
+        about,
+        hobbies,
+        martialStatus,
+        familyType,
+      },
+      contactInfo: {
+        phone,
+        email,
+        address,
+      },
+      jobDetails: {
+        companyName,
+        position,
+        salary,
+        workingLocation,
+        workExperience,
+        jobType,
+      },
+      education: {
+        school,
+        college,
+        degree,
+      },
+      socialMedia,
+      profileCompletion,
+    };
 
-    const newSubscriptionDataSave = async(id,userName)=>{
-      const newDocument = SubscriptionModel({
-          user_id:id,
-          name:userName
-      });
+    if (!profileID) {
+      const newProfile = new profilesModel(newProfileData);
+      newProfile.user_id = newProfile._id; // Assign user ID from _id
+      newProfile.profileID = createUniqueUserId(newProfile._id); // Generate unique ID
 
-      await newDocument.save();
-  }
+      // Save profile and subscription data concurrently
+      await Promise.all([
+        newProfile.save(),
+        newSubscriptionDataSave(newProfile._id, newProfile.basicInfo.name),
+      ]);
 
-    const newProfile = await newProfileData.save();
-    newProfile.user_id = newProfile._id;
-    newSubscriptionDataSave(newProfile._id,newProfile.basicInfo.name);
-    newProfile.profileID = createUniqueUserId(newProfile._id);
-    newProfile.save();
-  
-    if(newProfile){
-        return res.json({success:true,message:"Profile Added !",userId:newProfile.user_id});
-    }
-    
-    return res.json({success:false,message:"Profile could't add !"});
+      return res.json({ success: true, message: "Profile Added!", userId: newProfile.user_id });
+    } else {
+      const updatedProfile = await profilesModel.findOneAndUpdate(
+        { profileID },
+        newProfileData,
+        { new: true, runValidators: true }
+      );
 
-
-
-} catch (error) {
-  
-    console.log(error);
-    if (error.name === 'ValidationError') {
-        const errors = Object.values(error.errors).map(err => err.message);
-        res.json({success:false, message: 'Validation failed', errors });
-      } else {
-        res.status(500).json({ message: 'Server error', error: error.message });
+      if (updatedProfile) {
+        return res.json({ success: true, message: "Profile Details Updated",userId:updatedProfile.user_id});
       }
-}
-   
-}
+    }
+
+    return res.json({ success: false, message: "Profile couldn't add/update!" });
+  } catch (error) {
+    console.error(error.stack); // Better error logging
+    if (error.name === "ValidationError") {
+      const errors = Object.values(error.errors).map((err) => err.message);
+      return res.json({ success: false, message: "Validation failed", errors });
+    }
+    return res.status(500).json({ success: false, message: "Server error", error: error.message });
+  }
+};
+
 
 
 // CONTROLLER FOR GET WEBSITE DATA

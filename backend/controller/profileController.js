@@ -477,7 +477,7 @@ export const handleBookmark = async (req, res) => {
 export const getProfileData = async(req,res)=>{
   
   const profileID = req.params.id;
-  
+  const isAdmin = req.isAdmin;
 
 try {
   const profile = await profilesModel.findOne({profileID:profileID})
@@ -487,7 +487,7 @@ if(!profile){
 }
   
 
-res.json({success:true,data:profile});
+res.json({success:true,data:profile,isAdmin:isAdmin});
 
 } catch (error) {
   console.log(error);
