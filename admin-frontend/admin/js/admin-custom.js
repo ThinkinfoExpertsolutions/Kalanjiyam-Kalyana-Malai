@@ -57,3 +57,12 @@ $(".fil-img-uplo input").on("change", function(){
         $(this).siblings(".dumfil").html(_upldfname);
     });
 }); 
+
+document.getElementById("logOut").addEventListener("click",()=>{
+
+
+    sessionStorage.removeItem("token");
+    window.location.href="index.html";
+
+
+})

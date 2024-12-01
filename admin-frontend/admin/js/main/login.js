@@ -136,3 +136,12 @@ document.getElementById("verifyBtn").addEventListener("click", async (e) => {
         }
     }
 });
+
+document.getElementById("logOut").addEventListener("click",()=>{
+
+
+    sessionStorage.removeItem("token");
+    location.reload();
+
+
+})
