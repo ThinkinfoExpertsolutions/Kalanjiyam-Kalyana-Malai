@@ -1,39 +1,73 @@
 const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
 
 
-let = enquirys=[];
-const issolvedPage = window.location.pathname.endsWith("admin-solved-enquiry.html");
+let enquiries = [];
+let filteredEnquiries = [];
+const isSolvedPage = window.location.pathname.endsWith("admin-solved-enquiry.html");
 const isPendingPage = window.location.pathname.endsWith("admin-pending-enquiry.html");
+
 document.addEventListener("DOMContentLoaded", async () => {
-    const data = await fetchData();
+    try {
+        const data = await fetchData(); // Fetch data from the API
 
-    if (data) {
-        console.log(data);
-        let Allenquirys = data.adminData.enquirys;
+        if (data) {
+            console.log(data);
+            const allEnquiries = data.adminData.enquirys; // Fetch all enquiries data
 
-        if (issolvedPage) {
-            enquirys = Allenquirys.filter(enquiry=>{
-                return enquiry.isSolved==="Solved";
-            });
-            document.getElementById("accepted-header").classList.add("active");
+            // Filter enquiries based on the current page
+            if (isSolvedPage) {
+                enquiries = allEnquiries.filter(enquiry => enquiry.isSolved === "Solved");
+                document.getElementById("accepted-header").classList.add("active");
+            } else if (isPendingPage) {
+                enquiries = allEnquiries.filter(enquiry => enquiry.isSolved === "Pending");
+                document.getElementById("denied-header").classList.add("active");
+            } else {
+                enquiries = [...allEnquiries];
+                document.getElementById("verification-header").classList.add("active");
+            }
 
-        } else if (isPendingPage) {
-            enquirys = Allenquirys.filter(enquiry=>{
-                return enquiry.isSolved==="Pending";
-            });
-            document.getElementById("denied-header").classList.add("active");
+            // Initialize filteredEnquiries and update the table
+            filteredEnquiries = [...enquiries];
+            updateEnquiryTable(filteredEnquiries);
 
-        } else {
-            enquirys = Allenquirys
-            document.getElementById("verification-header").classList.add("active");
-
-
+            // Attach search handler
+            const searchInput = document.getElementById("searchBar"); // Ensure your search input has this ID
+            if (searchInput) {
+                searchInput.addEventListener("input", handleSearch);
+            }
         }
-
-
-        updateEnquiryTable(enquirys);
+    } catch (error) {
+        console.error("Error loading enquiries:", error);
     }
 });
+
+/**
+ * Handle search functionality for enquiries.
+ * @param {Event} event 
+ */
+function handleSearch(event) {
+    const searchStr = event.target.value.toLowerCase();
+    // Filter enquiries dynamically based on the search string
+    filteredEnquiries = enquiries.filter(enquiry =>
+        enquiry.name.toLowerCase().includes(searchStr) ||
+        enquiry.phone.toLowerCase().includes(searchStr) ||
+        enquiry.email.toLowerCase().includes(searchStr) ||
+        enquiry.district.toLowerCase().includes(searchStr) ||
+        enquiry.subject.toLowerCase().includes(searchStr) 
+    );
+    console.log(filteredEnquiries)
+    
+    // Update the table with filtered enquiries
+    updateEnquiryTable(filteredEnquiries);
+}
+
+
+
+
+
+
+
+
 
 function updateEnquiryTable(profileDetails) {
     const tableBody = document.querySelector(".table tbody"); // Select the table body
@@ -81,7 +115,7 @@ function updateEnquiryTable(profileDetails) {
                         <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
                     </button>
                     <div class="dropdown-menu">
-                    ${issolvedPage ?`
+                    ${isSolvedPage ?`
                         <a class="dropdown-item" href="#" onclick="handleEnquiryStatus(${index},false)">Mark as Pending</a>
                         `:isPendingPage?`
                         <a class="dropdown-item" href="#" onclick="handleEnquiryStatus(${index},true)">Mark as Solved</a>

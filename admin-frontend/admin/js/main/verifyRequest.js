@@ -1,11 +1,12 @@
 const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
 
 let profiles = [];
+let filteredProfiles = [];
 let requestType;
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const data = await fetchData();
+        const data = await fetchData(); // Fetch data from the API
         if (data) {
             console.log(data);
 
@@ -13,18 +14,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (window.location.pathname.endsWith("admin-new-user-requests.html")) {
                 requestType = "newRequest";
                 document.getElementById("verification-header").classList.add("active");
-
             } else if (window.location.pathname.endsWith("admin-accepted-user-request.html")) {
                 requestType = "acceptedRequest";
                 document.getElementById("accepted-header").classList.add("active");
-
             } else {
                 requestType = "deniedRequest";
                 document.getElementById("denied-header").classList.add("active");
-
             }
-
-
 
             // Get the request profile IDs based on the request type
             const requestProfileIDs = data.adminData.requestList[requestType];
@@ -34,13 +30,41 @@ document.addEventListener("DOMContentLoaded", async () => {
                 requestProfileIDs.includes(profile.user_id)
             );
 
-            // Update the UI with filtered profiles
-            updateProfiles(profiles);
+            // Initialize filteredProfiles and update the UI
+            filteredProfiles = [...profiles];
+            updateProfiles(filteredProfiles);
+
+            // Attach search handler
+            const searchInput = document.getElementById("searchBar"); // Ensure the search input has this ID
+            if (searchInput) {
+                searchInput.addEventListener("input", handleSearch);
+            }
         }
     } catch (error) {
         console.error("Error loading profiles:", error);
     }
 });
+
+/**
+ * Handle search functionality for profiles.
+ * @param {Event} event 
+ */
+function handleSearch(event) {
+    const searchStr = event.target.value.toLowerCase();
+
+    // Filter profiles dynamically based on the search string
+    filteredProfiles = profiles.filter(profile =>
+        profile.user_id.toLowerCase().includes(searchStr) ||
+        profile.basicInfo.name.toLowerCase().includes(searchStr) ||
+        profile.contactInfo.email.toLowerCase().includes(searchStr) ||
+        profile.basicInfo.district.toLowerCase().includes(searchStr) ||
+        profile.contactInfo.phone.toLowerCase().includes(searchStr)
+    );
+
+    // Update the UI with filtered profiles
+    updateProfiles(filteredProfiles);
+}
+
 
 
 

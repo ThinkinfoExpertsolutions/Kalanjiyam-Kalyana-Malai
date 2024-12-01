@@ -1,35 +1,61 @@
 const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
-
 let allProfiles;
-let filteredProfiles=[];
-let isFreeUsersPage = window.location.pathname.endsWith("admin-free-users.html");
-let isPlatinumUsersPage = window.location.pathname.endsWith("admin-platinum-users.html");
+let filteredProfiles = [];
+const isFreeUsersPage = window.location.pathname.endsWith("admin-free-users.html");
+const isPlatinumUsersPage = window.location.pathname.endsWith("admin-platinum-users.html");
+
 document.addEventListener("DOMContentLoaded", async () => {
-
-
     try {
-        const data = await fetchData();  // Fetch data from the API
+        const data = await fetchData(); // Fetch data from the API
         if (data) {
             console.log(data);
-            allProfiles = data.allProfilesData;  // Store all profiles
-            updateSettings(data.adminData);  // Update admin settings
-            
-            // Determine the page and filter profiles accordingly
-             filteredProfiles = data.allProfilesData;
+            allProfiles = data.allProfilesData; // Store all profiles
+            updateSettings(data.adminData); // Update admin settings
 
-            if (isFreeUsersPage) {
-                filteredProfiles = filteredProfiles.filter(profile => !profile.subscription_status);
-            } else if (isPlatinumUsersPage) {
-                filteredProfiles = filteredProfiles.filter(profile => profile.subscription_status);
+            // Filter profiles based on the current page
+            filteredProfiles = isFreeUsersPage
+                ? allProfiles.filter(profile => !profile.subscription_status)
+                : isPlatinumUsersPage
+                ? allProfiles.filter(profile => profile.subscription_status)
+                : allProfiles;
+
+            // Attach search handler
+            const searchInput = document.getElementById("searchBar"); // Ensure the search input has this ID
+            if (searchInput) {
+                searchInput.addEventListener("input", handleSearch);
             }
 
-            // Update profiles based on the filtered data
+            // Update profiles initially
             updateProfiles(filteredProfiles);
         }
     } catch (error) {
         console.error("Failed to fetch or update data:", error);
     }
 });
+
+/**
+ * Handle search functionality for profiles.
+ * @param {Event} event 
+ */
+function handleSearch(event) {
+    const searchStr = event.target.value.toLowerCase();
+    filteredProfiles = (isFreeUsersPage
+        ? allProfiles.filter(profile => !profile.subscription_status)
+        : isPlatinumUsersPage
+        ? allProfiles.filter(profile => profile.subscription_status)
+        : allProfiles
+    ).filter(profile =>
+        profile.profileID.toLowerCase().includes(searchStr) ||
+        profile.basicInfo.name.toLowerCase().includes(searchStr) ||
+        profile.contactInfo.email.toLowerCase().includes(searchStr) ||
+        profile.basicInfo.district.toLowerCase().includes(searchStr) ||
+        profile.contactInfo.phone.toLowerCase().includes(searchStr)
+    );
+
+    // Update profiles based on the search
+    updateProfiles(filteredProfiles);
+}
+
 
 
 
@@ -131,7 +157,7 @@ function updateProfiles(profiles) {
                     </button>
                     <ul class="dropdown-menu">
                         ${isEditable?`<li><a class="dropdown-item" href="admin-add-new-user.html?id=${profile.profileID}">Edit</a></li>` :""}
-                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                        <li><a class="dropdown-item" onclick="deleteProfile(${index})">Delete</a></li>
                         <li><a class="dropdown-item" href="#" onclick="openPopup(${index})">Subscription Details</a></li>
                         <li><a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">Profile Verification</a></li>
                         <li><a class="dropdown-item" href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${profile.profileID}">View profile</a></li>
@@ -337,6 +363,8 @@ async function changeSubscription(index){
         if(data.success){
             alert(data.message);
             location.reload();
+        }else{
+            alert(data.message);
         }
       } catch (error) {
         console.log(error);
@@ -375,6 +403,8 @@ async function changeVerification(index){
         if(data.success){
             alert(data.message);
             location.reload();
+        }else{
+            alert(data.message);
         }
       } catch (error) {
         console.log(error);
@@ -387,7 +417,33 @@ async function changeVerification(index){
 
 
 
+async function deleteProfile(index){
 
+    const profile = filteredProfiles[index];
+    const userId = profile.user_id;
+
+    try {
+        const response = await fetch("http://localhost:5000/api/admin/remove-profile",{
+            method:"DELETE",
+            headers,
+            body:JSON.stringify({userId})
+        });
+
+        const data = await response.json();
+
+        if(data){
+            alert(data.message);
+            location.reload();
+        }else{
+            alert(data.message);
+        }
+
+    } catch (error) {
+        console.log(error);
+        alert("please try again later")
+    }
+
+}
 
 
 

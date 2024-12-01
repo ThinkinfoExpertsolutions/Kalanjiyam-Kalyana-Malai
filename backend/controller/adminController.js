@@ -506,7 +506,7 @@ export const removeProfile = async(req,res)=>{
 }
 
 
-import mongoose from 'mongoose'; // Import to handle ObjectId
+
 
 export const changeEnqueryStatus = async (req, res) => {
     const { isSolved, userId, enqueryID } = req.body;
