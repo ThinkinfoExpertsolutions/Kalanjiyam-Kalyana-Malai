@@ -1,10 +1,12 @@
 import express from "express";
-import formidable from "formidable";
+import bcrypt from "bcrypt";
+
 import cors from "cors";
 import connectDB from "./config/db.js";
 import userRouter from "./routes/userRoute.js";
 import profileRouter from "./routes/profileRoute.js";
 import adminRouter from "./routes/adminRoute.js";
+import adminModel from "./model/adminModel.js";
 
 
 const app = express();
@@ -25,7 +27,24 @@ app.use(cors());
 app.use("/api/user",userRouter);
 app.use("/api",profileRouter);
 app.use("/api/admin",adminRouter);
+app.post("/register",async(req,res)=>{
+    const {userName,password,email} = req.body;
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword =  await bcrypt.hash(password,salt);
+
+
+    const newAdmin = adminModel({
+        userName,
+        email,
+        password:hashedPassword
+    })
+   const data =  await newAdmin.save();
+   if(data){
+       res.json({data:data})
+
+   }
+})
 
 // SERVER  
 

@@ -79,3 +79,11 @@ if(!window.location.pathname.endsWith("index.html")){
     }
 
 }
+if(window.location.pathname.endsWith("index.html")){
+    
+    const token = sessionStorage.getItem("token");
+    if(token){
+        window.location.href="dashboard.html";
+    }
+
+}

@@ -282,6 +282,9 @@ function updateRenewProfiles(allProfilesData, subscriptionData) {
 
     let count = 0;
     filteredProfiles.forEach(member => {
+        if(!member.subscription_status){
+            return;
+        }
         if (count >= 10) return; // Stop after 10 profiles
 
         const subscription = sortedData.find(data => member.user_id === data.user_id);

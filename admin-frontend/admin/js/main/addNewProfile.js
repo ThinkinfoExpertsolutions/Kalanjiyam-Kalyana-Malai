@@ -237,7 +237,7 @@ if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.h
         },
         body: formData, // Send the form data
     });
- showErrorToast()
+ hideLoader()
     const data2 = await imageResponse.json();
     if (data2.success) {
         response2 = true;
