@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("submitBtn").addEventListener("click", async (e) => {
       e.preventDefault(); // Prevent form default submission if inside a form
-      console.log("Submit button clicked");
+      
   
       // Required fields
       const userName = document.getElementById("name")?.value.trim();
@@ -17,17 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Validate required fields
       if (!userName || !password || !email) {
-        alert("Please fill out all required fields: Name, Email, and Password.");
+        showErrorToast("Please fill out all required fields: Name, Email, and Password.");
         return;
       }
   
-      // Debugging log for input values
-      console.log({
-        userName,
-        password,
-        email,
-        socialMedia: { whatsapp, instagram, facebook, x, youtube },
-      });
+     
   
       try {
         // Define headers
@@ -35,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "Content-Type": "application/json",
           token: sessionStorage.getItem("token"),
         };
-  
+      showLoader()
         // API request for admin credentials
         const credentialResponse = await fetch(
           "http://localhost:5000/api/admin/change-admin-credential",
@@ -55,16 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({ whatsapp, instagram, facebook, x, youtube }),
           }
         );
-  
+  hideLoader()
         // Parse API responses
         const credentialData = await credentialResponse.json();
         const socialMediaData = await socialMediaResponse.json();
   
         // Handle success or errors
         if (credentialData.success && socialMediaData.success) {
-          alert("Admin credentials and social media updated successfully!");
+          showSuccessToast("Admin credentials and social media updated successfully!");
         } else {
-          alert(
+          showErrorToast(
             `Error: ${credentialData.message || "Updating credentials failed"} - ${
               socialMediaData.message || "Updating social media failed"
             }`
@@ -72,8 +66,49 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } catch (error) {
         console.error("Error:", error);
-        alert("An error occurred. Please try again later.");
+        showErrorToast("An error occurred. Please try again later.");
       }
     });
   });
   
+
+
+
+
+
+
+
+
+  
+// Show and hide loader
+function showLoader() {
+  const loader = document.getElementById("loader");
+  if (loader) loader.style.display = "flex";
+}
+
+function hideLoader() {
+  const loader = document.getElementById("loader");
+  if (loader) loader.style.display = "none";
+}
+
+function showSuccessToast(msg) {
+  Toastify({
+    text: msg,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    close: true,
+  }).showToast();
+}
+
+function showErrorToast(msg) {
+  Toastify({
+    text: msg,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+    close: true,
+  }).showToast();
+}

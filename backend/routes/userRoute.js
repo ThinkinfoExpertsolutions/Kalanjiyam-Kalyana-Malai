@@ -10,7 +10,7 @@ const userRouter = express.Router();
 
 userRouter.post("/register",register);
 userRouter.post("/signin",SignIn);
-userRouter.post("/verify",verify);
+userRouter.post("/:type/verify",verify);
 userRouter.get("/user",authMidleware,getUserData);
 userRouter.post("/:type/forgot-password",forgotPassword)
 userRouter.post("/verify-otp",verifyOTP);

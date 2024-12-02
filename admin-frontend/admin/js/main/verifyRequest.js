@@ -1,4 +1,5 @@
-const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
+const defaultProfileImage = "../../../default-profileImage.jpg"
+
 
 let profiles = [];
 let filteredProfiles = [];
@@ -8,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
         const data = await fetchData(); // Fetch data from the API
         if (data) {
-            console.log(data);
+            
 
             // Determine the request type based on the current page
             if (window.location.pathname.endsWith("admin-new-user-requests.html")) {
@@ -70,7 +71,7 @@ function handleSearch(event) {
 
 
 function updateProfiles(profiles) {
-    console.log(profiles);
+    
     const tableBody = document.querySelector("table tbody"); // Get the tbody of the table
 
     // Clear any existing rows in the table body
@@ -161,11 +162,12 @@ const headers = {
     // Ensure the token exists
     const token = sessionStorage.getItem("token");
     if (!token) {
-        alert("User is not authenticated.");
+        showErrorToast("User is not authenticated.");
         return;
     }
 
     try {
+        showLoader()
         const response = await fetch("http://localhost:5000/api/admin/handle-verify-request", {
             method: "POST", // Use POST for sending a body
             headers: {
@@ -177,18 +179,20 @@ const headers = {
                 isAprove,
             }),
         });
-
+    hideLoader()
         const data = await response.json();
 
         if (data.success) {
-            alert(data.message);
-            location.reload(); // Reload the page to reflect the updated data
+            showSuccessToast(data.message);
+            setTimeout(() => {
+                location.reload(); 
+            }, 800); 
         } else {
-            alert(data.message || "An error occurred while processing the request.");
+            showErrorToast(data.message || "An error occurred while processing the request.");
         }
     } catch (error) {
         console.error("Network or server error:", error);
-        alert("An error occurred, please try again later.");
+        showErrorToast("An error occurred, please try again later.");
     }
 }
 
@@ -203,11 +207,12 @@ async function fetchData() {
 
     if (token) {
         try {
+            showLoader()
             const response = await fetch("http://localhost:5000/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });
-    
+        hideLoader()
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -216,13 +221,51 @@ async function fetchData() {
             if (data.success) {
                 return data;
             } else {
-                alert(data.message);
+                showErrorToast(data.message);
             }
         } catch (error) {
             console.error("Network or server error:", error);
-            alert("An error occurred, please try again later.");
+            showErrorToast("An error occurred, please try again later.");
         }
     }
     
    
 }
+
+
+
+
+
+
+// Show and hide loader
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "flex";
+}
+
+function hideLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+}
+
+function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }

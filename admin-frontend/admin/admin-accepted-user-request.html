@@ -3,17 +3,18 @@
   
 
 <head>
-    <title>Wedding Matrimony</title>
-    <!--== META TAGS ==-->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="theme-color" content="#f6af04">
-    <meta name="robots" content="noindex">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
-    <!--== FAV ICON(BROWSER TAB ICON) ==-->
-    <link rel="shortcut icon" href="https://rn53themes.net/themes/matrimo/images/fav.ico" type="image/x-icon">
+  <title>Kalanjiyam Kalyana Malai</title>
+
+  <!--== META TAGS ==-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f6af04">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="">
+  <meta name="keyword" content="">
+  <!--== FAV ICON(BROWSER TAB ICON) ==-->
+  <link rel="shortcut icon" href="images/fevicon.ico" type="image/x-icon">
     <!--== CSS FILES ==-->
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/font-awesome.min.css">
@@ -195,6 +196,12 @@
             </div>
         </div>
     </section>
+    <div id="loader" class="loader-container" style="display: none;">
+      <div class="loader-content">
+        <div class="spinner"></div>
+        <p>loading...</p>
+      </div>
+    </div>
     <!-- END -->
 
         <!-- COPYRIGHTS -->
@@ -204,7 +211,7 @@
                     <div class="row">
                       <p style="display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 14px; margin-left:350px;">
                         Copyright © <span id="cry">2024</span> 
-                        <a href="#!" target="_blank">Company.com</a> 
+                        <a href="#!" target="_blank">Kalanjiyam Kalyana Malai.com</a> 
                         All rights reserved. Powered by 
                         <u><a href="https://www.thinkinfoexpertsolutions.com/" target="_blank">ThinkInfoExpertSolution</a></u> 
                         in Salem.
@@ -257,78 +264,11 @@
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/select-opt.js"></script>
-    <script src="js/chart.js"></script>
+ 
     <script src="js/admin-custom.js"></script>
     <script src="js/main/verifyRequest.js"></script>
-    <script>
-//ARNING CHART
-var earningCanvas = document.getElementById("Chart_earni");
-Chart.defaults.global.defaultFontSize = 14;
-
-var earningsData = {    
-    labels: [
-        "Premium Plus",
-        "Premium"
-    ],
-    datasets: [
-        {
-            data: [50, 60],
-            backgroundColor: [
-                "#8463FF",
-                "#6384FF"
-            ]
-        }]
-};
-
-var pieChart = new Chart(earningCanvas, {
-  type: 'pie',
-  data: earningsData
-});
-
-//USER CHART
-var usersCanvas = document.getElementById("Chart_users");
-
-var usersData = {    
-    labels: [
-        "Premium Plus",
-        "Premium",
-        "Free"
-    ],
-    datasets: [
-        {
-            data: [40, 30, 30],
-            backgroundColor: [
-                "#198754",
-                "#ffc107",
-                "#6c757d"
-            ]
-        }]
-};
-
-var pieChart = new Chart(usersCanvas, {
-  type: 'pie',
-  data: usersData
-});
-
-//USER CHART
-var ctx = document.getElementById("Chart_earni_rece").getContext('2d');
-var barChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [{
-      label: 'data-1',
-      data: [4000, 5000, 4550, 6005, 8550, 9008, 3220, 4880, 6550, 2500],
-      backgroundColor: "rgba(255,99,132,0.2)",
-    borderColor: "rgba(255,99,132,1)",
-    borderWidth: 2,
-    hoverBackgroundColor: "rgba(255,99,132,0.4)",
-    hoverBorderColor: "rgba(255,99,132,1)",
-    }]
-  }
-});
-
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
 </body>
 
 </html>

@@ -10,7 +10,7 @@ const leatestProfiles = profilesData ? JSON.parse(profilesData) : null;
 
 
 
-const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
+const defaultProfileImage = "../../../default-profileImage.jpg"
 document.addEventListener('DOMContentLoaded',()=>{
 
   const profileImageElement = document.getElementById("profileImage");
@@ -88,6 +88,8 @@ function UpdateProfileCompletion(userData){
    // Early return if the element is not found
 const profileCompletion = userData.profileCompletion
 
+const ProfileID = document.getElementById("ProfileID");
+if(ProfileID){ProfileID.innerText=userData.profileID}
 const profileCompletionElement = document.getElementById("profileCompletion");
 if (!profileCompletionElement) return;  // Exit if element not found
 profileCompletionElement.innerHTML = `<b class="count">${profileCompletion !== null ? profileCompletion : "0"}</b>%`;
@@ -114,11 +116,12 @@ function updateActivities(userData){
     const activityContainer1 = document.getElementById("activities1");
     const activityContainer2 = document.getElementById("activities2");
 
+    const sortedActivities = userData.activitys.sort((a,b)=>new Date(b.time) - new Date(a.time)) // Fetch all enquiries data
 
     if(activityContainer1){
       let count=0;
 
-      if( userData.activitys.length <= 0){
+      if( sortedActivities<= 0){
         activityContainer1.innerHTML = `
         <p style="
             text-align: center;
@@ -138,7 +141,7 @@ function updateActivities(userData){
     return;
       }
 
-      userData.activitys.forEach(acivity=>{
+      sortedActivities.forEach(acivity=>{
           const name = acivity.name.split(" ")[0];
        if(count<4){
           const li = document.createElement("li");
@@ -155,9 +158,10 @@ function updateActivities(userData){
       })
     }else if(activityContainer2){
       let count=0;
+      const sortedActivities = userData.activitys.sort((a,b)=>new Date(b.time) - new Date(a.time)) // Fetch all enquiries data
 
       
-      if( userData.activitys.length <= 0){
+      if( sortedActivities <= 0){
         activityContainer2.innerHTML = `
         <p style="
             text-align: center;
@@ -177,7 +181,7 @@ function updateActivities(userData){
     return;
       }
 
-      userData.activitys.forEach(acivity=>{
+      sortedActivities.forEach(acivity=>{
           const name = acivity.name.split(" ")[0];
        if(count<4){
           const li = document.createElement("li");
@@ -319,7 +323,11 @@ function updateBookmarkList(userData) {
           toggleBookmarkUI(!isBookmarked);
           showErrorToast(data.message || 'Failed to update bookmark. Please try again.');
         }
+
         showErrorToast(data.message);
+        setTimeout(()=>{
+          location.reload();
+        },800)
       })
       .catch((error) => {
         console.error('Error:', error);

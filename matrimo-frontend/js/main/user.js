@@ -48,7 +48,7 @@ function updateMobileNavbar(isUserLoggedIn, data) {
     const myProfile = document.getElementById("myProfile-m");
     const dashboardLink = document.getElementById("dasshBoard-m");
     let logoutLink = document.getElementById("logout-link");
-    console.log(logoutLink)
+   
     const userImg = document.getElementById("userImg-m");
     const userName = document.getElementById("userName-n");
     const profileID = document.getElementById("profileID-m");
@@ -115,7 +115,8 @@ function updateNavbar(isUserLoggedIn, data) {
     let logoutLink = document.querySelector(".logout-link");
     const userImg = document.getElementById("userImg");
     const userName = document.getElementById("userName");
- if(!registerAndSigninLinks || !iconDiv || !exploreLink || !dashboardLink || !userImg ||!userName){
+    const profileID = document.getElementById("profileID");
+ if(!registerAndSigninLinks || !iconDiv || !exploreLink || !dashboardLink || !userImg ||!userName ||!profileID){
     return;
  }
     // Create the logout link if it doesn't already exist
@@ -146,6 +147,7 @@ function updateNavbar(isUserLoggedIn, data) {
             dashboardLink.href = "user-dashboard.html";
         }
         logoutLink.style.display = "inline-block";
+        profileID.innerText = data.userData.profileID;
 
         if (data?.userData?.media?.profileImage) {
             userImg.src = data.userData.media.profileImage;

@@ -22,7 +22,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
             }
 
             // Send OTP request to backend for email verification
-            const response = await fetch("http://localhost:5000/api/user/verify", {
+            const response = await fetch("http://localhost:5000/api/user/user/verify", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -77,10 +77,12 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
 
             if (data.success) {
                 
-                showSuccessToast(data.message); // Show success message (user registered)
-                sessionStorage.setItem("token", data.encryptedToken); // Store token in localStorage
-                // Redirect to dashboard or login page
-                window.location.href = `user-profile-edit.html?id=${data.userData.profileID}`;
+                showSuccessToast(data.message); 
+                sessionStorage.setItem("token", data.encryptedToken); 
+                setTimeout(()=>{
+                    location.reload();
+                    window.location.href = `user-profile-edit.html?id=${data.userData.profileID}`;
+                },1000)
             } else {
                 showErrorToast(data.message || "Registration failed."); // Show error message
             }

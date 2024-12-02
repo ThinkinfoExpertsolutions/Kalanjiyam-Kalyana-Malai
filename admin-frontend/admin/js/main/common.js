@@ -1,4 +1,5 @@
-const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
+const defaultProfileImage = "../../../default-profileImage.jpg"
+
 let allProfiles;
 let filteredProfiles = [];
 const isFreeUsersPage = window.location.pathname.endsWith("admin-free-users.html");
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await fetchData(); // Fetch data from the API
         if (data) {
             
-            console.log(data);
+            
             allProfiles = data.allProfilesData; // Store all profiles
             updateSettings(data.adminData); // Update admin settings
 
@@ -90,7 +91,7 @@ function updateSettings(adminData) {
 
 
 function updateProfiles(profiles) {
-    console.log(profiles)
+    
     const tableBody = document.querySelector("table tbody"); // Get the tbody of the table
 
     if (profiles.length === 0) {
@@ -134,38 +135,41 @@ function updateProfiles(profiles) {
 
         // Create each cell and append the data
         row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>
-                <div class="prof-table-thum">
-                    <div class="pro">
-                        <img src="${!!profile.media.profileImage? profile.media.profileImage : defaultProfileImage}">
-                    </div>
-                    <div class="pro-info">
-                        <h5>${profile.basicInfo.name}</h5>
-                        <p>${profile.contactInfo.email}</p>
-                        <img src="${verifyIcon}" alt="" class="verified-logo">
-                    </div>
-                </div>
-            </td>
-            <td>${profile.profileID}</td>
-            <td>${profile.contactInfo.phone}</td>
-            <td>${profile.basicInfo.district}</td>
-            <td><span class="${profile.subscription_status?"hig-grn":"hig-red"}">${planType}</span></td>
-            <td>
-                <div class="dropdown">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
-                        <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
-                    </button>
-                    <ul class="dropdown-menu">
-                        ${isEditable?`<li><a class="dropdown-item" href="admin-add-new-user.html?id=${profile.profileID}">Edit</a></li>` :""}
-                        <li><a class="dropdown-item" onclick="deleteProfile(${index})">Delete</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="openPopup(${index})">Subscription Details</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">Profile Verification</a></li>
-                        <li><a class="dropdown-item" href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${profile.profileID}">View profile</a></li>
-                    </ul>
-                </div>
-            </td>
-        `;
+    <td>${index + 1}</td>
+    <td>
+        <div class="prof-table-thum">
+            <div class="pro">
+                <img src="${!!profile.media.profileImage ? profile.media.profileImage : defaultProfileImage}">
+            </div>
+            <div class="pro-info">
+                <h5>
+                    ${profile.basicInfo.name}
+                    ${isEditable ? `<img src="images/admin-icon.jpg" alt="Admin" style="width: 18px; height: 18px; margin-left: 5px;">` : ''}
+                </h5>
+                <p>${profile.contactInfo.email}</p>
+                <img src="${verifyIcon}" alt="" class="verified-logo">
+            </div>
+        </div>
+    </td>
+    <td>${profile.profileID}</td>
+    <td>${profile.contactInfo.phone}</td>
+    <td>${profile.basicInfo.district}</td>
+    <td><span class="${profile.subscription_status ? "hig-grn" : "hig-red"}">${planType}</span></td>
+    <td>
+        <div class="dropdown">
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown">
+                <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
+            </button>
+            <ul class="dropdown-menu">
+                ${isEditable ? `<li><a class="dropdown-item" href="admin-add-new-user.html?id=${profile.profileID}">Edit</a></li>` : ""}
+                <li><a class="dropdown-item" onclick="deleteProfile(${index})">Delete</a></li>
+                ${!isEditable?`<li><a class="dropdown-item" href="#" onclick="openPopup(${index})">Subscription Details</a></li>`:""}
+                <li><a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">Profile Verification</a></li>
+                <li><a class="dropdown-item" href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${profile.profileID}">View profile</a></li>
+            </ul>
+        </div>
+    </td>
+`;
 
         // Append the newly created row to the table body
         tableBody.appendChild(row);
@@ -173,7 +177,7 @@ function updateProfiles(profiles) {
 }
 
 function openPopup(index){
-    console.log(index);
+    
     const profile = filteredProfiles[index];
     const profileName = document.getElementById("profileName");
     const profileId = document.getElementById("profileId");
@@ -220,7 +224,7 @@ function openPopup(index){
 
 function openPopupProfile(index){
 
-    console.log(index);
+    
     const profile = filteredProfiles[index];
     const profileName = document.getElementById("profileName2");
     const profileId = document.getElementById("profileId2");
@@ -248,7 +252,7 @@ function openPopupProfile(index){
 
   saveBtn.addEventListener("click", () => changeVerification(index));
 
-console.log(profile.verification_status)
+
   if(profile.verification_status === "Verified"){
     enabled.style.backgroundColor="#00CCFF";
     enabled.style.color="white";
@@ -343,7 +347,7 @@ async function changeSubscription(index){
 
      if(enabledRadio.checked){
              if (!durationInDays || !price) {
-        alert("Please enter valid duration and price.");
+        showErrorToast("Please enter valid duration and price.");
         return;
       }
      }
@@ -351,8 +355,9 @@ async function changeSubscription(index){
       enabledRadio.checked? isActive=true : isActive =false;
       
      
-    console.log({ userId, durationInDays, price, isActive})
+   
       try {
+        showLoader()
         const response = await fetch("http://localhost:5000/api/admin/change-subscription-status",{
             method:"POST",
            headers,
@@ -360,16 +365,19 @@ async function changeSubscription(index){
             userId, durationInDays, price, isActive
            })
         });
+        hideLoader()
         const data = await response.json();
         if(data.success){
-            alert(data.message);
-            location.reload();
+            showSuccessToast(data.message);
+            setTimeout(() => {
+                location.reload(); // Reload page after 2 seconds
+            }, 500); // Adjust the delay as needed
         }else{
-            alert(data.message);
+            showErrorToast(data.message);
         }
       } catch (error) {
         console.log(error);
-        alert("please try again later")
+        showErrorToast("please try again later")
       }
 
 }
@@ -391,8 +399,9 @@ async function changeVerification(index){
         verification_status = "UnVerified";
     }
 
- console.log(verification_status)
+ 
     try {
+        showLoader()
         const response = await fetch("http://localhost:5000/api/admin/change-verification-status",{
             method:"POST",
            headers,
@@ -400,16 +409,19 @@ async function changeVerification(index){
             userId,verification_status
            })
         });
+        hideLoader()
         const data = await response.json();
         if(data.success){
-            alert(data.message);
-            location.reload();
+            showSuccessToast(data.message);
+            setTimeout(() => {
+                location.reload(); // Reload page after 2 seconds
+            }, 500); // Adjust the delay as needed
         }else{
-            alert(data.message);
+            showErrorToast(data.message);
         }
       } catch (error) {
         console.log(error);
-        alert("please try again later")
+        showErrorToast("please try again later")
       }
     
 
@@ -424,24 +436,27 @@ async function deleteProfile(index){
     const userId = profile.user_id;
 
     try {
+        showLoader()
         const response = await fetch("http://localhost:5000/api/admin/remove-profile",{
             method:"DELETE",
             headers,
             body:JSON.stringify({userId})
         });
-
+hideLoader()
         const data = await response.json();
 
         if(data){
-            alert(data.message);
-            location.reload();
+            showSuccessToast(data.message);
+            setTimeout(() => {
+                location.reload(); // Reload page after 2 seconds
+            }, 500); // Adjust the delay as needed
         }else{
-            alert(data.message);
+            showErrorToast(data.message);
         }
 
     } catch (error) {
         console.log(error);
-        alert("please try again later")
+        showErrorToast("please try again later")
     }
 
 }
@@ -464,26 +479,59 @@ async function fetchData() {
 
     if (token) {
         try {
+            showLoader()
             const response = await fetch("http://localhost:5000/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });
+            hideLoader()
     
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
             const data = await response.json();
             if (data.success) {
                 return data;
             } else {
-                alert(data.message);
+                showErrorToast(data.message);
             }
         } catch (error) {
             console.error("Network or server error:", error);
-            alert("An error occurred, please try again later.");
+            showErrorToast("An error occurred, please try again later.");
         }
     }
     
    
 }
+// Show and hide loader
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "flex";
+}
+
+function hideLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+}
+
+function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }

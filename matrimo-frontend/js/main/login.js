@@ -34,9 +34,11 @@ document.addEventListener("DOMContentLoaded", function() {
             if (data.success) {
                 // Store the encrypted token in session storage by default
                 showSuccessToast(data.message);
-                sessionStorage.setItem("token", data.encryptedToken);
-                // Redirect to the dashboard or any other page
-                window.location.href = "index.html";
+                setTimeout(()=>{
+                    sessionStorage.setItem("token", data.encryptedToken);
+                    // Redirect to the dashboard or any other page
+                    window.location.href = "index.html";
+                },1000)
             } else {
                 showErrorToast(data.message); // Show error message
             }

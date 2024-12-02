@@ -1,4 +1,5 @@
-const defaultProfileImage = "https://static.vecteezy.com/system/resources/previews/001/840/612/non_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg";
+const defaultProfileImage = "../../../default-profileImage.jpg"
+
 
 
 let enquiries = [];
@@ -11,9 +12,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         const data = await fetchData(); // Fetch data from the API
 
         if (data) {
-            console.log(data);
-            const allEnquiries = data.adminData.enquirys; // Fetch all enquiries data
-
+            
+            const allEnquiries = data.adminData.enquirys.sort((a,b)=>new Date(b.time) - new Date(a.time)) // Fetch all enquiries data
+           
             // Filter enquiries based on the current page
             if (isSolvedPage) {
                 enquiries = allEnquiries.filter(enquiry => enquiry.isSolved === "Solved");
@@ -55,7 +56,7 @@ function handleSearch(event) {
         enquiry.district.toLowerCase().includes(searchStr) ||
         enquiry.subject.toLowerCase().includes(searchStr) 
     );
-    console.log(filteredEnquiries)
+   
     
     // Update the table with filtered enquiries
     updateEnquiryTable(filteredEnquiries);
@@ -138,7 +139,7 @@ function updateEnquiryTable(profileDetails) {
 
 async function handleEnquiryStatus(index,isSolved){
         
-    const enqueryProfile = enquirys[index];
+    const enqueryProfile = enquiries[index];
 
     const token = sessionStorage.getItem("token");
 
@@ -151,6 +152,7 @@ async function handleEnquiryStatus(index,isSolved){
     }
 
     try {
+        showLoader()
         const response = await fetch("http://localhost:5000/api/admin/change-enquery-status", {
             method: "POST",
             headers: { token ,
@@ -160,19 +162,21 @@ async function handleEnquiryStatus(index,isSolved){
                 isSolved,userId,enqueryID
             })
         });
-
+    hideLoader()
         const data= await response.json();
 
         if(data.success){
-            alert(data.message);
-            location.reload();
+            showSuccessToast(data.message);
+            setTimeout(() => {
+                location.reload(); // Reload page after 2 seconds
+            }, 1000); // Adjust the delay as needed
         }else{
-            alert(data.message);
+            showErrorToast(data.message);
         }
 
     } catch (error) {
         console.error("Network or server error:", error);
-        alert("An error occurred, please try again later.");
+        showErrorToast("An error occurred, please try again later.");
     }
 
 }
@@ -190,14 +194,14 @@ async function handleEnquiryStatus(index,isSolved){
 
 function openPopupProfile(index) {
     const popup = document.getElementById('popup');
-    console.log(popup);
+    
 
     if (!popup || !(popup instanceof HTMLElement)) {
         console.error("Popup element is not valid.");
         return;
     }
 
-    const enqueryProfile = enquirys[index];
+    const enqueryProfile = enquiries[index];
     if (!enqueryProfile) {
         console.error("Profile not found.");
         return;
@@ -214,6 +218,7 @@ function openPopupProfile(index) {
     const enquirySubject = document.getElementById("profileSubject");
     const enquiryDetails = document.getElementById("profileDetails");
     const profileImage = document.getElementById("profilePicture");
+    const profilePath = document.getElementById("profilePath");
 
     if (
         !profileName ||
@@ -223,7 +228,8 @@ function openPopupProfile(index) {
         !profileLocation ||
         !enquirySubject ||
         !enquiryDetails ||
-        !profileImage
+        !profileImage ||
+        !profilePath
     ) {
         console.error({
             profileName ,
@@ -239,6 +245,7 @@ function openPopupProfile(index) {
     }
 
     // Update profile data
+    profilePath.href = `http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${enqueryProfile.profileID}` 
     profileName.textContent = enqueryProfile.name || "N/A";
     profileId.textContent = `ID: ${enqueryProfile.profileID || "N/A"}`;
     profileEmail.textContent = `Email: ${enqueryProfile.email || "N/A"}`;
@@ -255,11 +262,12 @@ async function fetchData() {
 
     if (token) {
         try {
+            showLoader()
             const response = await fetch("http://localhost:5000/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });
-    
+           hideLoader()
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -268,11 +276,11 @@ async function fetchData() {
             if (data.success) {
                 return data;
             } else {
-                alert(data.message);
+                showErrorToast(data.message);
             }
         } catch (error) {
             console.error("Network or server error:", error);
-            alert("An error occurred, please try again later.");
+            showErrorToast("An error occurred, please try again later.");
         }
     }
     
@@ -280,4 +288,36 @@ async function fetchData() {
 }
 
 
+// Show and hide loader
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "flex";
+}
+
+function hideLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+}
+
+function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }
 

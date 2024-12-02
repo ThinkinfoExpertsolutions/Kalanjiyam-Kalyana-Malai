@@ -4,7 +4,10 @@ document.getElementById("sendEnquiry").addEventListener("click", async (e) => {
     const token = sessionStorage.getItem("token");
 
     if (!token) {
-        window.location.href = "login.html"; // Corrected redirection
+        showErrorToast("Please Login");
+        setTimeout(()=>{
+            window.location.href = "login.html"; 
+        },1000)
         return;
     }
 

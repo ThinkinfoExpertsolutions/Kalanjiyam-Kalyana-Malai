@@ -272,13 +272,14 @@ export const getWebsiteData = async(req,res)=>{
     const id = req.id;
 
     try {
+    // const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
         
         const adminData = await adminModel.findById(id);
         const allProfiles = await profilesModel.find({});
         const subscriptionData = await SubscriptionModel.find({});
-
+        const sortedData = allProfiles.sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt));
         if(adminData && allProfiles){
-            return res.json({success:true,adminData:adminData,allProfilesData:allProfiles,subscriptionData:subscriptionData});
+            return res.json({success:true,adminData:adminData,allProfilesData:sortedData,subscriptionData:subscriptionData});
         }else{
             return res.json({success:false,message:"data not found"});
         }

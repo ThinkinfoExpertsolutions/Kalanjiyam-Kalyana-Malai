@@ -206,7 +206,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
     
     try {
         
-       
+       showLoader()
 
         const dataResponse = await fetch("http://localhost:5000/api/admin/add-new-profile", {
             method: "POST",
@@ -216,6 +216,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
             },
             body: JSON.stringify(userInfoData), // Convert payload to JSON string
         });
+        hideLoader();
         const data = await dataResponse.json();
         if(data.success){
             response1=true;
@@ -228,6 +229,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
 
      
 if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.has("galleryImages")) {
+    showLoader()
     const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
         method: "POST",
         headers: {
@@ -235,7 +237,7 @@ if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.h
         },
         body: formData, // Send the form data
     });
-
+ showErrorToast()
     const data2 = await imageResponse.json();
     if (data2.success) {
         response2 = true;
@@ -244,19 +246,19 @@ if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.h
        
 
         if( response1 && response2){
-            alert("Profile Information And Image Updated Successfully!");
+            showSuccessToast("Profile Information And Image Updated Successfully!");
         }else if(response1){
-            alert("Profile Information Updated Successfully!");
+            showSuccessToast("Profile Information Updated Successfully!");
         }else if(response2){
-            alert("Profile Image Updated Successfully!");
+            showSuccessToast("Profile Image Updated Successfully!");
         }else{
-            alert("error");
+            showErrorToast("error");
         }
 
 
     } catch (error) {
          console.error("Error occurred:", error);
-        alert("An error occurred. Please try again later.");
+        showErrorToast("An error occurred. Please try again later.");
     }
 });
 
@@ -364,7 +366,7 @@ function calculatePercentage(elements) {
 
 async function getProfileData (profileID){
     try {
-        
+        showLoader()
         const response = await fetch(`http://localhost:5000/api/get-profile-data/${profileID}`, {
             method: "GET",
             headers: {
@@ -372,7 +374,7 @@ async function getProfileData (profileID){
             },
             
         });
-       
+       hideLoader()
         const data = await response.json();
         if(data.success){
             const userData = data.data;
@@ -392,3 +394,36 @@ async function getProfileData (profileID){
 
 
 
+
+// Show and hide loader
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "flex";
+}
+
+function hideLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+}
+
+function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }

@@ -15,46 +15,78 @@ dotenv.config();
  const otpStore = {};
 
 
+export const verify = async (req, res) => {
+    const type = req.params.type;
+     console.log(type)
+    try {
+        if (type === "user") {
+            const { name, phone, email, password } = req.body;
 
-// OTP VERIFY CONTROLLER
+            // Validate input
+            if (!/^[0-9]{10}$/.test(phone)) {
+                return res.status(400).json({ success: false, message: "Please enter a valid phone number!" });
+            }
+            if (!validator.isEmail(email)) {
+                return res.status(400).json({ success: false, message: "Please enter a valid email!" });
+            }
+            if (password.length < 8) {
+                return res.status(400).json({ success: false, message: "Password must be at least 8 characters long!" });
+            }
 
+            // Check for existing user
+            const [existEmail, existPhone] = await Promise.all([
+                userModel.findOne({ email }),
+                userModel.findOne({ phone }),
+            ]);
+            if (existEmail) {
+                return res.status(409).json({ success: false, message: "Email already registered!" });
+            }
+            if (existPhone) {
+                return res.status(409).json({ success: false, message: "Phone number already registered!" });
+            }
 
+            // Send OTP
+            const otpSent = await sentOTP(email, name);
+            if (otpSent) {
+                return res.status(200).json({ success: true, message: "OTP sent successfully to your registered email!" });
+            } else {
+                return res.status(500).json({ success: false, message: "Failed to send OTP. Please try again later." });
+            }
+        } else if (type === "admin") {
+            const { userName, password } = req.body;
 
-export const verify = async(req,res)=>{
-    
-    const {name,phone,email,password} = req.body;
+            // Check for admin
+            const admin = await adminModel.findOne({ userName });
+            if (!admin) {
+                return res.status(404).json({ success: false, message: "Username not found!" });
+            }
 
-    if (!phone.match(/^[0-9]{10}$/)) {
-        return res.json({ success: false, message: "Please Enter Valid Phone Number!" });
-    }
-    
-    if(!validator.isEmail(email)){
-       return res.json({success:false,message:"Please Enter Valid Email !"});
-           
-    }
-    
-    const existEmail =await userModel.findOne({email});
-    const existPhone = await userModel.findOne({phone});
-    
-    if(existEmail){
-       return res.json({success:false,message:"Email Already Registered !"});
-    }
-    if(existPhone){
-      return  res.json({success:false,message:"Phone No Already Registered !"});
-    }
-    if(password.length < 8){
-        return  res.json({success:false,message:"Please Enter Strong Password !"});
-    }
-   
-//    SEND OTP
+            // Validate password
+            const isMatch = await bcrypt.compare(password, admin.password);
+            if (!isMatch) {
+                return res.status(401).json({ success: false, message: "Incorrect password!" });
+            }
 
-    if(sentOTP(email,name)){
-        res.json({success:true,message:"OTP has been successfully sent to your registered email address"});  
-    }else{
-        res.json({success:false,message:"Failed To Send OTP"});     
+            // Fetch admin email for OTP
+            const { email } = admin; // Assuming `email` is a field in the admin schema
+
+            // Send OTP
+            const otpSent = await sentOTP(email, userName);
+            
+            if (otpSent) {
+                return res.status(200).json({ success: true, message: "OTP sent successfully to your registered email!",email:email });
+            } else {
+                return res.status(500).json({ success: false, message: "Failed to send OTP. Please try again later." });
+            }
+        } else {
+            return res.status(400).json({ success: false, message: "Invalid request type!" });
+        }
+    } catch (error) {
+        console.error("Error in verify function:", error);
+        return res.status(500).json({ success: false, message: "An internal server error occurred." });
     }
-    
-}
+};
+
 
 
 // REGISTER CONTROLLER
@@ -322,61 +354,55 @@ export const createUniqueUserId = (mongoObjectId) => {
 
 
 // FUNCTION FOR SEND OTP TO MAIL 
-
-const sentOTP = async(email,name)=>{
-
-     //  OTP GENERATION
-
+const sentOTP = async (email, name) => {
+    // OTP GENERATION
     const OTP = generateOTP(5);
-    const expireTime = Date.now()+300*1000;
-
-    otpStore[email] = {OTP,expireTime};
-    console.log(otpStore)
+    const expireTime = Date.now() + 300 * 1000;
+    otpStore[email] = { OTP, expireTime };
     
-   
+
     // NODEMAILER CONFIG
- 
     const transporter = nodemailer.createTransport({
-        service:"gmail",
-        auth:{
-            user:process.env.NODEMAILER_USER,
-            pass:process.env.NODEMAILER_PASS,
-        }
+        service: "gmail",
+        auth: {
+            user: process.env.NODEMAILER_USER,
+            pass: process.env.NODEMAILER_PASS,
+        },
     });
 
     const mailOption = {
-        form:process.env.ADMIN_EMAIL,
-        to:email,
-        subject:"Complete Your Kalanjiyam Kalyana Malai Registration with this OTP",
-        text:`Dear ${name},
-
-        Thank you for registering with Kalanjiyam Kalyana Malai !
+        from: process.env.ADMIN_EMAIL,
+        to: email,
+        subject: "Kalanjiyam Kalyana Malai OTP",
+        text: `
+        Dear ${name},
         
-        To complete your registration and verify your account, please use the following One-Time Password (OTP):
+        Thank you for Using Kalanjiyam Kalyana Malai!
+        
+        Please use the following One-Time Password (OTP):
         
         OTP: ${OTP}
         
         This OTP is valid for the next 5 minutes. Please do not share this OTP with anyone for your security.
         
-        If you did not initiate this registration, please contact our support team immediately.
+        If you did not initiate this OTP, please contact our support team immediately.
         
         Thank you for choosing Kalangiyum Kalyana Maalai, where we help you find your perfect match!
         
         Best regards,
         The Kalanjiyam Kalyana Malai Team
-        [Website URL]
-        [Customer Support Contact Information]
-        
-        `
-    }
-    await transporter.sendMail(mailOption).then(()=>{
-        return true;
-    }).catch((e)=>{
-        console.log(e.message);
-        return false;
-    })
+        `,
+    };
 
-}
+    try {
+        await transporter.sendMail(mailOption);
+        return true; // OTP sent successfully
+    } catch (error) {
+        console.error("Error sending OTP:", error.message);
+        return false; // Failed to send OTP
+    }
+};
+
 
 
 

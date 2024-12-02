@@ -105,7 +105,13 @@ console.log(condition)
                         return false;
                     }
 
-                } else if (key.includes(".")) {
+                }else if(key === "basicInfo.cast"){
+                    const cast  = condition[key];
+                    const userCast = user.basicInfo.cast;
+
+                    if(!userCast.includes(cast)){return false;}
+                }
+                 else if (key.includes(".")) {
                     // Handle nested keys (e.g., "basicInfo.religion")
                     const keys = key.split(".");
                     let value = user;
@@ -201,14 +207,14 @@ function populateProfileList(profiles) {
 
         // Construct profile HTML
         const isBookmarked = myData.bookMarkedProfiles.some(
-            (user) => profile.userId === user.userId
+            (user) => profile.profileID === user.userId
           );
 
         const profileHTML = `
             <li>
                 <div class="all-pro-box user-avil-onli">
                     <div class="pro-img">
-                        <a href="${profileLink}">
+                        <a href="${profileLink}" onclick="handleViewCount('${profile.user_id}', event,'${profile.profileID}')">
                             <img src="${image}" style="object-fit:cover;" alt="Profile Image">
                         </a>
                     </div>
@@ -221,7 +227,8 @@ function populateProfileList(profiles) {
                             <span>${religion}</span>
                         </div>
                         <div class="links">
-                            <a href="${profileLink}">More details</a>
+                        <a href="${profileLink}" onclick="handleViewCount('${profile.user_id}', event,'${profile.profileID}')">More details</a>
+
                         </div>
                     </div>
                     ${!mine ?
@@ -242,6 +249,39 @@ function populateProfileList(profiles) {
         searchResult.insertAdjacentHTML("beforeend", profileHTML);
     });
 }
+
+
+async function handleViewCount(userId,event,profileID){
+    event.preventDefault();
+    
+    if(!sessionStorage.getItem("token")){
+        window.location.href=`login.html`;
+        return;
+    }
+    try {
+        showLoader()
+         const response = await fetch(`http://localhost:5000/api/profile/${userId}/view`,{
+            method: 'PATCH',
+            headers: {
+          'Content-Type': 'application/json',
+          "token":sessionStorage.getItem("token")
+           },
+        });
+        hideLoader();
+        const data = await response.json();
+      if(data.success){
+            console.log(data.message);
+            window.location.href=`profile-details.html?id=${profileID}`
+       }else{
+        console.log(data.message);
+
+       }
+    } catch (error) {
+        console.error('Error:', error);
+        showErrorToast('An error occurred. Please try again.');
+    }
+}
+
 
 
 function toggleBookmark(userId, element) {

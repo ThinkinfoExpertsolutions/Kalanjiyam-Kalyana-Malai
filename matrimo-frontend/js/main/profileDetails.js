@@ -112,7 +112,7 @@ function getAllElementsById() {
 
 
 function updateProfileData(elements, userData,myData,isAdmin) {
-    console.log(isAdmin)
+    
 
     // Basic info updates
     elements.age.innerHTML = userData.personalDetails.age || '';
@@ -301,7 +301,7 @@ if (window.location.pathname.endsWith("profile-details.html")) {
                 }
             } else {
                 const elementsById = getAllElementsById();
-                console.log(isAdmin)
+               
                 updateProfileData(elementsById, userData, myData, isAdmin);
             }
         })

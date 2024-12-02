@@ -186,13 +186,14 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         const data = await dataResponse.json();
         if(data.success){
             response1=true;
+            formData.append("userId",data.userId)
         }
         
      // Check if any images were added to formData
 
      
 if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.has("galleryImages")) {
-    const imageResponse = await fetch("http://localhost:5000/api/user/upload-images", {
+    const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
         method: "POST",
         headers: {
             token: token, // Token header for authentication

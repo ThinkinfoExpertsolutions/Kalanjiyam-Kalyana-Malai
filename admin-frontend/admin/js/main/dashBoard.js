@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
 
     if(data){
 
-       console.log(data);
+    
 
 
     
@@ -54,12 +54,12 @@ const membersCount = document.getElementById("membersCount");
              standardUserCount++;
         }
     })
-    console.log({platinumUserCount,standardUserCount})
+    
 
 
        var usersCanvas = document.getElementById("Chart_users");
        var usersData = {
-         labels: [ "Platinum", "Free"],
+         labels: [ "Platinum", "Free",""],
          datasets: [{
            data: [platinumUserCount, standardUserCount],
            backgroundColor: ["#198754", "#ffc107", ]
@@ -112,7 +112,7 @@ const membersCount = document.getElementById("membersCount");
         const ctx = document.getElementById("Chart_earni_rece").getContext('2d');
 
 
-console.log(data.subscriptionData)
+
 
 // Initialize an array for monthly earnings (12 months, Jan-Dec)
 const monthlyEarnings = new Array(12).fill(0);
@@ -126,7 +126,7 @@ data.subscriptionData.forEach(subscription => {
     }
 });
 
-console.log(monthlyEarnings)
+
 // Create the bar chart
 const barChart = new Chart(ctx, {
     type: 'bar',
@@ -192,7 +192,13 @@ function updateNewProfiles(allProfilesData){
 
     const card = `
       <section>
-        <div style="display:flex; flex-direction:column; align-items:center; max-width:600px; width:100%; padding:16px; border-radius:12px; background:#fff; box-shadow:0 4px 12px rgba(0, 0, 0, 0.1);">
+        <div style="position: relative;margin-bottom:15px; display:flex; flex-direction:column; align-items:center; max-width:600px; width:100%; padding:16px; border-radius:12px; background:#fff; box-shadow:0 4px 12px rgba(0, 0, 0, 0.1);">
+          <!-- Arrow Icon in Top Left Corner -->
+          <a href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${member.profileID}" 
+             style="position: absolute; top: 6px; right: 6px; font-size: 20px; text-decoration: none; color: #8a02f9; background:#19b5d5; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); ">
+            ➡️
+          </a>
+
           <!-- Card Header -->
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
             <div style="display: flex; align-items: center; gap: 12px;">
@@ -206,8 +212,8 @@ function updateNewProfiles(allProfilesData){
               </div>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-              <span style="font-size: 16px;">📅</span> 
-              <span style="font-weight: 600; color: rgb(0, 2, 3); background-color: #ffffff; padding: 5px 0px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+              <span style="font-size: 16px;margin-top:10px;">📅</span> 
+              <span style="font-weight: 600;margin-top:10px; color: rgb(0, 2, 3); background-color: #ffffff; padding: 5px 0px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                 ${date}-${time}
               </span>
             </div>
@@ -236,14 +242,11 @@ function updateNewProfiles(allProfilesData){
               </p>
             </div>
           </div>
-
-          <!-- Actions -->
-          <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-            <a href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${member.profileID}" style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</a>
-          </div>
         </div>
       </section>
     `;
+
+
     membersContainer.innerHTML += card;
   });
 
@@ -283,9 +286,7 @@ function updateRenewProfiles(allProfilesData, subscriptionData) {
 
         const subscription = sortedData.find(data => member.user_id === data.user_id);
         if (!subscription) return;
-     if(subscription.endDate ===undefined){
-        console.log(member)
-     }
+     
         const createdAt = subscription.endDate ? new Date(subscription.endDate) : null;
         const date = createdAt ? createdAt.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A';
         const time = createdAt ? createdAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) : 'N/A';
@@ -293,7 +294,14 @@ function updateRenewProfiles(allProfilesData, subscriptionData) {
         // Construct card
         const card = `
             <section style="margin-top:15px">
-                <div style="display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                <div style="position: relative; display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                    
+                    <!-- Arrow Icon in Top Left Corner -->
+                    <a href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${member.profileID}" 
+                       style="position: absolute; top: 6px; right: 6px; font-size: 20px; text-decoration: none; color: #8a02f9; background: #19b5d5; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); ">
+                        ➡️
+                    </a>
+
                     <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
@@ -306,8 +314,8 @@ function updateRenewProfiles(allProfilesData, subscriptionData) {
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-                            <span style="font-size: 16px;">📅</span> 
-                            <span style="font-weight: 600; color: red; background-color: #fff3f3; padding: 5px 0px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                            <span style="font-size: 16px;margin-top:10px;">📅</span> 
+                            <span style="font-weight: 600;margin-top:10px; color: red; background-color: #fff3f3; padding: 5px 0px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                                 ${date} - ${time}
                             </span>
                         </div>
@@ -334,12 +342,10 @@ function updateRenewProfiles(allProfilesData, subscriptionData) {
                             </p>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: center; gap: 12px; margin-top: 20px;">
-                        <a href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${member.profileID}" style="padding: 10px 10px; font-size: 12px; font-weight: 500; color: #fff; background: linear-gradient(to right, #420165, #8a02f9 ); border: none; border-radius: 20px; cursor: pointer;">View Profile</a>
-                    </div>
                 </div>
             </section>
         `;
+
 
         membersContainer.innerHTML += card;
         count++;
@@ -366,11 +372,12 @@ async function fetchData() {
 
     if (token) {
         try {
+            showLoader()
             const response = await fetch("http://localhost:5000/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });
-    
+           hideLoader()
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -379,14 +386,50 @@ async function fetchData() {
             if (data.success) {
                 return data;
             } else {
-                alert(data.message);
+                showErrorToast(data.message);
             }
         } catch (error) {
             console.error("Network or server error:", error);
-            alert("An error occurred, please try again later.");
+            showErrorToast("An error occurred, please try again later.");
         }
     }
     
    
 }
 
+
+
+
+
+// Show and hide loader
+function showLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "flex";
+}
+
+function hideLoader() {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+}
+
+function showSuccessToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+      close: true,
+    }).showToast();
+  }
+  
+  function showErrorToast(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      close: true,
+    }).showToast();
+  }

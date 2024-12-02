@@ -116,7 +116,7 @@ export const editProfile = async (req, res) => {
       return res.status(404).json({ success: false, message: "Profile Not Found" });
     }
 
-    res.json({ success: true, message: "Successfully Profile Updated" });
+    res.json({ success: true, message: "Successfully Profile Updated",userId:updatedProfile.user_id });
   } catch (error) {
     console.log(error);
     if (error.name === 'ValidationError') {
@@ -424,11 +424,11 @@ export const handleBookmark = async (req, res) => {
                   image:bookmarkProfile.media.profileImage
               });
               bookmarkProfile.activitys.push({
-                profileID: bookmarkProfile.profileID,
+                profileID: user.profileID,
                 time: new Date(),
-                event: `${bookmarkProfile.basicInfo.name} Bookmarked  Your Profile`,
-                profileImage:bookmarkProfile.media.profileImge,
-                name:bookmarkProfile.basicInfo.name
+                event: `${user.basicInfo.name} Bookmarked  Your Profile`,
+                image:user.media.profileImge,
+                name:user.basicInfo.name
               });
 
               await user.save();

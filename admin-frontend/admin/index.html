@@ -3,7 +3,8 @@
     
 
 <head>
-        <title>Wedding Matrimony</title>
+    <title>Kalanjiyam Kalyana Malai</title>
+
         <!--== META TAGS ==-->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,16 +14,24 @@
         <meta name="description" content="">
         <meta name="keyword" content="">
         <!--== FAV ICON(BROWSER TAB ICON) ==-->
-        <link rel="shortcut icon" href="https://rn53themes.net/themes/matrimo/images/fav.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="images/fevicon.ico" type="image/x-icon">
         <!--== CSS FILES ==-->
         <link rel="stylesheet" href="../css/bootstrap.css">
         <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/animate.min.css">
         <link rel="stylesheet" href="css/admin-style.css">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     </head>
     <body>
         <!-- HEAD -->
         <!-- COPYRIGHTS -->
+        <div id="loader" class="loader-container" style="display: none;">
+            <div class="loader-content">
+              <div class="spinner"></div>
+              <p>loading...</p>
+            </div>
+          </div>
         <section>
             <div class="login">
                 <div class="container">
@@ -59,6 +68,19 @@
                                                         name="pswd"
                                                         required
                                                     >
+                                                </div>
+                                                <div id="otpContainer-l" style="display: none;">
+                                                    <div class="form-group">
+                                                        <label class="lb">OTP:</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="otpInput"
+                                                            placeholder="Enter the otp"
+                                                            name="otpInput"
+                                                            required
+                                                        >
+                                                    </div>
                                                 </div>
                                                 <button type="button" id="loginBtn" class="btn btn-primary">Sign in</button>
                                             </form>
@@ -151,7 +173,8 @@
         <script src="../js/bootstrap.min.js"></script>
         <script src="js/admin-custom.js"></script>
         <script src="js/main/login.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        
         <script>
            $('.ll-1').on('click', function () {
             document.getElementById("forgot").style.display ="block";

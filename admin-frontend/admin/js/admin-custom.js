@@ -58,7 +58,10 @@ $(".fil-img-uplo input").on("change", function(){
     });
 }); 
 
-document.getElementById("logOut").addEventListener("click",()=>{
+const logOutBtn = document.getElementById("logOut");
+
+if(logOutBtn){
+logOutBtn.addEventListener("click",()=>{
 
 
     sessionStorage.removeItem("token");
@@ -66,3 +69,13 @@ document.getElementById("logOut").addEventListener("click",()=>{
 
 
 })
+}
+
+if(!window.location.pathname.endsWith("index.html")){
+    
+    const token = sessionStorage.getItem("token");
+    if(!token){
+        window.location.href="index.html";
+    }
+
+}
