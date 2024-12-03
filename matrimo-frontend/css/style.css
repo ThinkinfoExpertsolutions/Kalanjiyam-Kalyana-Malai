@@ -12665,8 +12665,9 @@ Base styles for the form
     text-align: center;
     padding:20px;
     border-radius:10px;
-    width: 300px;
-    margin-left: 290px;
+    width: 280px;
+    margin-left: 15px;
+    margin-right: 50px;
   }
 
   .pri-box .cta {
@@ -12684,6 +12685,29 @@ Base styles for the form
     background-color: #0056b3;
 }
 
+.pri-box_1{
+    text-align: center;
+    padding:20px;
+    border-radius:10px;
+    width: 280px;
+    margin-left: 15px;
+    margin-right: 50px;
+  }
+
+  .pri-box_1 .cta {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.pri-box_1 .cta:hover {
+    background-color: #0056b3;
+}
 /* Popup Container */
 .popup-container {
     display: none; /* Hidden by default */
