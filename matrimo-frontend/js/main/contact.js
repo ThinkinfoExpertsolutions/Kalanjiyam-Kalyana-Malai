@@ -31,7 +31,7 @@ document.getElementById("sendEnquiry").addEventListener("click", async (e) => {
         };
         showLoader()
         // Make the fetch request
-        const response = await fetch("http://localhost:5000/api/send-quiry", {
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/send-quiry", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

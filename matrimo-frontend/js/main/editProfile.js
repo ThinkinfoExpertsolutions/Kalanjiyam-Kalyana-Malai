@@ -175,7 +175,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         showLoader()
        
 
-        const dataResponse = await fetch("http://localhost:5000/api/edit-profile", {
+        const dataResponse = await fetch("https://api.kalanjiyamkalyanmalai.in/api/edit-profile", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -193,7 +193,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
 
      
 if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.has("galleryImages")) {
-    const imageResponse = await fetch("http://localhost:5000/api/upload-images", {
+    const imageResponse = await fetch("https://api.kalanjiyamkalyanmalai.in/api/upload-images", {
         method: "POST",
         headers: {
             token: token, // Token header for authentication

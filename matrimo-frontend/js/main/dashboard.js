@@ -305,7 +305,7 @@ function updateBookmarkList(userData) {
     const action = isBookmarked ? 'remove' : 'add';
     showLoader();
   
-    fetch(`http://localhost:5000/api/handle-bookmark`, {
+    fetch(`https://api.kalanjiyamkalyanmalai.in/api/handle-bookmark`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -392,7 +392,7 @@ if (sendVerifyBtn) { // Check if the element exists
     e.preventDefault();
     try {
       showLoader()
-      const response = await fetch("http://localhost:5000/api/verify-account", {
+      const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/verify-account", {
         method: "POST",
         headers: {
           token: sessionStorage.getItem('token'),

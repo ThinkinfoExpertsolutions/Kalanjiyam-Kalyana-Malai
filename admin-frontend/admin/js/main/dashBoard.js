@@ -376,7 +376,7 @@ async function fetchData() {
     if (token) {
         try {
             showLoader()
-            const response = await fetch("http://localhost:5000/api/admin/get-website-data", {
+            const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });
