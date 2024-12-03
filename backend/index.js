@@ -20,14 +20,7 @@ connectDB()
 
 app.use(express.json());
 
-// Allow requests from kalanjiyamkalyanmalai.in
-const corsOptions = {
-    origin: 'http://127.0.0.1:5500', // Your domain
-    methods: 'GET,POST,PUT,DELETE,PATCH', // Allowed methods
-    credentials: true // If cookies or authentication headers are used
-  };
-  
-  app.use(cors(corsOptions));
+ app.use(cors());
 
 
 // API
