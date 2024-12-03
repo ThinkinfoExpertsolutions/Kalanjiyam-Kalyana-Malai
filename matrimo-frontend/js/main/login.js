@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
+
+    const url = "https://api.kalanjiyamkalyanmalai.in/api/user/signin";
     // Adding the submit event listener to the form
     document.getElementById("loginForm").addEventListener("submit", async function(event) {
         event.preventDefault(); // Prevents the default form submission
@@ -21,7 +23,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         try {
             showLoader()
-            const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/user/signin", {
+            console.log(url);
+            const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

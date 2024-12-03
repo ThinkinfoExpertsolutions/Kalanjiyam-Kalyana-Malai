@@ -203,12 +203,12 @@ function updateNewProfiles(allProfilesData){
           <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
             <div style="display: flex; align-items: center; gap: 12px;">
               <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                <img src="${member.media.profileImage}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
+                <img src="${member.media?.profileImage}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
               </div>
               <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">${member.basicInfo.name}</h3>
+                <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">${member.basicInfo?.name}</h3>
                 <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: ${member.profileID}</p>
-                <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">${member.basicInfo.age}</span></p>
+                <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">${member.basicInfo?.age}</span></p>
               </div>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
@@ -224,21 +224,21 @@ function updateNewProfiles(allProfilesData){
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
               <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
                 <span style="margin-right: 8px;">📞</span> Phone: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo.phone}</span>
+                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo?.phone}</span>
               </p>
               <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
                 <span style="margin-right: 8px;">✉️</span> Email: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo.email}</span>
+                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo?.email}</span>
               </p>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
               <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
                 <span style="margin-right: 8px;">📍</span> Location: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.basicInfo.district}</span>
+                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.basicInfo?.district}</span>
               </p>
               <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
                 <span style="margin-right: 10px;">💼</span> Job: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.jobDetails.jobType}</span>
+                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.jobDetails?.jobType}</span>
               </p>
             </div>
           </div>
