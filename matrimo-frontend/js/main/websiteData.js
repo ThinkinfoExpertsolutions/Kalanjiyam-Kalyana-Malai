@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded",async()=>{
     showLoader()
     try {
-        const response = await fetch("https://kalanjiyamkalyanamalai-backend-htjs89bnu.vercel.app/api/get-latest-profile", {
+           const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/get-latest-profile", {
     method: "GET",
     headers: {
         "Content-Type": "application/json",
