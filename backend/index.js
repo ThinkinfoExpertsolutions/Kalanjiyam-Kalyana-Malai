@@ -19,7 +19,15 @@ connectDB()
 // MIDDLEWARE
 
 app.use(express.json());
-app.use(cors());
+
+// Allow requests from kalanjiyamkalyanmalai.in
+const corsOptions = {
+    origin: 'https://kalanjiyamkalyanmalai.in', // Your domain
+    methods: 'GET,POST,PUT,DELETE,PATCH', // Allowed methods
+    credentials: true // If cookies or authentication headers are used
+  };
+  
+  app.use(cors(corsOptions));
 
 
 // API
@@ -27,24 +35,9 @@ app.use(cors());
 app.use("/api/user",userRouter);
 app.use("/api",profileRouter);
 app.use("/api/admin",adminRouter);
-app.post("/register",async(req,res)=>{
-    const {userName,password,email} = req.body;
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword =  await bcrypt.hash(password,salt);
-
-
-    const newAdmin = adminModel({
-        userName,
-        email,
-        password:hashedPassword
-    })
-   const data =  await newAdmin.save();
-   if(data){
-       res.json({data:data})
-
-   }
-})
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+  })
 
 // SERVER  
 
