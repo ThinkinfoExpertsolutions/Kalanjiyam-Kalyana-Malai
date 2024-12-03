@@ -1,4 +1,4 @@
-let submiTAndShowMorePath = "http://127.0.0.1:5500/matrimo-frontend/login.html";
+let submiTAndShowMorePath = "login.html";
 
 async function fetchUserData() {
     let token = sessionStorage.getItem("token");
