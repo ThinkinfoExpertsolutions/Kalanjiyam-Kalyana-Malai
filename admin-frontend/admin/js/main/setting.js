@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showLoader()
         // API request for admin credentials
         const credentialResponse = await fetch(
-          "http://localhost:5000/api/admin/change-admin-credential",
+          "https://api.kalanjiyamkalyanmalai.in/api/admin/change-admin-credential",
           {
             method: "POST",
             headers,
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
         // API request for social media updates
         const socialMediaResponse = await fetch(
-          "http://localhost:5000/api/admin/update-socialmedia",
+          "https://api.kalanjiyamkalyanmalai.in/api/admin/update-socialmedia",
           {
             method: "POST",
             headers,

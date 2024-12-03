@@ -10,7 +10,7 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
 
     if (currentStep === 'sendOtp') {
         // Step 1: Send OTP to email
-        const response = await fetch("http://localhost:5000/api/user/user/forgot-password", {
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/user/user/forgot-password", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email })
@@ -28,7 +28,7 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
 
     } else if (currentStep === 'verifyOtp') {
         // Step 2: Verify OTP
-        const response = await fetch("http://localhost:5000/api/user/verify-otp", {
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/user/verify-otp", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, otp })
@@ -54,7 +54,7 @@ document.getElementById("actionBtn").addEventListener("click", async function(ev
             return;
         }
        showLoader()
-        const response = await fetch("http://localhost:5000/api/user/user/reset-password", {
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/user/user/reset-password", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, newPassword, comfirmPassword })

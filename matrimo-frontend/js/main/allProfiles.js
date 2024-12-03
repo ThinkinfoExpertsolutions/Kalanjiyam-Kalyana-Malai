@@ -55,7 +55,7 @@ function handleChange(event) {
 async function fetchData() {
     try {
         showLoader();
-        const response = await fetch("http://localhost:5000/api/get-all-profile", {
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/get-all-profile", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
@@ -260,7 +260,7 @@ async function handleViewCount(userId,event,profileID){
     }
     try {
         showLoader()
-         const response = await fetch(`http://localhost:5000/api/profile/${userId}/view`,{
+         const response = await fetch(`https://api.kalanjiyamkalyanmalai.in/api/profile/${userId}/view`,{
             method: 'PATCH',
             headers: {
           'Content-Type': 'application/json',
@@ -313,7 +313,7 @@ function toggleBookmark(userId, element) {
     const action = isBookmarked ? 'remove' : 'add';
      showLoader()
     // Send request to backend
-    fetch(`http://localhost:5000/api/handle-bookmark`, {
+    fetch(`https://api.kalanjiyamkalyanmalai.in/api/handle-bookmark`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ if(token){
 
     try {
         showLoader()
-        const response = await fetch("http://localhost:5000/api/user/user", {
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/user/user", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

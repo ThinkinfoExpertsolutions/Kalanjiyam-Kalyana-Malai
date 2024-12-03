@@ -358,7 +358,7 @@ async function changeSubscription(index){
    
       try {
         showLoader()
-        const response = await fetch("http://localhost:5000/api/admin/change-subscription-status",{
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/change-subscription-status",{
             method:"POST",
            headers,
            body:JSON.stringify({
@@ -402,7 +402,7 @@ async function changeVerification(index){
  
     try {
         showLoader()
-        const response = await fetch("http://localhost:5000/api/admin/change-verification-status",{
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/change-verification-status",{
             method:"POST",
            headers,
            body:JSON.stringify({
@@ -437,7 +437,7 @@ async function deleteProfile(index){
 
     try {
         showLoader()
-        const response = await fetch("http://localhost:5000/api/admin/remove-profile",{
+        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/remove-profile",{
             method:"DELETE",
             headers,
             body:JSON.stringify({userId})
@@ -480,7 +480,7 @@ async function fetchData() {
     if (token) {
         try {
             showLoader()
-            const response = await fetch("http://localhost:5000/api/admin/get-website-data", {
+            const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });
