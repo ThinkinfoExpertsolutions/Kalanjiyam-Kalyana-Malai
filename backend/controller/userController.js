@@ -121,6 +121,7 @@ export const register = async(req,res)=>{
         email:email,
         password:hashedPassword
     })
+    let profileID;
     const newProfileSave = async(id)=>{
         
         const newProfile = profilesModel({
@@ -135,7 +136,8 @@ export const register = async(req,res)=>{
             }
         })
 
-         await newProfile.save();
+        const newProfileData =  await newProfile.save();
+        profileID=newProfileData.profileID;
     }
 
     const newSubscriptionDataSave = async(id,userName)=>{
@@ -154,7 +156,7 @@ export const register = async(req,res)=>{
        newSubscriptionDataSave(user._id,user.name);
        const token =  generateToken(user._id,process.env.SECRET_KEY);
        const encryptedToken = setEncryptedToken(token);
-       res.json({success:true,message:"Successfully Registered ",encryptedToken:encryptedToken});
+       res.json({success:true,message:"Successfully Registered ",encryptedToken:encryptedToken,profileID:profileID});
 
     } catch (error) {
         console.log(error);

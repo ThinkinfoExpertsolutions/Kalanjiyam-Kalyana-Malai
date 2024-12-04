@@ -162,7 +162,7 @@ async function handleEnquiryStatus(index,isSolved){
                 isSolved,userId,enqueryID
             })
         });
-    hideLoader()
+        hideLoader()
         const data= await response.json();
 
         if(data.success){
