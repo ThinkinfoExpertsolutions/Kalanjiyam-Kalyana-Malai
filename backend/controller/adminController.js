@@ -1,5 +1,5 @@
 import adminModel from "../model/adminModel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { createUniqueUserId, generateToken, setEncryptedToken } from "./userController.js";
 import profilesModel from "../model/profileModel.js";
 import { userModel } from "../model/userModel.js";

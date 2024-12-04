@@ -1,5 +1,5 @@
 import { userModel } from "../model/userModel.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import nodemailer from "nodemailer";
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
