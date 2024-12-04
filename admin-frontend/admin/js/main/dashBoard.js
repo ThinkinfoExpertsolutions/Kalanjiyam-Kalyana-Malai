@@ -1,3 +1,6 @@
+
+const defaultProfileImage = "images/default-profileImage.jpg"
+
 document.addEventListener("DOMContentLoaded",async()=>{
 
     
@@ -20,7 +23,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     // ALL PROFILES
 
     const profileCount = document.getElementById("profileCount");
-   const profileIcons = document.querySelectorAll("#profileIcons img");
+   const profileIcons = document.getElementById("profileIcons");
 
 
 if (!profileCount || profileIcons.length === 0) {
@@ -30,10 +33,19 @@ if (!profileCount || profileIcons.length === 0) {
 
 profileCount.innerText = data.allProfilesData.length;
 
-
+let count = 0;
 data.allProfilesData.forEach((profile, index) => {
-    if (profileIcons[index]) { 
-        profileIcons[index].src = profile.media.profileImage;
+    
+    if (profile.media.profileImage && count<7) { 
+       const span = document.createElement("span");
+       span.innerHTML =`<img src="${profile.media.profileImage}" data-bs-toggle="tooltip" title="Hooray!">`;
+       profileIcons.appendChild(span);
+       count++;
+    }else{
+        const span = document.createElement("span");
+       span.innerHTML =`<img src="${defaultProfileImage}" data-bs-toggle="tooltip" title="Hooray!">`;
+       profileIcons.appendChild(span);
+       count++;
     }
 });
 
@@ -191,61 +203,61 @@ function updateNewProfiles(allProfilesData){
     const time = createdAt.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', hour12: true}) || 'N/A'
 
     const card = `
-      <section>
-        <div style="position: relative;margin-bottom:15px; display:flex; flex-direction:column; align-items:center; max-width:600px; width:100%; padding:16px; border-radius:12px; background:#fff; box-shadow:0 4px 12px rgba(0, 0, 0, 0.1);">
-          <!-- Arrow Icon in Top Left Corner -->
-          <a href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${member.profileID}" 
-             style="position: absolute; top: 6px; right: 6px; font-size: 20px; text-decoration: none; color: #8a02f9; background:#19b5d5; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); ">
-            ➡️
-          </a>
-
-          <!-- Card Header -->
-          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
-                <img src="${member.media?.profileImage}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
-              </div>
-              <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
-                <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">${member.basicInfo?.name}</h3>
-                <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: ${member.profileID}</p>
-                <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">${member.basicInfo?.age}</span></p>
-              </div>
+    <section>
+      <div style="position: relative;margin-bottom:15px; display:flex; flex-direction:column; align-items:center; max-width:600px; width:100%; padding:16px; border-radius:12px; background:#fff; box-shadow:0 4px 12px rgba(0, 0, 0, 0.1);">
+        <!-- Arrow Icon in Top Left Corner -->
+        <a href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${member.profileID ? member.profileID : 'N/A'}" 
+           style="position: absolute; top: 6px; right: 6px; font-size: 20px; text-decoration: none; color: #8a02f9; background:#19b5d5; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+          ➡️
+        </a>
+  
+        <!-- Card Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid #c1bdbd;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="height: 80px; width: 80px; display: flex; justify-content: center; align-items: center;">
+              <img src="${member.media?.profileImage ? member.media.profileImage : defaultProfileImage}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid #333;">
             </div>
-            <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
-              <span style="font-size: 16px;margin-top:10px;">📅</span> 
-              <span style="font-weight: 600;margin-top:10px; color: rgb(0, 2, 3); background-color: #ffffff; padding: 5px 0px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                ${date}-${time}
-              </span>
+            <div style="display: flex; flex-direction: column; justify-content: center; text-align: center;">
+              <h3 style="font-size: 22px; font-weight: bold; color: #222; margin: 0;">${member.basicInfo?.name ? member.basicInfo.name : 'N/A'}</h3>
+              <p style="font-size: 14px; color: #222; margin: 4px 0 0;">ID: ${member.profileID ? member.profileID : 'N/A'}</p>
+              <p style="margin-right: 15px; font-size: 14px;">Age: <span style="font-size: 14px; color: #222;">${member.basicInfo?.age ? member.basicInfo.age : 'N/A'}</span></p>
             </div>
           </div>
-
-          <!-- Card Footer -->
-          <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px; margin-top :2px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-              <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                <span style="margin-right: 8px;">📞</span> Phone: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo?.phone}</span>
-              </p>
-              <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                <span style="margin-right: 8px;">✉️</span> Email: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo?.email}</span>
-              </p>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
-              <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
-                <span style="margin-right: 8px;">📍</span> Location: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.basicInfo?.district}</span>
-              </p>
-              <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
-                <span style="margin-right: 10px;">💼</span> Job: 
-                <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.jobDetails?.jobType}</span>
-              </p>
-            </div>
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: #222;">
+            <span style="font-size: 16px;margin-top:10px;">📅</span> 
+            <span style="font-weight: 600;margin-top:10px; color: rgb(0, 2, 3); background-color: #ffffff; padding: 5px 0px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+              ${date && time ? `${date}-${time}` : 'N/A'}
+            </span>
           </div>
         </div>
-      </section>
-    `;
-
+  
+        <!-- Card Footer -->
+        <div style="display: flex; flex-direction: column; width: 100%; margin-top: 16px; padding-top: 12px; margin-top :2px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
+            <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
+              <span style="margin-right: 8px;">📞</span> Phone: 
+              <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo?.phone ? member.contactInfo.phone : 'N/A'}</span>
+            </p>
+            <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
+              <span style="margin-right: 8px;">✉️</span> Email: 
+              <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.contactInfo?.email ? member.contactInfo.email : 'N/A'}</span>
+            </p>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 24px; color: #2b2b2b; margin-bottom: 8px;">
+            <p style="margin: 0; font-weight: 600; display: flex; align-items: center;">
+              <span style="margin-right: 8px;">📍</span> Location: 
+              <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.basicInfo?.district ? member.basicInfo.district : 'N/A'}</span>
+            </p>
+            <p style="margin: 0; font-weight: 600; display: flex; align-items: center; margin-right: 35px;">
+              <span style="margin-right: 10px;">💼</span> Job: 
+              <span style="font-weight: 550; color: #222; margin-left: 4px;">${member.jobDetails?.jobType ? member.jobDetails.jobType : 'N/A'}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+  
 
     membersContainer.innerHTML += card;
   });

@@ -1,4 +1,4 @@
-const defaultProfileImage = "../../../default-profileImage.jpg"
+const defaultProfileImage = "images/default-profileImage.jpg"
 
 let allProfiles;
 let filteredProfiles = [];

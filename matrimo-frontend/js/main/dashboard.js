@@ -10,7 +10,7 @@ const leatestProfiles = profilesData ? JSON.parse(profilesData) : null;
 
 
 
-const defaultProfileImage = "../../../default-profileImage.jpg"
+const defaultProfileImage = "images/default-profileImage.jpg"
 document.addEventListener('DOMContentLoaded',()=>{
 
   const profileImageElement = document.getElementById("profileImage");
