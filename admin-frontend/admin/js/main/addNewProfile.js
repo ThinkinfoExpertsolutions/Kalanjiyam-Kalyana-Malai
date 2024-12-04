@@ -208,7 +208,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         
        showLoader()
 
-        const dataResponse = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/add-new-profile", {
+        const dataResponse = await fetch("https://api.kalanjiyamkalyanamalai.in/api/admin/add-new-profile", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -230,7 +230,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
      
 if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.has("galleryImages")) {
     showLoader()
-    const imageResponse = await fetch("https://api.kalanjiyamkalyanmalai.in/api/upload-images", {
+    const imageResponse = await fetch("https://api.kalanjiyamkalyanamalai.in/api/upload-images", {
         method: "POST",
         headers: {
             token: token, // Token header for authentication
@@ -367,7 +367,7 @@ function calculatePercentage(elements) {
 async function getProfileData (profileID){
     try {
         showLoader()
-        const response = await fetch(`https://api.kalanjiyamkalyanmalai.in/api/get-profile-data/${profileID}`, {
+        const response = await fetch(`https://api.kalanjiyamkalyanamalai.in/api/get-profile-data/${profileID}`, {
             method: "GET",
             headers: {
                 token: token, // Token header for authentication

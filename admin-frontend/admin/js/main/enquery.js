@@ -153,7 +153,7 @@ async function handleEnquiryStatus(index,isSolved){
 
     try {
         showLoader()
-        const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/change-enquery-status", {
+        const response = await fetch("https://api.kalanjiyamkalyanamalai.in/api/admin/change-enquery-status", {
             method: "POST",
             headers: { token ,
                  "Content-Type": "application/json"
@@ -263,7 +263,7 @@ async function fetchData() {
     if (token) {
         try {
             showLoader()
-            const response = await fetch("https://api.kalanjiyamkalyanmalai.in/api/admin/get-website-data", {
+            const response = await fetch("https://api.kalanjiyamkalyanamalai.in/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });
