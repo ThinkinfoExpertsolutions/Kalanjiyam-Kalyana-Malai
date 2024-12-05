@@ -14,19 +14,28 @@ connectDB();
 // MIDDLEWARE
 app.use(express.json());
 
-// CORS Configuration: Allow requests from the specific origin
+// Dynamic CORS Configuration
+const allowedOrigins = [
+  'https://www.kalanjiyamkalyanamalai.in',
+  'https://kalanjiyam-kalyana-malai-zhkl-pa92dbiaq.vercel.app'
+];
+
 const corsOptions = {
-  origin: 'https://www.kalanjiyamkalyanamalai.in', // Specify allowed origin(s)
-  methods: 'GET,POST,PUT,DELETE,PATCH', // Specify allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization', 'token'], // Include 'token' here
-  credentials: true, // Allow credentials if required
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: 'GET,POST,PUT,DELETE,PATCH',
+  allowedHeaders: ['Content-Type', 'Authorization', 'token'],
+  credentials: true,
 };
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight
 
-// Handle preflight requests
-app.options('*', cors(corsOptions));
-
-// API ROUTES
+// ROUTES
 app.use("/api/user", userRouter);
 app.use("/api", profileRouter);
 app.use("/api/admin", adminRouter);
@@ -34,12 +43,6 @@ app.use("/api/admin", adminRouter);
 // Root Route
 app.get('/', (req, res) => {
   res.send('Hello World!');
-});
-
-// Error Handling Middleware (Optional but recommended)
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send({ message: 'Something went wrong!' });
 });
 
 // SERVER
