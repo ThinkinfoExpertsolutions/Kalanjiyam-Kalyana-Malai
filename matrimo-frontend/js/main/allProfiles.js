@@ -107,7 +107,7 @@ console.log(condition)
 
                 }else if(key === "basicInfo.cast"){
                     const cast  = condition[key];
-                    const userCast = user.basicInfo.cast;
+                    const userCast = user.basicInfo.cast?.cast;
 
                     if(!userCast.includes(cast)){return false;}
                 }
