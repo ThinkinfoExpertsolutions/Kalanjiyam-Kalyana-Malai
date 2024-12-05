@@ -573,6 +573,8 @@ export const getLatestProfile = async(req,res)=>{
   }
 
 }
+
+// GET ALL PROFILES
 export const getAllProfile = async(req,res)=>{
 
   try {
