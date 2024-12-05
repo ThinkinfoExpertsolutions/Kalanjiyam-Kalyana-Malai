@@ -31,7 +31,7 @@ document.getElementById("sendEnquiry").addEventListener("click", async (e) => {
         };
         showLoader()
         // Make the fetch request
-        const response = await fetch("https://api.kalanjiyamkalyanamalai.in/api/send-quiry", {
+        const response = await fetch("https://backend-alpha-flax.vercel.app/api/send-quiry", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

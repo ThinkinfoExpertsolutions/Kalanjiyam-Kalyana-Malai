@@ -11,7 +11,7 @@ const subscriptionData = data2 ? JSON.parse(data2) : null;
 async function getProfileData(profileID) {
     try {
         showLoader();
-        const response = await fetch(`https://api.kalanjiyamkalyanamalai.in/api/get-profile-data/${profileID}`, {
+        const response = await fetch(`https://backend-alpha-flax.vercel.app/api/get-profile-data/${profileID}`, {
             method: "GET",
             headers: {
                 token: token, // Token header for authentication

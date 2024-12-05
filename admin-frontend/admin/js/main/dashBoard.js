@@ -388,7 +388,7 @@ async function fetchData() {
     if (token) {
         try {
             showLoader()
-            const response = await fetch("https://api.kalanjiyamkalyanamalai.in/api/admin/get-website-data", {
+            const response = await fetch("https://backend-alpha-flax.vercel.app/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });

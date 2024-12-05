@@ -305,7 +305,7 @@ function updateBookmarkList(userData) {
     const action = isBookmarked ? 'remove' : 'add';
     showLoader();
   
-    fetch(`https://api.kalanjiyamkalyanamalai.in/api/handle-bookmark`, {
+    fetch(`https://backend-alpha-flax.vercel.app/api/handle-bookmark`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -392,7 +392,7 @@ if (sendVerifyBtn) { // Check if the element exists
     e.preventDefault();
     try {
       showLoader()
-      const response = await fetch("https://api.kalanjiyamkalyanamalai.in/api/verify-account", {
+      const response = await fetch("https://backend-alpha-flax.vercel.app/api/verify-account", {
         method: "POST",
         headers: {
           token: sessionStorage.getItem('token'),

@@ -196,7 +196,7 @@ function toggleBookmark(userId, element) {
   const action = isBookmarked ? 'remove' : 'add';
    showLoader()
   // Send request to backend
-  fetch(`https://api.kalanjiyamkalyanamalai.in//api/handle-bookmark`, {
+  fetch(`https://backend-alpha-flax.vercel.app/api/handle-bookmark`, {
       method: 'PATCH',
       headers: {
           'Content-Type': 'application/json',
@@ -235,7 +235,7 @@ async function handleViewCount(userId,event,profileID){
     }
     try {
         showLoader()
-         const response = await fetch(`https://api.kalanjiyamkalyanamalai.in//api/profile/${userId}/view`,{
+         const response = await fetch(`https://backend-alpha-flax.vercel.app/api/profile/${userId}/view`,{
             method: 'PATCH',
             headers: {
           'Content-Type': 'application/json',
