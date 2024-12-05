@@ -17,13 +17,13 @@ connectDB()
 app.use(express.json());
 
 // CORS Configuration: Allow requests from the specific origin
-// const corsOptions = {
-//   origin: "https://www.kalanjiyamkalyanamalai.in",  // Allow only this domain
-//   methods: ["GET", "POST", "OPTIONS","DELETE","PATCH"],  // Allow specific methods
-//   allowedHeaders: ["Content-Type", "Authorization"]  // Allow specific headers
-// };
+const corsOptions = {
+  origin: "https://www.kalanjiyamkalyanamalai.in",  // Allow only this domain
+  methods: ["GET", "POST", "OPTIONS","DELETE","PATCH"],  // Allow specific methods
+  allowedHeaders: ["Content-Type", "Authorization"]  // Allow specific headers
+};
 
-app.use(cors());  // Apply CORS middleware with options
+app.use(cors(corsOptions));  // Apply CORS middleware with options
 
 // API ROUTES
 app.use("/api/user", userRouter);
