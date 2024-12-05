@@ -351,10 +351,10 @@ export const getLatestProfile = async(req,res)=>{
   try {
     
     const allProfiles = await profilesModel.find({}).limit(7);
-    // const admin = await adminModel.findById(process.env.ADMIN_MONGO_ID);
+    const admin = await adminModel.findById(process.env.ADMIN_MONGO_ID);
     const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
    
-    res.json({success:true,data:sortedProfiles,socialMedia:[]});
+    res.json({success:true,data:sortedProfiles,socialMedia:admin.socialMedia?.socialMedia ||[]});
 
 
   } catch (error) {
