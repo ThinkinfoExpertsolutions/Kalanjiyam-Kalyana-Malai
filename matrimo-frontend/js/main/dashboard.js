@@ -57,24 +57,29 @@ function updateNewProfiles(userData, leatestProfiles) {
           return;
       }
 
-      if (profile.media.profileImage || profile.basicInfo.name || profile.personalDetails.age || profile.basicInfo.district || profile.profileID) {
-        if(count<6){
+      if (
+        profile?.media?.profileImage ||
+        profile?.basicInfo?.name ||
+        profile?.personalDetails?.age !== undefined || 
+        profile?.basicInfo?.district ||
+        profile?.profileID
+      )
+      {
+        if (count < 6) {
           const li = document.createElement("li");
-
+      
           li.innerHTML = `
               <div class="db-new-pro">
                   <img src="${profile.media.profileImage || defaultProfileImage}" alt="" class="profile">
                   <div>
-                      <h5>${profile.basicInfo.name}</h5>
-                      <span class="city">${profile.basicInfo.district}</span>
-                      <span class="age">${profile.personalDetails.age} Years old</span>
+                      <h5>${profile.basicInfo.name || "N/A"}</h5>
+                      <span class="city">${profile.basicInfo.district || "N/A"}</span>
+                      <span class="age">${profile.personalDetails?.age ? profile.personalDetails.age + " Years old" : "N/A"}</span>
                   </div>
-                 
-                  </div>
-                  <a href="profile-details.html?id=${profile.profileID}" class="fclick" >&nbsp;</a>
+                  <a href="profile-details.html?id=${profile.profileID || "#"}" class="fclick">&nbsp;</a>
               </div>
           `;
-
+      
           dashboardNewProfiles.appendChild(li);
           count++;
         }

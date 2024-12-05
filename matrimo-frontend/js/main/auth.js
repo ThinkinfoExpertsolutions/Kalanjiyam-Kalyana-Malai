@@ -80,8 +80,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
                 showSuccessToast(data.message); 
                 sessionStorage.setItem("token", data.encryptedToken); 
                 setTimeout(()=>{
-                    location.reload();
-                    window.location.href = `user-profile-edit.html?id=${data.userData.profileID}`;
+                    window.location.href = `user-profile-edit.html?id=${data.profileID}`;
                 },1000)
             } else {
                 showErrorToast(data.message || "Registration failed."); // Show error message

@@ -578,10 +578,9 @@ export const getAllProfile = async(req,res)=>{
   try {
     
     const allProfiles = await profilesModel.find({});
-    const admin = await adminModel.findById("6728727049b63d85da15a516");
     const sortedProfiles = allProfiles.sort((a,b)=>  new Date(b.createdAt) - new Date(a.createdAt));
 
-    res.json({success:true,data:sortedProfiles,socialMedia:admin.socialMedia});
+    res.json({success:true,data:sortedProfiles});
 
 
   } catch (error) {
