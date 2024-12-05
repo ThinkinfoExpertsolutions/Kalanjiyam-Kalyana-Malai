@@ -208,7 +208,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
         
        showLoader()
 
-        const dataResponse = await fetch("https://backend-alpha-flax.vercel.app/api/admin/add-new-profile", {
+        const dataResponse = await fetch("https://backend-green-seven-44.vercel.app/api/admin/add-new-profile", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -230,7 +230,7 @@ document.getElementById('profileForm').addEventListener('submit',async function(
      
 if (formData.has("profileImage") || formData.has("horoscopeImage") || formData.has("galleryImages")) {
     showLoader()
-    const imageResponse = await fetch("https://backend-alpha-flax.vercel.app/api/upload-images", {
+    const imageResponse = await fetch("https://backend-green-seven-44.vercel.app/api/upload-images", {
         method: "POST",
         headers: {
             token: token, // Token header for authentication
@@ -367,7 +367,7 @@ function calculatePercentage(elements) {
 async function getProfileData (profileID){
     try {
         showLoader()
-        const response = await fetch(`https://backend-alpha-flax.vercel.app/api/get-profile-data/${profileID}`, {
+        const response = await fetch(`https://backend-green-seven-44.vercel.app/api/get-profile-data/${profileID}`, {
             method: "GET",
             headers: {
                 token: token, // Token header for authentication

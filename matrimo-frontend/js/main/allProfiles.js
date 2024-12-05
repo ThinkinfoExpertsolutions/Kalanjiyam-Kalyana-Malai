@@ -55,7 +55,7 @@ function handleChange(event) {
 async function fetchData() {
     try {
         showLoader();
-        const response = await fetch("https://backend-alpha-flax.vercel.app/api/get-all-profile", {
+        const response = await fetch("https://backend-green-seven-44.vercel.app/api/get-all-profile", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });
@@ -260,7 +260,7 @@ async function handleViewCount(userId,event,profileID){
     }
     try {
         showLoader()
-         const response = await fetch(`https://backend-alpha-flax.vercel.app/api/profile/${userId}/view`,{
+         const response = await fetch(`https://backend-green-seven-44.vercel.app/api/profile/${userId}/view`,{
             method: 'PATCH',
             headers: {
           'Content-Type': 'application/json',
@@ -313,7 +313,7 @@ function toggleBookmark(userId, element) {
     const action = isBookmarked ? 'remove' : 'add';
      showLoader()
     // Send request to backend
-    fetch(`https://backend-alpha-flax.vercel.app/api/handle-bookmark`, {
+    fetch(`https://backend-green-seven-44.vercel.app/api/handle-bookmark`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',

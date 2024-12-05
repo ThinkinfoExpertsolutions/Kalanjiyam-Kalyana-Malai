@@ -310,7 +310,7 @@ function updateBookmarkList(userData) {
     const action = isBookmarked ? 'remove' : 'add';
     showLoader();
   
-    fetch(`https://backend-alpha-flax.vercel.app/api/handle-bookmark`, {
+    fetch(`https://backend-green-seven-44.vercel.app/api/handle-bookmark`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -397,7 +397,7 @@ if (sendVerifyBtn) { // Check if the element exists
     e.preventDefault();
     try {
       showLoader()
-      const response = await fetch("https://backend-alpha-flax.vercel.app/api/verify-account", {
+      const response = await fetch("https://backend-green-seven-44.vercel.app/api/verify-account", {
         method: "POST",
         headers: {
           token: sessionStorage.getItem('token'),

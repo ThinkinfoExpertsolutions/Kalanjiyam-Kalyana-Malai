@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const url = "https://backend-alpha-flax.vercel.app/api/user/signin";
+    const url = "https://backend-green-seven-44.vercel.app/api/user/signin";
     // Adding the submit event listener to the form
     document.getElementById("loginForm").addEventListener("submit", async function(event) {
         event.preventDefault(); // Prevents the default form submission

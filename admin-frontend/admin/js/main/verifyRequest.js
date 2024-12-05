@@ -168,7 +168,7 @@ const headers = {
 
     try {
         showLoader()
-        const response = await fetch("https://api.kalanjiyamkalyanamalai.in/api/admin/handle-verify-request", {
+        const response = await fetch("https://backend-green-seven-44.vercel.app/api/admin/handle-verify-request", {
             method: "POST", // Use POST for sending a body
             headers: {
                 "Content-Type": "application/json",
@@ -208,7 +208,7 @@ async function fetchData() {
     if (token) {
         try {
             showLoader()
-            const response = await fetch("https://api.kalanjiyamkalyanamalai.in/api/admin/get-website-data", {
+            const response = await fetch("https://backend-green-seven-44.vercel.app/api/admin/get-website-data", {
                 method: "GET",
                 headers: { token },
             });

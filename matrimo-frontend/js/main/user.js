@@ -12,7 +12,7 @@ if(token){
 
     try {
         showLoader()
-        const response = await fetch("https://backend-alpha-flax.vercel.app/api/user/user", {
+        const response = await fetch("https://backend-green-seven-44.vercel.app/api/user/user", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

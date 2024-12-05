@@ -22,7 +22,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
             }
 
             // Send OTP request to backend for email verification
-            const response = await fetch("https://backend-alpha-flax.vercel.app/api/user/user/verify", {
+            const response = await fetch("https://backend-green-seven-44.vercel.app/api/user/user/verify", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -59,7 +59,7 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
 
             // Send OTP verification request to backend for email
             showLoader()
-            const response = await fetch("https://backend-alpha-flax.vercel.app/api/user/register", {
+            const response = await fetch("https://backend-green-seven-44.vercel.app/api/user/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -15,7 +15,7 @@ document.getElementById("loginBtn").addEventListener("click", async (e) => {
         if (logInCurrentStep === "verify") {
             // Step 1: Verify user credentials and send OTP
             showLoader()
-            const response = await fetch("https://backend-alpha-flax.vercel.app/api/user/admin/verify", {
+            const response = await fetch("https://backend-green-seven-44.vercel.app/api/user/admin/verify", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,7 +46,7 @@ document.getElementById("loginBtn").addEventListener("click", async (e) => {
             showLoader();
           console.log(email)
             // Verify OTP
-            const otpResponse = await fetch("https://backend-alpha-flax.vercel.app/api/user/verify-otp", {
+            const otpResponse = await fetch("https://backend-green-seven-44.vercel.app/api/user/verify-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: email, otp }),
@@ -59,7 +59,7 @@ document.getElementById("loginBtn").addEventListener("click", async (e) => {
                 // Log in user after OTP verification
                 showLoader();
 
-                const loginResponse = await fetch("https://backend-alpha-flax.vercel.app/api/admin/login", {
+                const loginResponse = await fetch("https://backend-green-seven-44.vercel.app/api/admin/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ document.getElementById("verifyBtn").addEventListener("click", async (e) => {
     if (currentStep === "sendOTP") {
         try {
             showLoader()
-            const response = await fetch("https://backend-alpha-flax.vercel.app/api/user/admin/forgot-password", {
+            const response = await fetch("https://backend-green-seven-44.vercel.app/api/user/admin/forgot-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
@@ -135,7 +135,7 @@ document.getElementById("verifyBtn").addEventListener("click", async (e) => {
 
         try {
             showLoader()
-            const response = await fetch("https://backend-alpha-flax.vercel.app/api/user/verify-otp", {
+            const response = await fetch("https://backend-green-seven-44.vercel.app/api/user/verify-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, otp }),
@@ -170,7 +170,7 @@ document.getElementById("verifyBtn").addEventListener("click", async (e) => {
 
         try {
             showLoader()
-            const response = await fetch("https://backend-alpha-flax.vercel.app/api/user/admin/reset-password", {
+            const response = await fetch("https://backend-green-seven-44.vercel.app/api/user/admin/reset-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, newPassword,comfirmPassword }),

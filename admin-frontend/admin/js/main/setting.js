@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showLoader()
         // API request for admin credentials
         const credentialResponse = await fetch(
-          "https://backend-alpha-flax.vercel.app/api/admin/change-admin-credential",
+          "https://backend-green-seven-44.vercel.app/api/admin/change-admin-credential",
           {
             method: "POST",
             headers,
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
         // API request for social media updates
         const socialMediaResponse = await fetch(
-          "https://backend-alpha-flax.vercel.app/api/admin/update-socialmedia",
+          "https://backend-green-seven-44.vercel.app/api/admin/update-socialmedia",
           {
             method: "POST",
             headers,
