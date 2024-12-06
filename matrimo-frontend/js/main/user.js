@@ -289,6 +289,10 @@ const userPages = [
 if(userPages.some(page => window.location.pathname.endsWith(page))){
     if(!sessionStorage.getItem("token")){
         window.location.href = "index.html";
+    }else if(page ==="profile-details.html" ){
+        if(!localStorage.getItem("token")){
+            window.location.href = "index.html";
+        }
     }
 }
 

@@ -80,7 +80,6 @@ document.getElementById("actionBtn").addEventListener("click", async function (e
                 showSuccessToast(data.message); 
                 sessionStorage.setItem("token", data.encryptedToken); 
                 // Set a cookie with the token
-                document.cookie = `token=${data.encryptedToken}; path=/; max-age=86400; secure`;
 
                 setTimeout(()=>{
                     window.location.href = `user-profile-edit.html?id=${data.profileID}`;

@@ -73,7 +73,7 @@ document.getElementById("loginBtn").addEventListener("click", async (e) => {
                 if (loginData.success) {
                     showSuccessToast(loginData.message);
                     sessionStorage.setItem("token", loginData.encryptedToken);
-                    document.cookie = `token=${loginData.encryptedToken}; path=/; max-age=86400; secure; domain=kalanjiyamkalyanamalai.in`;
+                  localStorage.setItem("token",loginData.encryptedToken);
 
                     window.location.href = "dashboard.html";
                 } else {

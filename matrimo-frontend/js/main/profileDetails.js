@@ -1,16 +1,12 @@
 
   // Get the token
-  const token = getCookie('token');
-  console.log('Retrieved Token:', token);
+ let token ;
 
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop().split(';').shift();
-    }
-    return null;
-  }
+ if(sessionStorage.getItem("token")){
+    token = sessionStorage.getItem("token");
+ }else{
+    token = localStorage.getItem("token");
+ }
   
 const defaultImageUrl = "https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg";
 
