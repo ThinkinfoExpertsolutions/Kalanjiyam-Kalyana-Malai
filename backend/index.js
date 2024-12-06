@@ -17,7 +17,7 @@ app.use(express.json());
 // Dynamic CORS Configuration
 const allowedOrigins = [
   'https://www.kalanjiyamkalyanamalai.in',
-  'https://kalanjiyam-kalyana-malai-zhkl-pa92dbiaq.vercel.app'
+  'https://kalanjiyam-kalyana-malai-zhkl-91ed689v3.vercel.app'
 ];
 
 const corsOptions = {
