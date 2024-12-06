@@ -39,6 +39,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 showSuccessToast(data.message);
                 setTimeout(()=>{
                     sessionStorage.setItem("token", data.encryptedToken);
+                    // Set a cookie with the token
+                   document.cookie = `token=${data.encryptedToken}; path=/; max-age=86400; secure`;
+
                     // Redirect to the dashboard or any other page
                     window.location.href = "index.html";
                 },1000)

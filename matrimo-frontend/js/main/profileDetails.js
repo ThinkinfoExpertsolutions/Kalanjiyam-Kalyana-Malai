@@ -1,5 +1,17 @@
 
-const token = sessionStorage.getItem("token");
+  // Get the token
+  const token = getCookie('token');
+  console.log('Retrieved Token:', token);
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+    return null;
+  }
+  
 const defaultImageUrl = "https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg";
 
 const data = sessionStorage.getItem("userData");
