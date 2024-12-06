@@ -165,7 +165,7 @@ function updateProfiles(profiles) {
                 <li><a class="dropdown-item" onclick="deleteProfile(${index})">Delete</a></li>
                 ${!isEditable?`<li><a class="dropdown-item" href="#" onclick="openPopup(${index})">Subscription Details</a></li>`:""}
                 <li><a class="dropdown-item" href="#" onclick="openPopupProfile(${index})">Profile Verification</a></li>
-                <li><a class="dropdown-item" href="https://www.kalanjiyamkalyanamalai.in/profile-details.html?id=${profile.profileID}">View profile</a></li>
+                <li><a class="dropdown-item"  target="_blank" href="https://www.kalanjiyamkalyanamalai.in/profile-details.html?id=${profile.profileID}">View profile</a></li>
             </ul>
         </div>
     </td>
