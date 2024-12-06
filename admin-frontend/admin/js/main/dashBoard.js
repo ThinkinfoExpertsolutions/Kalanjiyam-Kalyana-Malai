@@ -206,7 +206,7 @@ function updateNewProfiles(allProfilesData){
     <section>
       <div style="position: relative;margin-bottom:15px; display:flex; flex-direction:column; align-items:center; max-width:600px; width:100%; padding:16px; border-radius:12px; background:#fff; box-shadow:0 4px 12px rgba(0, 0, 0, 0.1);">
         <!-- Arrow Icon in Top Left Corner -->
-        <a href="https://www.kalanjiyamkalyanamalai.in/profile-details.html?id=${member.profileID ? member.profileID : 'N/A'}" 
+        <a href="admin-profileDetails.html?id=${member.profileID ? member.profileID : 'N/A'}" 
            style="position: absolute; top: 6px; right: 6px; font-size: 20px; text-decoration: none; color: #8a02f9; background:#19b5d5; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
           ➡️
         </a>
@@ -312,7 +312,7 @@ function updateRenewProfiles(allProfilesData, subscriptionData) {
                 <div style="position: relative; display: flex; flex-direction: column; align-items: center; max-width: 600px; width: 100%; padding: 16px; border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
                     
                     <!-- Arrow Icon in Top Left Corner -->
-                    <a href="https://www.kalanjiyamkalyanamalai.in/profile-details.html?id=${member.profileID}" 
+                    <a href="admin-profileDetails.html?id=${member.profileID}" 
                        style="position: absolute; top: 6px; right: 6px; font-size: 20px; text-decoration: none; color: #8a02f9; background: #19b5d5; border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); ">
                         ➡️
                     </a>
