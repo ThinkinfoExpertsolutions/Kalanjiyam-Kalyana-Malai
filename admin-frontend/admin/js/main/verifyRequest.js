@@ -137,7 +137,7 @@ function updateProfiles(profiles) {
                         <img src="./images/three-dot-icon.png" alt="icon" style="width: 25px; height: 20px;">
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="http://127.0.0.1:5500/matrimo-frontend/profile-details.html?id=${profile.profileID}">View profile</a></li>
+                        <li><a class="dropdown-item" href="https://www.kalanjiyamkalyanamalai.in/profile-details.html?id=${profile.profileID}">View profile</a></li>
                     </ul>
                 </div>
             </td>
