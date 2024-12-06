@@ -245,7 +245,7 @@ function openPopupProfile(index) {
     }
 
     // Update profile data
-    profilePath.href = `https://www.kalanjiyamkalyanamalai.in/profile-details.html?id=${enqueryProfile.profileID}` 
+    profilePath.href = `admin-profile-details.html?id=${enqueryProfile.profileID}` 
     profileName.textContent = enqueryProfile.name || "N/A";
     profileId.textContent = `ID: ${enqueryProfile.profileID || "N/A"}`;
     profileEmail.textContent = `Email: ${enqueryProfile.email || "N/A"}`;

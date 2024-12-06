@@ -73,7 +73,6 @@ document.getElementById("loginBtn").addEventListener("click", async (e) => {
                 if (loginData.success) {
                     showSuccessToast(loginData.message);
                     sessionStorage.setItem("token", loginData.encryptedToken);
-                  localStorage.setItem("token",loginData.encryptedToken);
 
                     window.location.href = "dashboard.html";
                 } else {

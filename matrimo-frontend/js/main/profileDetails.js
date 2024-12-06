@@ -1,12 +1,6 @@
 
   // Get the token
- let token ;
-
- if(sessionStorage.getItem("token")){
-    token = sessionStorage.getItem("token");
- }else{
-    token = localStorage.getItem("token");
- }
+ let token = sessionStorage.getItem("token");
   
 const defaultImageUrl = "https://static.vecteezy.com/system/resources/previews/026/631/445/non_2x/add-photo-icon-symbol-design-illustration-vector.jpg";
 
