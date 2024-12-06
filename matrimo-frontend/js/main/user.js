@@ -292,38 +292,38 @@ if(userPages.some(page => window.location.pathname.endsWith(page))){
     }
 }
 
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault(); // Disable right-click context menu
-});
+// document.addEventListener('contextmenu', function(e) {
+//     e.preventDefault(); // Disable right-click context menu
+// });
 
 
 
 
-document.addEventListener("keydown", function (e) {
-    // Prevent Ctrl + Shift + I
-    if (e.ctrlKey && e.shiftKey && e.key === "I") {
-        e.preventDefault();
+// document.addEventListener("keydown", function (e) {
+//     // Prevent Ctrl + Shift + I
+//     if (e.ctrlKey && e.shiftKey && e.key === "I") {
+//         e.preventDefault();
         
-    }
+//     }
 
-    // Prevent Ctrl + Shift + J (Console)
-    if (e.ctrlKey && e.shiftKey && e.key === "J") {
-        e.preventDefault();
+//     // Prevent Ctrl + Shift + J (Console)
+//     if (e.ctrlKey && e.shiftKey && e.key === "J") {
+//         e.preventDefault();
     
-    }
+//     }
 
-    // Prevent Ctrl + U (View Source)
-    if (e.ctrlKey && e.key === "U") {
-        e.preventDefault();
+//     // Prevent Ctrl + U (View Source)
+//     if (e.ctrlKey && e.key === "U") {
+//         e.preventDefault();
       
-    }
+//     }
 
-    // Prevent F12 (DevTools Shortcut)
-    if (e.key === "F12") {
-        e.preventDefault();
+//     // Prevent F12 (DevTools Shortcut)
+//     if (e.key === "F12") {
+//         e.preventDefault();
         
-    }
-});
+//     }
+// });
 
 function showLoader() {
     document.getElementById("loader").style.display = "flex";
